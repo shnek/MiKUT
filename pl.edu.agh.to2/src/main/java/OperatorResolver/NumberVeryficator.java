@@ -1,4 +1,4 @@
-package pl.edu.agh.to2.OperatorResolver;
+package OperatorResolver;
 
 import java.io.BufferedReader;
 import java.io.IOException;
