@@ -14,18 +14,6 @@ import java.util.regex.Pattern;
  */
 public class NumberVeryficator {
 
-    //test classes
-    public static void main(String[] args){
-        NumberVeryficator numVer = new NumberVeryficator();
-        numVer.askFor("888888888");
-    }
-    private void askFor(String num){
-        String result = verify(num);
-        if(result != null){
-            System.out.println(result);
-        }
-    }
-
     public String verify(String num){
         URL url;
         InputStream is = null;
