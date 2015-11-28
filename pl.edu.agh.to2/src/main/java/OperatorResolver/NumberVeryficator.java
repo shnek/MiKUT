@@ -36,6 +36,7 @@ public class NumberVeryficator {
                         return result;
                     }
                 }
+                return null;
             }
         } catch (MalformedURLException mue) {
             mue.printStackTrace();
