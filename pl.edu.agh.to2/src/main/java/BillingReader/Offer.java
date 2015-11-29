@@ -1,18 +1,27 @@
+import java.math.BigDecimal;
+import java.util.Map;
+
 /**
  * Created by admin1 on 09.11.15.
  */
 public class Offer {
 
     private String name;
-    private String minutes;
-    private String sms;
-    private double internet;
-    private int months;
-    private double abonament;
+    private Operator operator;
+    private boolean abonament;
+    private BigDecimal monthlyPayment;
+    private BigDecimal innerCallCost;
+    private BigDecimal outerCallCost;
+    private BigDecimal innerSmsCost;
+    private BigDecimal outerSmsCost;
+    private BigDecimal innerMmsCost;
+    private BigDecimal outerMmsCost;
+    private BigDecimal internetMbCost;
+    private double freeInternetMb;
 
     public Offer()
     {
-
+        //nope--
     }
 
     public String getName() {
@@ -23,44 +32,92 @@ public class Offer {
         this.name = name;
     }
 
-    public String getMinutes() {
-        return minutes;
+    public Operator getOperator() {
+        return operator;
     }
 
-    public void setMinutes(String minutes) {
-        this.minutes = minutes;
+    public void setOperator(Operator operator) {
+        this.operator = operator;
     }
 
-    public String getSms() {
-        return sms;
-    }
-
-    public void setSms(String sms) {
-        this.sms = sms;
-    }
-
-    public double getInternet() {
-        return internet;
-    }
-
-    public void setInternet(double internet) {
-        this.internet = internet;
-    }
-
-    public int getMonths() {
-        return months;
-    }
-
-    public void setMonths(int months) {
-        this.months = months;
-    }
-
-    public double getAbonament() {
+    public boolean isAbonament() {
         return abonament;
     }
 
-    public void setAbonament(double abonament) {
+    public void setAbonament(boolean abonament) {
         this.abonament = abonament;
+    }
+
+    public BigDecimal getMonthlyPayment() {
+        return monthlyPayment;
+    }
+
+    public void setMonthlyPayment(BigDecimal monthlyPayment) {
+        this.monthlyPayment = monthlyPayment;
+    }
+
+    public BigDecimal getInnerCallCost() {
+        return innerCallCost;
+    }
+
+    public void setInnerCallCost(BigDecimal innerCallCost) {
+        this.innerCallCost = innerCallCost;
+    }
+
+    public BigDecimal getOuterCallCost() {
+        return outerCallCost;
+    }
+
+    public void setOuterCallCost(BigDecimal outerCallCost) {
+        this.outerCallCost = outerCallCost;
+    }
+
+    public BigDecimal getInnerSmsCost() {
+        return innerSmsCost;
+    }
+
+    public void setInnerSmsCost(BigDecimal innerSmsCost) {
+        this.innerSmsCost = innerSmsCost;
+    }
+
+    public BigDecimal getOuterSmsCost() {
+        return outerSmsCost;
+    }
+
+    public void setOuterSmsCost(BigDecimal outerSmsCost) {
+        this.outerSmsCost = outerSmsCost;
+    }
+
+    public BigDecimal getInnerMmsCost() {
+        return innerMmsCost;
+    }
+
+    public void setInnerMmsCost(BigDecimal innerMmsCost) {
+        this.innerMmsCost = innerMmsCost;
+    }
+
+    public BigDecimal getOuterMmsCost() {
+        return outerMmsCost;
+    }
+
+    public void setOuterMmsCost(BigDecimal outerMmsCost) {
+        this.outerMmsCost = outerMmsCost;
+    }
+
+    public BigDecimal getInternetMbCost() {
+        return internetMbCost;
+    }
+
+    public void setInternetMbCost(BigDecimal internetMbCost) {
+        this.internetMbCost = internetMbCost;
+    }
+
+    public double getFreeInternetMb() {
+        return freeInternetMb;
+    }
+
+    public void setFreeInternetMb(double freeInternetMb) {
+        this.freeInternetMb = freeInternetMb;
     }
 
     @Override
@@ -68,10 +125,17 @@ public class Offer {
     {
         return
                 "OFFER: "+this.name+
-                        "\n\tMinuty: "+this.minutes+
-                        "\n\tSMS/MMS: "+this.sms+
-                        "\n\tInternet: "+this.internet+
-                        "\n\tMiesiace: "+this.months+
-                        "\n\tAbonament: "+this.abonament;
+                        "\n\tOperator: "+this.operator.getName()+
+                        "\n\tAbonament: "+this.abonament+
+                        "\n\tMonthly payment: "+this.monthlyPayment+
+                        "\n\tFree internet: "+this.freeInternetMb+
+                        "\n\tMB cost: "+this.internetMbCost+
+                        "\n\tInner call cost: "+this.innerCallCost+
+                        "\n\tOuter call cost: "+this.outerCallCost+
+                        "\n\tInner sms cost: "+this.innerSmsCost+
+                        "\n\tOuter sms cost: "+this.outerSmsCost+
+                        "\n\tInner mms cost: "+this.innerMmsCost+
+                        "\n\tOuter mms cost: "+this.outerMmsCost;
     }
+
 }
