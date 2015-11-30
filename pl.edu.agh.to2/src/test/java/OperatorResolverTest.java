@@ -1,10 +1,17 @@
 import OperatorResolver.operatorresolver.*;
+import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.impl.PojoClassFactory;
+import com.openpojo.validation.Validator;
+import com.openpojo.validation.ValidatorBuilder;
+import com.openpojo.validation.rule.impl.GetterMustExistRule;
+import com.openpojo.validation.rule.impl.SetterMustExistRule;
+import com.openpojo.validation.test.impl.GetterTester;
+import com.openpojo.validation.test.impl.SetterTester;
 import junit.framework.TestCase;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.math.BigDecimal;
-import java.text.Bidi;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,6 +48,8 @@ public class OperatorResolverTest extends TestCase {
         BigDecimal value = BigDecimal.valueOf(3);
         sms.setNumber(number);
         sms.setValue(value);
+        assertEquals(sms.getNumber(), number);
+        assertEquals(sms.getValue(), value);
     }
     @Test
     public void testMms(){
@@ -55,6 +64,25 @@ public class OperatorResolverTest extends TestCase {
         BigDecimal value = BigDecimal.valueOf(0);
         transfer.setDataSize(size);
         transfer.setValue(value);
+    }
+
+    @Test
+    public void testPojo(){
+        PojoClass mmsPojo = PojoClassFactory.getPojoClass(Mms.class);
+        PojoClass smsPojo = PojoClassFactory.getPojoClass(Sms.class);
+        PojoClass trasferPojo = PojoClassFactory.getPojoClass(Transfer.class);
+        PojoClass dialPojo = PojoClassFactory.getPojoClass(Dial.class);
+        Validator validator = ValidatorBuilder.create()
+                .with(new GetterMustExistRule())
+                .with(new SetterMustExistRule())
+                .with(new SetterTester())
+                .with(new GetterTester()).build();
+        List<PojoClass> classToTest = new LinkedList<>();
+        classToTest.add(mmsPojo);
+        classToTest.add(smsPojo);
+        classToTest.add(trasferPojo);
+        classToTest.add(dialPojo);
+        validator.validate(classToTest);
     }
 
     @Test
