@@ -86,6 +86,14 @@ public class OperatorResolverTest extends TestCase {
     }
 
     @Test
+    public void testBillingList(){
+        PojoClass billingList = PojoClassFactory.getPojoClass(BillingLists.class);
+        Validator validator = ValidatorBuilder.create()
+                .with(new GetterMustExistRule())
+                .with(new GetterTester()).build();
+        validator.validate(billingList);
+    }
+    @Test
     public void testBillingLists(){
         List<Dial> dials = new LinkedList<>();
         List<Sms> messages = new LinkedList<>();
