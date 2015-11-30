@@ -1,9 +1,8 @@
-package pl.edu.agh.veryficator;
+package OperatorResolver.veryficator;
+import OperatorResolver.operatorresolver.Operator;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import pl.edu.agh.operatorresolver.Operator;
 
 public class Prefixes {
 

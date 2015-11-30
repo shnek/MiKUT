@@ -1,6 +1,6 @@
-package pl.edu.agh.veryficator;
+package OperatorResolver.veryficator;
 
-import pl.edu.agh.operatorresolver.Operator;
+import OperatorResolver.operatorresolver.Operator;
 
 public interface Veryficator {
 	 public Operator verify(String num);

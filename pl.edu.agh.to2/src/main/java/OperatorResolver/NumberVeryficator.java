@@ -32,7 +32,7 @@ public class NumberVeryficator {
                     if(matcher.find()){
                         //parser danych, whatever
                         String result = matcher.group(0).substring(29);
-                        result = result.replace("</td>", ".");
+                        result = result.replace("</td>", "");
                         return result;
                     }
                 }

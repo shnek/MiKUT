@@ -29,7 +29,7 @@
     <bytecodeTargetLevel>
       <module name="mikut" target="1.5" />
       <module name="pl.agh.edu.to2" target="1.5" />
-      <module name="pl.edu.agh.to2" target="1.5" />
+      <module name="pl.edu.agh.to2" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

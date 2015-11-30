@@ -1,7 +1,8 @@
-package pl.edu.agh.operatorresolver;
+package OperatorResolver.operatorresolver;
 
-import pl.edu.agh.veryficator.NumberVeryficator;
-import pl.edu.agh.veryficator.Veryficator;
+
+import OperatorResolver.veryficator.NumberVeryficator;
+import OperatorResolver.veryficator.Veryficator;
 
 public class OperatorResolverImp implements OperatorResolver {
 

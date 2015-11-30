@@ -7,11 +7,17 @@ import org.junit.Assert.*;
  */
 public class NumberVeryficatorTest extends TestCase{
 
-    public void testPhoneNumbers(){
+    public void testHeyahVerify(){
         NumberVeryficator nv = new NumberVeryficator();
-        assertEquals("Heyah.", nv.verify("888888888"));
+        assertEquals("Heyah", nv.verify("888888888"));
     }
+    public void testTmobileVerify(){
+        NumberVeryficator nv = new NumberVeryficator();
+        assertEquals("PTC / T-Mobile", nv.verify("608800000"));
+    }
+    public void testPlayVerify(){
+        NumberVeryficator nv = new NumberVeryficator();
+        assertEquals("P4", nv.verify("792600000"));
 
-
-
+    }
 }

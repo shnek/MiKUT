@@ -1,4 +1,4 @@
-package pl.edu.agh.operatorresolver;
+package OperatorResolver.operatorresolver;
 
 public interface OperatorResolver {
 	public Billing getBilling();

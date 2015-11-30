@@ -1,4 +1,6 @@
-package pl.edu.agh.veryficator;
+package OperatorResolver.veryficator;
+
+import OperatorResolver.operatorresolver.Operator;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,7 +13,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import pl.edu.agh.operatorresolver.Operator;
+
 
 /**
  * Created by kuba on 2015-11-03.

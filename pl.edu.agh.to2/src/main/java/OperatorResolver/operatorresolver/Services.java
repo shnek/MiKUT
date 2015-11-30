@@ -1,4 +1,4 @@
-package pl.edu.agh.operatorresolver;
+package OperatorResolver.operatorresolver;
 
 public class Services {
 	private ServiceDetails connections;
