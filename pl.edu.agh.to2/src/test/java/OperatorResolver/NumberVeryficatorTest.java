@@ -2,8 +2,10 @@ package OperatorResolver;
 
 import OperatorResolver.operatorresolver.Operator;
 import OperatorResolver.veryficator.NumberVeryficator;
+import OperatorResolver.veryficator.OtherNumberVeryficator;
 import OperatorResolver.veryficator.Veryficator;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * Created by kuba on 09.11.15.
@@ -36,5 +38,18 @@ public class NumberVeryficatorTest extends TestCase{
     public void testPlusVer(){
         Veryficator nv = new NumberVeryficator();
         assertEquals(Operator.PLUS, nv.verify("695416939"));
+    }
+
+    @Test
+    public void testLandlineVerifty(){
+        Veryficator veryficator = new OtherNumberVeryficator();
+        assertEquals(Operator.LANDLINE, veryficator.verify("48177881234"));
+    }
+
+    @Test
+    public void testEuro1Verify(){
+        Veryficator veryficator = new OtherNumberVeryficator();
+        assertEquals(Operator.EURO, veryficator.verify("31888888888"));
+
     }
 }
