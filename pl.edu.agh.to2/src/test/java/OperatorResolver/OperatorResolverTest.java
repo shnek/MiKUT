@@ -1,3 +1,5 @@
+package OperatorResolver;
+
 import OperatorResolver.operatorresolver.*;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
@@ -83,6 +85,15 @@ public class OperatorResolverTest extends TestCase {
         classToTest.add(trasferPojo);
         classToTest.add(dialPojo);
         validator.validate(classToTest);
+    }
+
+    @Test
+    public void testServicesPojo(){
+        PojoClass servicesPojo = PojoClassFactory.getPojoClass(Services.class);
+        Validator validator = ValidatorBuilder.create()
+                .with(new GetterMustExistRule())
+                .with(new GetterTester()).build();
+        validator.validate(servicesPojo);
     }
 
     @Test

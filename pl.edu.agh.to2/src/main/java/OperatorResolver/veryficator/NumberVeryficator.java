@@ -36,10 +36,8 @@ public class NumberVeryficator implements Veryficator {
 					Pattern pattern = Pattern.compile("<td><b>Operator:</b></td>.*?</td>");
 					Matcher matcher = pattern.matcher(line);
 					if (matcher.find()) {
-						// parser danych
 						String result = matcher.group(0).substring(29);
 						result = result.replace("</td>", "");
-						System.out.println(result);
 						if (!result.equals("zagraniczny")) {
 							return getOperator(result);
 						}
