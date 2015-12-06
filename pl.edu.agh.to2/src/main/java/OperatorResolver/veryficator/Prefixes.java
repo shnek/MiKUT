@@ -1,52 +1,44 @@
 package OperatorResolver.veryficator;
 import OperatorResolver.operatorresolver.Operator;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 public class Prefixes {
 
 	private Map<String, Operator> prefixToArea;
-
-	String[] prefixEuro = { "43", "292", "32", "359", "385", "357", "420", "45", "372", "358", "33", "350", "30", "594",
-			"590", "34", "31", "353", "354", "423", "370", "352", "371", "351", "356", "596", "47", "49", "351", "262",
-			"40", "421", "386", "46", "3906", "36", "44", "39", "34", };
-	String[] prefixFirst = { "355", "376", "375", "387", "382", "383", "389", "377", "373", "378", "381", "41", "90",
-			"380", "441481", "441534", "441624", "298", };
-	String[] prefixSecond = { "679", "591", "963", "223", "507", "685", "254", "856", "95", "974", "248", "260", "692",
-			"54", "264", "58", "850", "500", "996", "1649", "298", "62", "261", "265", "218", "1", "506", "258", "593",
-			"688", "673", "1758", "1808", "224", "675", "61", "597", "82", "968", "374", "1869", "241", "677", "886",
-			"972", "222", "55", "269", "234", "86", "678", "595", "253", "1809", "505", "674", "81", "257", "381",
-			"251", "588", "34", "1670", "1907", "967", "235", "599", "1787", "247", "992", "212", "228", "245", "998",
-			"592", "966", "1", "263", "225", "229", "244", "60", "249", "964", "976", "98", "237", "52", "64", "56",
-			"239", "682", "977", "91", "255", "233", "672", "961", "1", "51", "993", "57", "690", "238", "852", "246",
-			"299", "268", "252", "687", "7", "686", "93", "970", "234", "94", "216", "84", "53", "63", "684", "681",
-			"231", "226", "213", "680", "503", "965", "995", "242", "508", "683", "291", "1671", "994", "266", "676",
-			"236", "230", "221", "853", "65", "232", "973", "689", "27", "290", "240", "92", "960", "220", "20", "7",
-			"259", "880", "227", "250", "598", "66", "267", "256", "962" };
-	String[] prefixLandline = { "4812", "4813", "4814", "4815", "4816", "4817", "4818", "4822", "4823", "4824", "4825",
-			"4829", "4832", "4833", "34", "4841", "4842", "4843", "4844", "4846", "4848", "4852", "4854", "4855",
-			"4856", "4858", "4859", "4861", "4862", "4863", "4865", "67", "4868", "4871", "4874", "4875", "4876",
-			"4877", "4881", "4882", "4883", "4884", "4885", "4886", "4887", "4889", "4891", "4894", "4895" };
+	private Properties prefixes;
 
 	public Prefixes() {
+
 		prefixToArea = new HashMap<>();
+		prefixes = new Properties();
 
-		prefixToArea.put("48", Operator.OTHERPOLAND);
+		try {
+			prefixes.loadFromXML(new FileInputStream("properties/prefixes.properties.xml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-		for (String s : prefixEuro) {
+		prefixToArea.put(prefixes.getProperty("POLAND"), Operator.OTHERPOLAND);
+
+		for (String s : prefixes.getProperty("EURO").split(",")) {
 			prefixToArea.put(s, Operator.EURO);
 		}
 
-		for (String s : prefixFirst) {
+		for (String s : prefixes.getProperty("FIRST").split(",")) {
 			prefixToArea.put(s, Operator.AREA1);
 		}
 
-		for (String s : prefixSecond) {
+		for (String s : prefixes.getProperty("SECOND").split(",")) {
 			prefixToArea.put(s, Operator.AREA2);
 		}
 
-		for (String s : prefixLandline) {
+		for (String s : prefixes.getProperty("LANDLINE").split(",")) {
 			prefixToArea.put(s, Operator.LANDLINE);
 		}
 

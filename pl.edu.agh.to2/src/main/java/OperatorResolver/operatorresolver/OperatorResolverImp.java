@@ -2,16 +2,21 @@ package OperatorResolver.operatorresolver;
 
 
 import OperatorResolver.veryficator.NumberVeryficator;
+import OperatorResolver.veryficator.OtherNumberVeryficator;
 import OperatorResolver.veryficator.Veryficator;
+import OperatorResolver.veryficator.Veryficators;
 
 public class OperatorResolverImp implements OperatorResolver {
 
 	private Billing billing;
-	private Veryficator veryficator;
+	private Veryficators veryficators;
 
 	public OperatorResolverImp(BillingLists billingList) {
 		this.billing = new Billing();
-		this.veryficator = new NumberVeryficator();
+		this.veryficators = new Veryficators();
+
+		this.veryficators.add(new NumberVeryficator());
+		this.veryficators.add(new OtherNumberVeryficator());
 
 		init(billingList);
 	}
@@ -19,17 +24,17 @@ public class OperatorResolverImp implements OperatorResolver {
 	private void init(BillingLists billingList) {
 
 		for (Dial dial : billingList.getDials()) {
-			Operator operator = veryficator.verify(dial.getNumber());
+			Operator operator = veryficators.verify(dial.getNumber());
 			billing.addConnection(operator, dial.getLenght(), dial.getValue());
 		}
 
 		for (Sms sms : billingList.getSms()) {
-			Operator operator = veryficator.verify(sms.getNumber());
+			Operator operator = veryficators.verify(sms.getNumber());
 			billing.addSms(operator, sms.getValue());
 		}
 
 		for (Mms mms : billingList.getMms()) {
-			Operator operator = veryficator.verify(mms.getNumber());
+			Operator operator = veryficators.verify(mms.getNumber());
 			billing.addMms(operator, mms.getValue());
 		}
 

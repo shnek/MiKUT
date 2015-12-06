@@ -3,9 +3,10 @@ package OperatorResolver.operatorresolver;
 import java.math.BigDecimal;
 
 public class Dial {
-	String number;
-	int lenght;
-	BigDecimal value;
+
+	private String number;
+	private int lenght;
+	private BigDecimal value;
 
 	public String getNumber() {
 		return number;

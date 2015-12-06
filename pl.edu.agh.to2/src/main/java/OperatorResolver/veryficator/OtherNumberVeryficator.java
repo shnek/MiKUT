@@ -24,5 +24,6 @@ public class OtherNumberVeryficator implements Veryficator {
 		} else {
 			return Operator.AREA3;
 		}
+
 	}
 }

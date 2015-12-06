@@ -19,47 +19,60 @@ import java.util.regex.Pattern;
  * Created by kuba on 2015-11-03.
  */
 public class NumberVeryficator implements Veryficator {
+// nazwa zwaizana z tmobile
+// klasa odpowiedialana za komunikacje z siecia dostaje url i zwraca string
+	private BufferedReader br;
+	private String line;
+	private InputStream is;
 
 	@Override
 	public Operator verify(String num) {
-		URL url;
-		InputStream is = null;
-		BufferedReader br;
-		String line;
-		try {
-			url = new URL("http://download.t-mobile.pl/updir/updir.cgi?msisdn=" + num);
-			is = url.openStream(); // throws an IOException
-			br = new BufferedReader(new InputStreamReader(is));
 
-			while ((line = br.readLine()) != null) {
-				if (line.contains("Operator:")) {
-					Pattern pattern = Pattern.compile("<td><b>Operator:</b></td>.*?</td>");
-					Matcher matcher = pattern.matcher(line);
-					if (matcher.find()) {
-						String result = matcher.group(0).substring(29);
-						result = result.replace("</td>", "");
-						if (!result.equals("zagraniczny")) {
-							return getOperator(result);
-						}
-					}
-				}
-			}
-		} catch (MalformedURLException mue) {
-			mue.printStackTrace();
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-		} finally {
-			try {
-				if (is != null)
-					is.close();
-			} catch (IOException ioe) {
-				System.out.println("Closing exeption!");
+		is = null;
+		br = UrlConnector.getBufferedReader("http://download.t-mobile.pl/updir/updir.cgi?msisdn=" + num, is);
+
+		while ((line = readLines(br)) != null) {
+			if (line.contains("Operator:")) {
+				return findPattern();
 			}
 		}
+
+		try {
+			if (is != null)
+				is.close();
+		} catch (IOException ioe) {
+			System.out.println("Closing exeption!");
+		}
+
 		return null;
 	}
 
-	public Operator getOperator(String oper) {
+	private String readLines(BufferedReader br) {
+		String line = null;
+		try {
+			line = br.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return line;
+	}
+
+	private Operator findPattern() {
+		Pattern pattern = Pattern.compile("<td><b>Operator:</b></td>.*?</td>");
+		Matcher matcher = pattern.matcher(line);
+		if (matcher.find()) {
+			String result = matcher.group(0).substring(29);
+			result = result.replace("</td>", "");
+			if (!result.equals("zagraniczny")) {
+				return getOperator(result);
+			}
+		}
+
+		return null;
+	}
+
+	private Operator getOperator(String oper) {
 
 		Map<String, Operator> stringToOperator = new HashMap<>();
 		stringToOperator.put("Orange", Operator.ORANGE);
