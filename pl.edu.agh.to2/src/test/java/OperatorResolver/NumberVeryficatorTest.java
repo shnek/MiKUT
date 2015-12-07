@@ -1,15 +1,47 @@
 package OperatorResolver;
 
+import OperatorResolver.operatorresolver.Operator;
+import OperatorResolver.veryficator.MainNumberVeryficator;
+import OperatorResolver.veryficator.PageDownloader;
+import OperatorResolver.veryficator.Veryficator;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+
+import java.net.MalformedURLException;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by kuba on 09.11.15.
  */
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(PageDownloader.class)
 public class NumberVeryficatorTest  {
 
-    @Test
-    public void testVerify(){
+    private Logger log = Logger.getLogger(NumberVeryficatorTest.class);
 
+
+    @Test
+    public void NumberVeryficatorTest() throws MalformedURLException {
+        BasicConfigurator.configure();
+
+        log.info("Hello!");
+        PowerMockito.mockStatic(PageDownloader.class);
+        log.info("PowerMockito works only until here :(");
+        String line = "http://download.t-mobile.pl/updir/updir.cgi?msisdn=";
+        Mockito.when(PageDownloader.getLine(line + "888888888")).thenReturn("<td><b>Operator:</b></td><td>PTC / T-Mobile</td>\n");
+        log.info("Yup, we got it! It finally works!");
+
+        Veryficator mainVeryficator = new MainNumberVeryficator();
+        Operator operator = mainVeryficator.verify("888888888");
+        log.info(operator);
+        assertEquals(operator, Operator.TMOBILE);
     }
 
 

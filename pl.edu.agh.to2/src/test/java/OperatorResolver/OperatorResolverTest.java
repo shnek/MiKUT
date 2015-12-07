@@ -9,7 +9,6 @@ import com.openpojo.validation.rule.impl.GetterMustExistRule;
 import com.openpojo.validation.rule.impl.SetterMustExistRule;
 import com.openpojo.validation.test.impl.GetterTester;
 import com.openpojo.validation.test.impl.SetterTester;
-import junit.framework.TestCase;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -17,12 +16,13 @@ import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
 /**
  * Created by kuba on 30.11.15.
  */
-public class OperatorResolverTest extends TestCase {
+public class OperatorResolverTest {
     private BillingLists testList = mock(BillingLists.class);
     private ServiceDetails serviceDetails = new ServiceDetails();
     private Dial dial = new Dial();
