@@ -1,0 +1,6 @@
+# IntelliJ files
+.idea/
+*.iml
+.DS_STORE
+target/
+pl.edu.agh.to2.iml
