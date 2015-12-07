@@ -2,12 +2,7 @@ package OperatorResolver.veryficator;
 
 import OperatorResolver.operatorresolver.Operator;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -18,47 +13,26 @@ import java.util.regex.Pattern;
 /**
  * Created by kuba on 2015-11-03.
  */
-public class NumberVeryficator implements Veryficator {
-// nazwa zwaizana z tmobile
+public class MainNumberVeryficator implements Veryficator {
+// nazwa zwaizana z tmobile - zrobione
 // klasa odpowiedialana za komunikacje z siecia dostaje url i zwraca string
-	private BufferedReader br;
-	private String line;
-	private InputStream is;
 
 	@Override
 	public Operator verify(String num) {
 
-		is = null;
-		br = UrlConnector.getBufferedReader("http://download.t-mobile.pl/updir/updir.cgi?msisdn=" + num, is);
-
-		while ((line = readLines(br)) != null) {
-			if (line.contains("Operator:")) {
-				return findPattern();
-			}
-		}
-
+		String line = null;
 		try {
-			if (is != null)
-				is.close();
-		} catch (IOException ioe) {
-			System.out.println("Closing exeption!");
+			if((line = PageDownloader.getLine("http://download.t-mobile.pl/updir/updir.cgi?msisdn=" + num)) != null){
+				return findPattern(line);
+			}
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
 		}
-
 		return null;
 	}
 
-	private String readLines(BufferedReader br) {
-		String line = null;
-		try {
-			line = br.readLine();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 
-		return line;
-	}
-
-	private Operator findPattern() {
+	private Operator findPattern(String line) {
 		Pattern pattern = Pattern.compile("<td><b>Operator:</b></td>.*?</td>");
 		Matcher matcher = pattern.matcher(line);
 		if (matcher.find()) {

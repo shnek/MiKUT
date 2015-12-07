@@ -1,5 +1,5 @@
 package OperatorResolver.operatorresolver;
 
-public enum Operator {
+public enum  Operator {
 	LANDLINE, OTHERPOLAND, TMOBILE, ORANGE, PLUS, PLAY, EURO, AREA1, AREA2, AREA3;
 }

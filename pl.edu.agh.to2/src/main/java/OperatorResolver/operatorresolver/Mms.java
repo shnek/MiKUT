@@ -14,6 +14,8 @@ public class Mms {
 		this.number = number;
 	}
 
+
+	// Why did you commented this? Without this tests fails...
 	public BigDecimal getValue() {
 		return value;
 	}
