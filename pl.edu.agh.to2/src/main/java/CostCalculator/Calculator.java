@@ -1,9 +1,9 @@
 package CostCalculator;
 
 import BillingReader.Offer;
-import OperatorResolver.Billing;
-import OperatorResolver.Operator;
-import OperatorResolver.Services;
+import OperatorResolver.operatorresolver.Billing;
+import OperatorResolver.operatorresolver.Operator;
+import OperatorResolver.operatorresolver.Services;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -14,6 +14,14 @@ public class Calculator {
 
     private Billing billing;
     private List<Offer> offers;
+
+    public Calculator() {
+    }
+
+    public Calculator(Billing billing, List<Offer> offers) {
+        this.billing = billing;
+        this.offers = offers;
+    }
 
     public Map<Offer, BigDecimal> calculateCosts() {
         Map<Offer, BigDecimal> costs = new HashMap<>();

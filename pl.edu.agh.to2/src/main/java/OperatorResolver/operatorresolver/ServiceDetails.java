@@ -1,4 +1,4 @@
-package OperatorResolver;
+package OperatorResolver.operatorresolver;
 
 import java.math.BigDecimal;
 
@@ -12,7 +12,7 @@ public class ServiceDetails {
 		this.value = new BigDecimal(0);
 	}
 	
-	public void addServiceDetails(int quantity, BigDecimal value) {
+	public void addServiceDetails(int quantity, BigDecimal value){
 		this.quantity += quantity;
 		this.value = this.value.add(value);
 	}

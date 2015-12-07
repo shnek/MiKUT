@@ -1,12 +1,10 @@
-package OperatorResolver;
+package OperatorResolver.operatorresolver;
 
 import java.math.BigDecimal;
 
-public class Dial {
-
-	private String number;
-	private int lenght;
-	private BigDecimal value;
+public class Sms {
+	String number;
+	BigDecimal value;
 
 	public String getNumber() {
 		return number;
@@ -14,14 +12,6 @@ public class Dial {
 
 	public void setNumber(String number) {
 		this.number = number;
-	}
-
-	public int getLenght() {
-		return lenght;
-	}
-
-	public void setLenght(int lenght) {
-		this.lenght = lenght;
 	}
 
 	public BigDecimal getValue() {

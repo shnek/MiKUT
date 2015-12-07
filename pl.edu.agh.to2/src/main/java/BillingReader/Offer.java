@@ -1,6 +1,6 @@
 package BillingReader;
 
-import OperatorResolver.Operator;
+import OperatorResolver.operatorresolver.Operator;
 
 import java.math.BigDecimal;
 

@@ -1,8 +1,8 @@
-package OperatorResolver;
+package OperatorResolver.operatorresolver;
 
 import java.math.BigDecimal;
 
-public class Sms {
+public class Mms {
 	String number;
 	BigDecimal value;
 
@@ -14,6 +14,8 @@ public class Sms {
 		this.number = number;
 	}
 
+
+	// Why did you commented this? Without this tests fails...
 	public BigDecimal getValue() {
 		return value;
 	}
@@ -21,5 +23,4 @@ public class Sms {
 	public void setValue(BigDecimal value) {
 		this.value = value;
 	}
-
 }

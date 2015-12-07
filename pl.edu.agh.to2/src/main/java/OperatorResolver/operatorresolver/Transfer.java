@@ -1,4 +1,4 @@
-package OperatorResolver;
+package OperatorResolver.operatorresolver;
 
 import java.math.BigDecimal;
 
