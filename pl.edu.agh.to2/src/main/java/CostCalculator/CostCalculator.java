@@ -2,8 +2,6 @@ package CostCalculator;
 
 import BillingReader.Offer;
 import OperatorResolver.operatorresolver.Billing;
-import OperatorResolver.operatorresolver.Operator;
-import OperatorResolver.operatorresolver.Services;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -47,4 +45,5 @@ public class CostCalculator {
     public void setOffers(List<Offer> offers) {
         this.offers = offers;
     }
+
 }
