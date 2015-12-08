@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 
 public abstract class AttributeSetter {
 
+
     public String pattern;
 
     public void setPattern(String pattern) {
