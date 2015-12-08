@@ -7,10 +7,10 @@ import java.math.BigDecimal;
 
 public abstract class AttributeSetter {
 
-    private String pattern;
+    public String pattern;
 
-    public AttributeSetter () {
-        pattern = "pattern";
+    public void setPattern(String pattern) {
+        this.pattern = pattern;
     }
 
     public boolean matchesPattern (String label) {
@@ -32,7 +32,4 @@ public abstract class AttributeSetter {
         );
     }
 
-    public String getPattern() {
-        return pattern;
-    }
 }

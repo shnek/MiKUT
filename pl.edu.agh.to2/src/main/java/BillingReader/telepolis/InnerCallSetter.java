@@ -6,10 +6,8 @@ import org.jsoup.nodes.Element;
 
 public class InnerCallSetter extends AttributeSetter {
 
-    private String pattern;
-
     public InnerCallSetter() {
-        this.pattern = "Koszt minuty do własnej sieci";
+        super.setPattern("Koszt minuty do własnej sieci");
     }
 
     @Override

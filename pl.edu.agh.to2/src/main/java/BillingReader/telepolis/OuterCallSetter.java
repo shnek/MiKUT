@@ -6,15 +6,13 @@ import org.jsoup.nodes.Element;
 
 public class OuterCallSetter extends AttributeSetter {
 
-    private String pattern;
+    public OuterCallSetter() {
+        super.setPattern("Koszt minuty do pozostałych sieci");
+    }
 
     @Override
     public boolean matchesPattern(String label) {
         return super.matchesPattern(label);
-    }
-
-    public OuterCallSetter() {
-        this.pattern = "Koszt minuty do pozostałych sieci";
     }
 
     @Override

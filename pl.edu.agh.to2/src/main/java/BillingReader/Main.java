@@ -19,7 +19,11 @@ public class Main {
 
         for (Offer x : dl.getOffers())
         {
-            System.out.println(x);
+            try {
+                System.out.println(x);
+            } catch (NullPointerException e) {
+                //ignore
+            }
         }
     }
 

@@ -6,10 +6,8 @@ import org.jsoup.nodes.Element;
 
 public class InnerSmsSetter extends AttributeSetter {
 
-    private String pattern;
-
     public InnerSmsSetter() {
-        this.pattern = "Opłata za SMS do własnej sieci";
+        super.setPattern("Opłata za SMS do własnej sieci");
     }
 
     @Override

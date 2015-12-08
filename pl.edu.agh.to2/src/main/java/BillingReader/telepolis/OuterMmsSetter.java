@@ -6,10 +6,8 @@ import org.jsoup.nodes.Element;
 
 public class OuterMmsSetter extends AttributeSetter {
 
-    private String pattern;
-
     public OuterMmsSetter() {
-        this.pattern = "Opłata za MMS do pozostałych sieci";
+        super.setPattern("Opłata za MMS do pozostałych sieci");
     }
 
     @Override

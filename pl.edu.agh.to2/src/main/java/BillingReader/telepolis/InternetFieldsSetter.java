@@ -8,10 +8,8 @@ import java.math.BigDecimal;
 
 public class InternetFieldsSetter extends AttributeSetter {
 
-    private String pattern;
-
     public InternetFieldsSetter() {
-        this.pattern = "Pakiet internetowy";
+        super.setPattern("Pakiet internetowy");
     }
 
     @Override
