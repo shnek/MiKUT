@@ -1,7 +1,7 @@
 package CostCalculator;
 
 
-public class SampleEntry {
+public class ExampleEntry {
 
     private int id;
     private String operatorName;
@@ -10,7 +10,7 @@ public class SampleEntry {
     private double minuteCost;
     private double internetCost;
 
-    public SampleEntry(int id, String operatorName, double totalCost, double smsCost, double minuteCost, double internetCost) {
+    public ExampleEntry(int id, String operatorName, double totalCost, double smsCost, double minuteCost, double internetCost) {
         this.id = id;
         this.operatorName = operatorName;
         this.totalCost = totalCost;

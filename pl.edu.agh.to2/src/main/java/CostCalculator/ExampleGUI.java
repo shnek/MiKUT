@@ -13,28 +13,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class GUI extends Application {
+public class ExampleGUI extends Application {
 
     private Scene scene;
-    private TableView<SampleEntry> rankingTable;
+    private TableView<ExampleEntry> rankingTable;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        rankingTable = new TableView<SampleEntry>();
-        List<SampleEntry> entriesList = new ArrayList<SampleEntry>();
-        entriesList.add(new SampleEntry(1, "Orange", 49.63, 0.15, 0.20, 10));
-        entriesList.add(new SampleEntry(2, "T-Mobile", 77.54, 0.20, 0.30, 15));
-        entriesList.add(new SampleEntry(3, "Play", 88.34, 0.25, 0.30, 20));
-        ObservableList<SampleEntry> entries = FXCollections.observableList(entriesList);
+        rankingTable = new TableView<ExampleEntry>();
+        List<ExampleEntry> entriesList = new ArrayList<ExampleEntry>();
+        entriesList.add(new ExampleEntry(1, "Orange", 49.63, 0.15, 0.20, 10));
+        entriesList.add(new ExampleEntry(2, "T-Mobile", 77.54, 0.20, 0.30, 15));
+        entriesList.add(new ExampleEntry(3, "Play", 88.34, 0.25, 0.30, 20));
+        ObservableList<ExampleEntry> entries = FXCollections.observableList(entriesList);
         rankingTable.setItems(entries);
 
-        TableColumn<SampleEntry, Integer> idCol = new TableColumn<SampleEntry, Integer>("Id");
-        TableColumn<SampleEntry, String> operatorNameCol = new TableColumn<SampleEntry, String>("Operator");
-        TableColumn<SampleEntry, Integer> totalCostCol = new TableColumn<SampleEntry, Integer>("Total cost");
-        TableColumn<SampleEntry, Integer> smsCostCol = new TableColumn<SampleEntry, Integer>("SMS");
-        TableColumn<SampleEntry, Integer> minuteCostCol = new TableColumn<SampleEntry, Integer>("Minute");
-        TableColumn<SampleEntry, Integer> internetCostCol = new TableColumn<SampleEntry, Integer>("Internet");
+        TableColumn<ExampleEntry, Integer> idCol = new TableColumn<ExampleEntry, Integer>("Id");
+        TableColumn<ExampleEntry, String> operatorNameCol = new TableColumn<ExampleEntry, String>("Operator");
+        TableColumn<ExampleEntry, Integer> totalCostCol = new TableColumn<ExampleEntry, Integer>("Total cost");
+        TableColumn<ExampleEntry, Integer> smsCostCol = new TableColumn<ExampleEntry, Integer>("SMS");
+        TableColumn<ExampleEntry, Integer> minuteCostCol = new TableColumn<ExampleEntry, Integer>("Minute");
+        TableColumn<ExampleEntry, Integer> internetCostCol = new TableColumn<ExampleEntry, Integer>("Internet");
 
         idCol.setCellValueFactory(new PropertyValueFactory("id"));
         operatorNameCol.setCellValueFactory(new PropertyValueFactory("operatorName"));
