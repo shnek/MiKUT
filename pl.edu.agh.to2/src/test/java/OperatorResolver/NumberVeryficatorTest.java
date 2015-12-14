@@ -5,7 +5,6 @@ import OperatorResolver.veryficator.MainNumberVeryficator;
 import OperatorResolver.veryficator.PageDownloader;
 import OperatorResolver.veryficator.Veryficator;
 import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -24,23 +23,18 @@ import static org.junit.Assert.assertEquals;
 @PrepareForTest(PageDownloader.class)
 public class NumberVeryficatorTest  {
 
-    private Logger log = Logger.getLogger(NumberVeryficatorTest.class);
 
 
     @Test
     public void NumberVeryficatorTest() throws MalformedURLException {
         BasicConfigurator.configure();
 
-        log.info("Hello!");
         PowerMockito.mockStatic(PageDownloader.class);
-        log.info("PowerMockito works only until here :(");
         String line = "http://download.t-mobile.pl/updir/updir.cgi?msisdn=";
         Mockito.when(PageDownloader.getLine(line + "888888888")).thenReturn("<td><b>Operator:</b></td><td>PTC / T-Mobile</td>\n");
-        log.info("Yup, we got it! It finally works!");
 
         Veryficator mainVeryficator = new MainNumberVeryficator();
         Operator operator = mainVeryficator.verify("888888888");
-        log.info(operator);
         assertEquals(operator, Operator.TMOBILE);
     }
 
