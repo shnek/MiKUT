@@ -11,17 +11,21 @@ import java.util.List;
 public class Veryficators implements Veryficator{
     private List<Veryficator> veryficatorList;
 
-    public Veryficators(){
+    public Veryficators() {
         this.veryficatorList = new ArrayList<>();
     }
 
     public Operator verify(String num) {
+
+        NumberCache.cleanCache();
+
         for (Veryficator veryficator : veryficatorList) {
             Operator operator = veryficator.verify(num);
             if (operator != null) {
                 return operator;
             }
         }
+
         return null;
     }
 

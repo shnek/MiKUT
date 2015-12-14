@@ -101,91 +101,30 @@ public class NumberVeryficatorTest  {
         Operator operator = veryficator.verify("48177881234");
         assertEquals(operator, Operator.LANDLINE);
     }
-//
-//    @Test
-//    public void testEuro1Verify(){
-//        System.out.println("Working Directory = " +
-//                System.getProperty("user.dir"));
-//        Veryficator veryficator = new OtherNumberVeryficator();
-//        assertEquals(Operator.EURO, veryficator.verify("31888888888"));
-//    }
-//
-//    @Test
-//    public void testPlayVeryficators(){
-//        Veryficators nv = new Veryficators();
-//
-//        nv.add(new DTmobileNumberVeryficator());
-//        nv.add(new OtherNumberVeryficator());
-//
-//        assertEquals(Operator.PLAY, nv.verify("792600000"));
-//    }
-//
-//    @Test
-//    public void testHeyahVeryficators(){
-//        Veryficators nv = new Veryficators();
-//
-//        nv.add(new DTmobileNumberVeryficator());
-//        nv.add(new OtherNumberVeryficator());
-//
-//
-//        assertEquals(Operator.OTHERPOLAND, nv.verify("888888888"));
-//    }
-//
-//    @Test
-//    public void testTmobileVeryficators(){
-//        Veryficators nv = new Veryficators();
-//
-//        nv.add(new DTmobileNumberVeryficator());
-//        nv.add(new OtherNumberVeryficator());
-//
-//
-//        assertEquals(Operator.TMOBILE, nv.verify("608800000"));
-//    }
-//
-//    @Test
-//    public void testOrangeVeryficators(){
-//        Veryficators nv = new Veryficators();
-//
-//        nv.add(new DTmobileNumberVeryficator());
-//        nv.add(new OtherNumberVeryficator());
-//
-//
-//        assertEquals(Operator.ORANGE, nv.verify("510100100"));
-//    }
-//
-//    @Test
-//    public void testPlusVeryficators(){
-//        Veryficators nv = new Veryficators();
-//
-//        nv.add(new DTmobileNumberVeryficator());
-//        nv.add(new OtherNumberVeryficator());
-//
-//
-//        assertEquals(Operator.PLUS, nv.verify("695416939"));
-//    }
-//
-//    @Test
-//    public void testLandlineVeryficators(){
-//        Veryficators nv = new Veryficators();
-//
-//        nv.add(new DTmobileNumberVeryficator());
-//        nv.add(new OtherNumberVeryficator());
-//
-//
-//        assertEquals(Operator.LANDLINE, nv.verify("48177881234"));
-//    }
-//
-//    @Test
-//    public void testEuro1Veryficators(){
-//        System.out.println("Working Directory = " +
-//                System.getProperty("user.dir"));
-//        Veryficators nv = new Veryficators();
-//
-//        nv.add(new DTmobileNumberVeryficator());
-//        nv.add(new OtherNumberVeryficator());
-//
-//
-//        assertEquals(Operator.EURO, nv.verify("31888888888"));
-//    }
+
+    @Test
+    public void EuroVeryficatorTest(){
+        BasicConfigurator.configure();
+
+        Prefixes prefixes = PowerMockito.mock(Prefixes.class);
+        PowerMockito.when(prefixes.getAreaToPrefix("31")).thenReturn(Operator.EURO);
+
+        Veryficator veryficator = new OtherNumberVeryficator(prefixes);
+        Operator operator = veryficator.verify("31888888888");
+        assertEquals(operator, Operator.EURO);
+    }
+
+    @Test
+    public void FirstVeryficatorTest(){
+        BasicConfigurator.configure();
+
+        Prefixes prefixes = PowerMockito.mock(Prefixes.class);
+        PowerMockito.when(prefixes.getAreaToPrefix("31")).thenReturn(Operator.EURO);
+
+        Veryficator veryficator = new OtherNumberVeryficator(prefixes);
+        Operator operator = veryficator.verify("31888888888");
+        assertEquals(operator, Operator.EURO);
+    }
+
 
 }

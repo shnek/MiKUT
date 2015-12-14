@@ -16,11 +16,13 @@ import java.util.regex.Pattern;
 public class MainNumberVeryficator implements Veryficator {
 // nazwa zwaizana z tmobile - zrobione
 // klasa odpowiedialana za komunikacje z siecia dostaje url i zwraca string
+	private String number;
 
 	@Override
 	public Operator verify(String num) {
-
+		number = num;
 		String line = null;
+
 		try {
 			if((line = PageDownloader.getLine("http://download.t-mobile.pl/updir/updir.cgi?msisdn=" + num)) != null){
 				return findPattern(line);
@@ -55,8 +57,10 @@ public class MainNumberVeryficator implements Veryficator {
 		stringToOperator.put("Plus", Operator.PLUS);
 
 		if (stringToOperator.containsKey(oper)) {
+			NumberCache.numberToOperator.put(number, stringToOperator.get(oper));
 			return stringToOperator.get(oper);
 		} else {
+			NumberCache.numberToOperator.put(number, Operator.OTHERPOLAND);
 			return Operator.OTHERPOLAND;
 		}
 	}

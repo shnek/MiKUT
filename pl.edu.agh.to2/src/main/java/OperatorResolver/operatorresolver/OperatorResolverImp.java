@@ -1,9 +1,7 @@
 package OperatorResolver.operatorresolver;
 
 
-import OperatorResolver.veryficator.MainNumberVeryficator;
-import OperatorResolver.veryficator.OtherNumberVeryficator;
-import OperatorResolver.veryficator.Veryficators;
+import OperatorResolver.veryficator.*;
 
 public class OperatorResolverImp implements OperatorResolver {
 
@@ -14,8 +12,9 @@ public class OperatorResolverImp implements OperatorResolver {
 		this.billing = new Billing();
 		this.veryficators = new Veryficators();
 
+		this.veryficators.add(new CachedNumberVeryficator());
 		this.veryficators.add(new MainNumberVeryficator());
-		this.veryficators.add(new OtherNumberVeryficator());
+		this.veryficators.add(new OtherNumberVeryficator(new Prefixes()));
 
 		init(billingList);
 	}
