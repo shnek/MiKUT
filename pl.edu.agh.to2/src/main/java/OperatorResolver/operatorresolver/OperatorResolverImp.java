@@ -6,15 +6,15 @@ import OperatorResolver.veryficator.*;
 public class OperatorResolverImp implements OperatorResolver {
 
 	private Billing billing;
-	private Veryficators veryficators;
+	private Verifiers verifiers;
 
 	public OperatorResolverImp(BillingLists billingList) {
 		this.billing = new Billing();
-		this.veryficators = new Veryficators();
+		this.verifiers = new Verifiers();
 
-		this.veryficators.add(new CachedNumberVeryficator());
-		this.veryficators.add(new MainNumberVeryficator());
-		this.veryficators.add(new OtherNumberVeryficator(new Prefixes()));
+		this.verifiers.add(new CachedNumberVerifier());
+		this.verifiers.add(new MainNumberVerifier());
+		this.verifiers.add(new OtherNumberVerifier(new Prefixes()));
 
 		init(billingList);
 	}
@@ -22,17 +22,17 @@ public class OperatorResolverImp implements OperatorResolver {
 	private void init(BillingLists billingList) {
 
 		for (Dial dial : billingList.getDials()) {
-			Operator operator = veryficators.verify(dial.getNumber());
+			Operator operator = verifiers.verify(dial.getNumber());
 			billing.addConnection(operator, dial.getLenght(), dial.getValue());
 		}
 
 		for (Sms sms : billingList.getSms()) {
-			Operator operator = veryficators.verify(sms.getNumber());
+			Operator operator = verifiers.verify(sms.getNumber());
 			billing.addSms(operator, sms.getValue());
 		}
 
 		for (Mms mms : billingList.getMms()) {
-			Operator operator = veryficators.verify(mms.getNumber());
+			Operator operator = verifiers.verify(mms.getNumber());
 			billing.addMms(operator, mms.getValue());
 		}
 

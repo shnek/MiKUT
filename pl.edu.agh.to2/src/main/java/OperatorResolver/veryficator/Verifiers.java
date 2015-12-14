@@ -8,10 +8,10 @@ import java.util.List;
 /**
  * Created by wojci on 06.12.2015.
  */
-public class Veryficators implements Veryficator{
-    private List<Veryficator> veryficatorList;
+public class Verifiers implements Verifier{
+    private List<Verifier> veryficatorList;
 
-    public Veryficators() {
+    public Verifiers() {
         this.veryficatorList = new ArrayList<>();
     }
 
@@ -19,7 +19,7 @@ public class Veryficators implements Veryficator{
 
         NumberCache.cleanCache();
 
-        for (Veryficator veryficator : veryficatorList) {
+        for (Verifier veryficator : veryficatorList) {
             Operator operator = veryficator.verify(num);
             if (operator != null) {
                 return operator;
@@ -29,12 +29,12 @@ public class Veryficators implements Veryficator{
         return null;
     }
 
-    public void add(Veryficator veryficator) {
-        veryficatorList.add(veryficator);
+    public void add(Verifier verifier) {
+        veryficatorList.add(verifier);
     }
 
-    public void remove(Veryficator veryficator) {
-        veryficatorList.remove(veryficator);
+    public void remove(Verifier verifier) {
+        veryficatorList.remove(verifier);
     }
 
 }

@@ -22,7 +22,7 @@ import static org.junit.Assert.assertEquals;
  */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(PageDownloader.class)
-public class NumberVeryficatorTest  {
+public class NumberVerifiersTest  {
 
     @Test
     public void TMobileNumberVeryficatorTest() throws MalformedURLException {
@@ -32,7 +32,7 @@ public class NumberVeryficatorTest  {
         String line = "http://download.t-mobile.pl/updir/updir.cgi?msisdn=";
         Mockito.when(PageDownloader.getLine(line + "888888888")).thenReturn("<td><b>Operator:</b></td><td>PTC / T-Mobile</td>\n");
 
-        Veryficator mainVeryficator = new MainNumberVeryficator();
+        Verifier mainVeryficator = new MainNumberVerifier();
         Operator operator = mainVeryficator.verify("888888888");
         assertEquals(operator, Operator.TMOBILE);
     }
@@ -45,7 +45,7 @@ public class NumberVeryficatorTest  {
         String line = "http://download.t-mobile.pl/updir/updir.cgi?msisdn=";
         Mockito.when(PageDownloader.getLine(line + "510100100")).thenReturn("<td><b>Operator:</b></td><td>Orange</td>\n");
 
-        Veryficator mainVeryficator = new MainNumberVeryficator();
+        Verifier mainVeryficator = new MainNumberVerifier();
         Operator operator = mainVeryficator.verify("510100100");
         assertEquals(operator, Operator.ORANGE);
     }
@@ -58,7 +58,7 @@ public class NumberVeryficatorTest  {
         String line = "http://download.t-mobile.pl/updir/updir.cgi?msisdn=";
         Mockito.when(PageDownloader.getLine(line + "792600000")).thenReturn("<td><b>Operator:</b></td><td>P4</td>\n");
 
-        Veryficator mainVeryficator = new MainNumberVeryficator();
+        Verifier mainVeryficator = new MainNumberVerifier();
         Operator operator = mainVeryficator.verify("792600000");
         assertEquals(operator, Operator.PLAY);
     }
@@ -71,7 +71,7 @@ public class NumberVeryficatorTest  {
         String line = "http://download.t-mobile.pl/updir/updir.cgi?msisdn=";
         Mockito.when(PageDownloader.getLine(line + "695416939")).thenReturn("<td><b>Operator:</b></td><td>Plus</td>\n");
 
-        Veryficator mainVeryficator = new MainNumberVeryficator();
+        Verifier mainVeryficator = new MainNumberVerifier();
         Operator operator = mainVeryficator.verify("695416939");
         assertEquals(operator, Operator.PLUS);
     }
@@ -84,7 +84,7 @@ public class NumberVeryficatorTest  {
         String line = "http://download.t-mobile.pl/updir/updir.cgi?msisdn=";
         Mockito.when(PageDownloader.getLine(line + "888888888")).thenReturn("<td><b>Operator:</b></td><td>Heyah</td>\n");
 
-        Veryficator mainVeryficator = new MainNumberVeryficator();
+        Verifier mainVeryficator = new MainNumberVerifier();
         Operator operator = mainVeryficator.verify("888888888");
         assertEquals(operator, Operator.OTHERPOLAND);
     }
@@ -97,7 +97,7 @@ public class NumberVeryficatorTest  {
         Prefixes prefixes = PowerMockito.mock(Prefixes.class);
         PowerMockito.when(prefixes.getAreaToPrefix("4817")).thenReturn(Operator.LANDLINE);
 
-        Veryficator veryficator = new OtherNumberVeryficator(prefixes);
+        Verifier veryficator = new OtherNumberVerifier(prefixes);
         Operator operator = veryficator.verify("48177881234");
         assertEquals(operator, Operator.LANDLINE);
     }
@@ -109,7 +109,7 @@ public class NumberVeryficatorTest  {
         Prefixes prefixes = PowerMockito.mock(Prefixes.class);
         PowerMockito.when(prefixes.getAreaToPrefix("31")).thenReturn(Operator.EURO);
 
-        Veryficator veryficator = new OtherNumberVeryficator(prefixes);
+        Verifier veryficator = new OtherNumberVerifier(prefixes);
         Operator operator = veryficator.verify("31888888888");
         assertEquals(operator, Operator.EURO);
     }
@@ -121,7 +121,7 @@ public class NumberVeryficatorTest  {
         Prefixes prefixes = PowerMockito.mock(Prefixes.class);
         PowerMockito.when(prefixes.getAreaToPrefix("31")).thenReturn(Operator.EURO);
 
-        Veryficator veryficator = new OtherNumberVeryficator(prefixes);
+        Verifier veryficator = new OtherNumberVerifier(prefixes);
         Operator operator = veryficator.verify("31888888888");
         assertEquals(operator, Operator.EURO);
     }

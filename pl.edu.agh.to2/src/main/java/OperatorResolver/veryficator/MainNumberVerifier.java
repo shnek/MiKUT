@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 /**
  * Created by kuba on 2015-11-03.
  */
-public class MainNumberVeryficator implements Veryficator {
+public class MainNumberVerifier implements Verifier {
 // nazwa zwaizana z tmobile - zrobione
 // klasa odpowiedialana za komunikacje z siecia dostaje url i zwraca string
 	private String number;

@@ -5,7 +5,7 @@ import OperatorResolver.operatorresolver.Operator;
 /**
  * Created by wojci on 14.12.2015.
  */
-public class CachedNumberVeryficator implements Veryficator {
+public class CachedNumberVerifier implements Verifier {
 
     @Override
     public Operator verify(String num) {
