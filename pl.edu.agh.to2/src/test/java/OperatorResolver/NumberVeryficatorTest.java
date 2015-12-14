@@ -26,7 +26,7 @@ public class NumberVeryficatorTest  {
 
 
     @Test
-    public void NumberVeryficatorTest() throws MalformedURLException {
+    public void TMobileNumberVeryficatorTest() throws MalformedURLException {
         BasicConfigurator.configure();
 
         PowerMockito.mockStatic(PageDownloader.class);
@@ -38,7 +38,38 @@ public class NumberVeryficatorTest  {
         assertEquals(operator, Operator.TMOBILE);
     }
 
+    @Test
+    public void OrangeNumberVeryficatorTest() throws MalformedURLException {
+        BasicConfigurator.configure();
+        PowerMockito.mockStatic(PageDownloader.class);
+        String line = "http://download.t-mobile.pl/updir/updir.cgi?msisdn=";
+        Mockito.when(PageDownloader.getLine(line + "510100100")).thenReturn("<td><b>Operator:</b></td><td>Orange</td>\n");
+        Veryficator mainVeryficator = new MainNumberVeryficator();
+        Operator operator = mainVeryficator.verify("510100100");
+        assertEquals(operator, Operator.ORANGE);
+    }
 
+    @Test
+    public void PlayNumberVeryficatorTest() throws MalformedURLException {
+        BasicConfigurator.configure();
+        PowerMockito.mockStatic(PageDownloader.class);
+        String line = "http://download.t-mobile.pl/updir/updir.cgi?msisdn=";
+        Mockito.when(PageDownloader.getLine(line + "792600000")).thenReturn("<td><b>Operator:</b></td><td>P4</td>\n");
+        Veryficator mainVeryficator = new MainNumberVeryficator();
+        Operator operator = mainVeryficator.verify("792600000");
+        assertEquals(operator, Operator.PLAY);
+    }
+
+    @Test
+    public void PlusNumberVeryficatorTest() throws MalformedURLException {
+        BasicConfigurator.configure();
+        PowerMockito.mockStatic(PageDownloader.class);
+        String line = "http://download.t-mobile.pl/updir/updir.cgi?msisdn=";
+        Mockito.when(PageDownloader.getLine(line + "695416939")).thenReturn("<td><b>Operator:</b></td><td>Plus</td>\n");
+        Veryficator mainVeryficator = new MainNumberVeryficator();
+        Operator operator = mainVeryficator.verify("695416939");
+        assertEquals(operator, Operator.PLUS);
+    }
 
 //
 //    @Test
