@@ -1,6 +1,6 @@
 package OperatorResolver.veryficator;
 
-import OperatorResolver.operatorresolver.Operator;
+import OperatorResolver.operators.Operator;
 import OperatorResolver.veryficator.verifiers.cacheverifier.NumberCache;
 
 import java.util.ArrayList;
@@ -8,19 +8,24 @@ import java.util.List;
 
 
 public class Verifiers implements Verifier{
-    private List<Verifier> veryficatorList;
+
+    private List<Verifier> verifierList;
 
     public Verifiers() {
-        this.veryficatorList = new ArrayList<>();
+        this.verifierList = new ArrayList<>();
     }
 
-    public Operator verify(String num) {
+    public Operator verify(String number) {
 
         NumberCache.cleanCache();
-
-        for (Verifier veryficator : veryficatorList) {
-            Operator operator = veryficator.verify(num);
+//
+//        if(NumberCache.numberToOperator.containsKey(number)){
+//            return NumberCache.numberToOperator.get(number);
+//        }
+        for (Verifier verifier : verifierList) {
+            Operator operator = verifier.verify(number);
             if (operator != null) {
+                NumberCache.numberToOperator.put(number, operator);
                 return operator;
             }
         }
@@ -29,11 +34,11 @@ public class Verifiers implements Verifier{
     }
 
     public void add(Verifier verifier) {
-        veryficatorList.add(verifier);
+        verifierList.add(verifier);
     }
 
     public void remove(Verifier verifier) {
-        veryficatorList.remove(verifier);
+        verifierList.remove(verifier);
     }
 
 }

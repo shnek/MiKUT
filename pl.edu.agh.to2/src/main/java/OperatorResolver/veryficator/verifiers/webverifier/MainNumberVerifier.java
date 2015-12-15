@@ -1,6 +1,6 @@
 package OperatorResolver.veryficator.verifiers.webverifier;
 
-import OperatorResolver.operatorresolver.Operator;
+import OperatorResolver.operators.Operator;
 import OperatorResolver.veryficator.Verifier;
 import OperatorResolver.veryficator.verifiers.cacheverifier.NumberCache;
 
@@ -50,7 +50,7 @@ public class MainNumberVerifier implements Verifier {
 		return null;
 	}
 
-	private Operator getOperator(String oper) {
+	private Operator getOperator(String operator) {
 
 		Map<String, Operator> stringToOperator = new HashMap<>();
 		stringToOperator.put("Orange", Operator.ORANGE);
@@ -58,11 +58,9 @@ public class MainNumberVerifier implements Verifier {
 		stringToOperator.put("P4", Operator.PLAY);
 		stringToOperator.put("Plus", Operator.PLUS);
 
-		if (stringToOperator.containsKey(oper)) {
-			NumberCache.numberToOperator.put(number, stringToOperator.get(oper));
-			return stringToOperator.get(oper);
+		if (stringToOperator.containsKey(operator)) {
+			return stringToOperator.get(operator);
 		} else {
-			NumberCache.numberToOperator.put(number, Operator.OTHERPOLAND);
 			return Operator.OTHERPOLAND;
 		}
 	}

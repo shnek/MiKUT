@@ -1,6 +1,6 @@
 package OperatorResolver;
 
-import OperatorResolver.operatorresolver.Operator;
+import OperatorResolver.operators.Operator;
 import OperatorResolver.veryficator.verifiers.webverifier.MainNumberVerifier;
 import OperatorResolver.veryficator.verifiers.prefixverifier.OtherNumberVerifier;
 import OperatorResolver.veryficator.Verifier;
@@ -24,6 +24,15 @@ import static org.junit.Assert.assertEquals;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(PageDownloader.class)
 public class NumberVerifiersTest  {
+    /**
+     *
+     * data test driven junit
+     * parametriezed.class
+     *
+     *
+     * guawa - cache - utilsy do kolekcji od google
+     *
+     */
 
     @Test
     public void TMobileNumberVerifierTest() throws MalformedURLException {

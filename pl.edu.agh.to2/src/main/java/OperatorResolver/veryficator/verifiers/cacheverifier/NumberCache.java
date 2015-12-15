@@ -1,6 +1,6 @@
 package OperatorResolver.veryficator.verifiers.cacheverifier;
 
-import OperatorResolver.operatorresolver.Operator;
+import OperatorResolver.operators.Operator;
 
 import java.util.HashMap;
 import java.util.Map;

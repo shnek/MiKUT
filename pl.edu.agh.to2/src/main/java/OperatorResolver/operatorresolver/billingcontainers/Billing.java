@@ -1,6 +1,6 @@
 package OperatorResolver.operatorresolver.billingcontainers;
 
-import OperatorResolver.operatorresolver.Operator;
+import OperatorResolver.operators.Operator;
 
 import java.math.BigDecimal;
 import java.util.HashMap;

@@ -1,9 +1,8 @@
 package OperatorResolver.veryficator.verifiers.prefixverifier;
-import OperatorResolver.operatorresolver.Operator;
+import OperatorResolver.operators.Operator;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
