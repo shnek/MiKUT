@@ -2,10 +2,7 @@ package OperatorResolver.operatorresolver;
 
 
 import OperatorResolver.operatorresolver.billingcontainers.Billing;
-import OperatorResolver.operatorresolver.billingdata.Dial;
-import OperatorResolver.operatorresolver.billingdata.Mms;
-import OperatorResolver.operatorresolver.billingdata.Sms;
-import OperatorResolver.operatorresolver.billingdata.Transfer;
+import OperatorResolver.operatorresolver.billingdata.*;
 import OperatorResolver.veryficator.verifiers.cacheverifier.CachedNumberVerifier;
 import OperatorResolver.veryficator.verifiers.webverifier.MainNumberVerifier;
 import OperatorResolver.veryficator.verifiers.prefixverifier.OtherNumberVerifier;
