@@ -3,24 +3,27 @@ package OperatorResolver.operatorresolver;
 
 import OperatorResolver.operatorresolver.billingcontainers.Billing;
 import OperatorResolver.operatorresolver.billingdata.*;
-import OperatorResolver.operators.Operator;
-import OperatorResolver.veryficator.verifiers.cacheverifier.CachedNumberVerifier;
 import OperatorResolver.veryficator.verifiers.webverifier.MainNumberVerifier;
 import OperatorResolver.veryficator.verifiers.prefixverifier.OtherNumberVerifier;
 import OperatorResolver.veryficator.Verifiers;
 import OperatorResolver.veryficator.verifiers.prefixverifier.Prefixes;
+import OperatorResolver.veryficator.verifiers.webverifier.PageDownloaderImpl;
 
 public class OperatorResolverImp implements OperatorResolver {
 
 	private Billing billing;
 	private Verifiers verifiers;
 
+	public OperatorResolverImp(){
+		this.billing = new Billing();
+		this.verifiers = new Verifiers();
+	}
+
 	public OperatorResolverImp(BillingLists billingList) {
 		this.billing = new Billing();
 		this.verifiers = new Verifiers();
 
-		this.verifiers.add(new CachedNumberVerifier());
-		this.verifiers.add(new MainNumberVerifier());
+		this.verifiers.add(new MainNumberVerifier(new PageDownloaderImpl()));
 		this.verifiers.add(new OtherNumberVerifier(new Prefixes()));
 
 		init(billingList);

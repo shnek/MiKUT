@@ -1,4 +1,4 @@
-package OperatorResolver.operators;
+package OperatorResolver.operatorresolver;
 
 import OperatorResolver.operatorresolver.OperatorResolver;
 

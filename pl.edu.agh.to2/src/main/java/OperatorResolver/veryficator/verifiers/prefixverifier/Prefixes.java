@@ -1,5 +1,5 @@
 package OperatorResolver.veryficator.verifiers.prefixverifier;
-import OperatorResolver.operators.Operator;
+import OperatorResolver.operatorresolver.Operator;
 
 import java.io.FileInputStream;
 import java.io.IOException;

@@ -1,8 +1,7 @@
 package OperatorResolver.veryficator.verifiers.webverifier;
 
-import OperatorResolver.operators.Operator;
+import OperatorResolver.operatorresolver.Operator;
 import OperatorResolver.veryficator.Verifier;
-import OperatorResolver.veryficator.verifiers.cacheverifier.NumberCache;
 
 import java.net.MalformedURLException;
 import java.util.HashMap;
@@ -11,14 +10,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-
-/**
- * Created by kuba on 2015-11-03.
- */
 public class MainNumberVerifier implements Verifier {
-// nazwa zwaizana z tmobile - zrobione
-// klasa odpowiedialana za komunikacje z siecia dostaje url i zwraca string
+
 	private String number;
+	private PageDownloader downloader;
+
+	public MainNumberVerifier(PageDownloader downloader){
+		this.downloader = downloader;
+	}
 
 	@Override
 	public Operator verify(String num) {
@@ -26,7 +25,7 @@ public class MainNumberVerifier implements Verifier {
 		String line = null;
 
 		try {
-			if((line = PageDownloader.getLine("http://download.t-mobile.pl/updir/updir.cgi?msisdn=" + num)) != null){
+			if((line = downloader.getLine("http://download.t-mobile.pl/updir/updir.cgi?msisdn=" + num)) != null){
 				return findPattern(line);
 			}
 		} catch (MalformedURLException e) {

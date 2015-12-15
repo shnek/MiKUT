@@ -1,15 +1,18 @@
 package OperatorResolver.veryficator;
 
-import OperatorResolver.operators.Operator;
-import OperatorResolver.veryficator.verifiers.cacheverifier.NumberCache;
+import OperatorResolver.operatorresolver.Operator;
+
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class Verifiers implements Verifier{
 
     private List<Verifier> verifierList;
+    private Map<String, Operator> numberToOperatorCache = new HashMap<>();
 
     public Verifiers() {
         this.verifierList = new ArrayList<>();
@@ -17,20 +20,26 @@ public class Verifiers implements Verifier{
 
     public Operator verify(String number) {
 
-        NumberCache.cleanCache();
-//
-//        if(NumberCache.numberToOperator.containsKey(number)){
-//            return NumberCache.numberToOperator.get(number);
-//        }
+
+        if(numberToOperatorCache.containsKey(number)){
+            return numberToOperatorCache.get(number);
+        }
+
         for (Verifier verifier : verifierList) {
             Operator operator = verifier.verify(number);
             if (operator != null) {
-                NumberCache.numberToOperator.put(number, operator);
+                numberToOperatorCache.put(number, operator);
                 return operator;
             }
         }
 
         return null;
+    }
+
+    private void cleanCache() {
+        if(numberToOperatorCache.size() > 1000){
+            numberToOperatorCache.clear();
+        }
     }
 
     public void add(Verifier verifier) {

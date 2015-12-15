@@ -1,6 +1,6 @@
 package OperatorResolver.veryficator;
 
-import OperatorResolver.operators.Operator;
+import OperatorResolver.operatorresolver.Operator;
 
 public interface Verifier {
 	 public Operator verify(String num);

@@ -1,6 +1,6 @@
 package OperatorResolver.operatorresolver.billingcontainers;
 
-import OperatorResolver.operators.Operator;
+import OperatorResolver.operatorresolver.Operator;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -16,54 +16,28 @@ public class Billing {
 		this.operatorToServices = new HashMap<Operator, Services>();
 	}
 
-	public void addConnection(Operator operator, int durationInSeconds, BigDecimal value) {
-
+	private Services getServices(Operator operator){
 		Services services;
-		if (operatorToServices.containsKey(operator)) {
 
-			services = operatorToServices.get(operator);
-			services.getConnections().addServiceDetails(durationInSeconds, value);
-
-		} else {
-
+		if (!operatorToServices.containsKey(operator)) {
 			services = new Services();
-			services.getConnections().addServiceDetails(durationInSeconds, value);
 			operatorToServices.put(operator, services);
-
+			return services;
 		}
 
+		return operatorToServices.get(operator);
+	}
+
+	public void addConnection(Operator operator, int durationInSeconds, BigDecimal value) {
+		getServices(operator).getConnections().addServiceDetails(durationInSeconds, value);
 	}
 
 	public void addSms(Operator operator, BigDecimal value) {
-		Services services;
-		if (operatorToServices.containsKey(operator)) {
-
-			services = operatorToServices.get(operator);
-			services.getSms().addServiceDetails(1, value);
-
-		} else {
-
-			services = new Services();
-			services.getSms().addServiceDetails(1, value);
-			operatorToServices.put(operator, services);
-
-		}
+		getServices(operator).getSms().addServiceDetails(1, value);
 	}
 
 	public void addMms(Operator operator, BigDecimal value) {
-		Services services;
-		if (operatorToServices.containsKey(operator)) {
-
-			services = operatorToServices.get(operator);
-			services.getMms().addServiceDetails(1, value);
-
-		} else {
-
-			services = new Services();
-			services.getMms().addServiceDetails(1, value);
-			operatorToServices.put(operator, services);
-
-		}
+		getServices(operator).getMms().addServiceDetails(1, value);
 	}
 
 	public void addInternet(int quantity, BigDecimal value) {
