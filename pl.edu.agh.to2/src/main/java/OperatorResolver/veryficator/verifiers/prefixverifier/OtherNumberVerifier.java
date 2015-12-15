@@ -1,6 +1,8 @@
-package OperatorResolver.veryficator;
+package OperatorResolver.veryficator.verifiers.prefixverifier;
 
 import OperatorResolver.operatorresolver.Operator;
+import OperatorResolver.veryficator.verifiers.cacheverifier.NumberCache;
+import OperatorResolver.veryficator.Verifier;
 
 public class OtherNumberVerifier implements Verifier {
 

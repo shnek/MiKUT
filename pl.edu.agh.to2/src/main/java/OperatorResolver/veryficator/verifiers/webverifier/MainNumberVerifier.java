@@ -1,6 +1,8 @@
-package OperatorResolver.veryficator;
+package OperatorResolver.veryficator.verifiers.webverifier;
 
 import OperatorResolver.operatorresolver.Operator;
+import OperatorResolver.veryficator.Verifier;
+import OperatorResolver.veryficator.verifiers.cacheverifier.NumberCache;
 
 import java.net.MalformedURLException;
 import java.util.HashMap;

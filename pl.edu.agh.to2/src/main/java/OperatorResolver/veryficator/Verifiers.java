@@ -1,13 +1,12 @@
 package OperatorResolver.veryficator;
 
 import OperatorResolver.operatorresolver.Operator;
+import OperatorResolver.veryficator.verifiers.cacheverifier.NumberCache;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by wojci on 06.12.2015.
- */
+
 public class Verifiers implements Verifier{
     private List<Verifier> veryficatorList;
 

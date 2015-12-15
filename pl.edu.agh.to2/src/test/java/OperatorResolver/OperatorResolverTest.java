@@ -1,6 +1,13 @@
 package OperatorResolver;
 
 import OperatorResolver.operatorresolver.*;
+import OperatorResolver.operatorresolver.billingcontainers.Billing;
+import OperatorResolver.operatorresolver.billingcontainers.ServiceDetails;
+import OperatorResolver.operatorresolver.billingcontainers.Services;
+import OperatorResolver.operatorresolver.billingdata.Dial;
+import OperatorResolver.operatorresolver.billingdata.Mms;
+import OperatorResolver.operatorresolver.billingdata.Sms;
+import OperatorResolver.operatorresolver.billingdata.Transfer;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.Validator;
@@ -37,10 +44,10 @@ public class OperatorResolverTest {
         int length = 10;
         String number = "888888888";
         BigDecimal value = BigDecimal.valueOf(0);
-        dial.setLenght(length);
+        dial.setLength(length);
         dial.setNumber(number);
         dial.setValue(value);
-        assertEquals(dial.getLenght(), length);
+        assertEquals(dial.getLength(), length);
         assertEquals(dial.getNumber(), number);
         assertEquals(dial.getValue(), value);
     }

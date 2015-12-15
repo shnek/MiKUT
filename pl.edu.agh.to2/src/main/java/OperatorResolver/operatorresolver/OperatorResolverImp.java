@@ -1,7 +1,16 @@
 package OperatorResolver.operatorresolver;
 
 
-import OperatorResolver.veryficator.*;
+import OperatorResolver.operatorresolver.billingcontainers.Billing;
+import OperatorResolver.operatorresolver.billingdata.Dial;
+import OperatorResolver.operatorresolver.billingdata.Mms;
+import OperatorResolver.operatorresolver.billingdata.Sms;
+import OperatorResolver.operatorresolver.billingdata.Transfer;
+import OperatorResolver.veryficator.verifiers.cacheverifier.CachedNumberVerifier;
+import OperatorResolver.veryficator.verifiers.webverifier.MainNumberVerifier;
+import OperatorResolver.veryficator.verifiers.prefixverifier.OtherNumberVerifier;
+import OperatorResolver.veryficator.Verifiers;
+import OperatorResolver.veryficator.verifiers.prefixverifier.Prefixes;
 
 public class OperatorResolverImp implements OperatorResolver {
 
@@ -23,7 +32,7 @@ public class OperatorResolverImp implements OperatorResolver {
 
 		for (Dial dial : billingList.getDials()) {
 			Operator operator = verifiers.verify(dial.getNumber());
-			billing.addConnection(operator, dial.getLenght(), dial.getValue());
+			billing.addConnection(operator, dial.getLength(), dial.getValue());
 		}
 
 		for (Sms sms : billingList.getSms()) {

@@ -1,10 +1,9 @@
-package OperatorResolver.veryficator;
+package OperatorResolver.veryficator.verifiers.cacheverifier;
 
 import OperatorResolver.operatorresolver.Operator;
+import OperatorResolver.veryficator.Verifier;
 
-/**
- * Created by wojci on 14.12.2015.
- */
+
 public class CachedNumberVerifier implements Verifier {
 
     @Override

@@ -1,15 +1,13 @@
-package OperatorResolver.veryficator;
+package OperatorResolver.veryficator.verifiers.cacheverifier;
 
 import OperatorResolver.operatorresolver.Operator;
 
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by wojci on 14.12.2015.
- */
-public class NumberCache {
 
+public class NumberCache {
+    //WeakHashMap
     public static Map<String, Operator> numberToOperator = new HashMap<>();
 
     public static void cleanCache() {
