@@ -16,17 +16,6 @@ public class Billing {
 		this.operatorToServices = new HashMap<Operator, Services>();
 	}
 
-	private Services getServices(Operator operator){
-		Services services;
-
-		if (!operatorToServices.containsKey(operator)) {
-			services = new Services();
-			operatorToServices.put(operator, services);
-			return services;
-		}
-
-		return operatorToServices.get(operator);
-	}
 
 	public void addConnection(Operator operator, int durationInSeconds, BigDecimal value) {
 		getServices(operator).getConnections().addServiceDetails(durationInSeconds, value);
@@ -42,6 +31,18 @@ public class Billing {
 
 	public void addInternet(int quantity, BigDecimal value) {
 		internet.addServiceDetails(quantity, value);
+	}
+
+	private Services getServices(Operator operator){
+		Services services;
+
+		if (!operatorToServices.containsKey(operator)) {
+			services = new Services();
+			operatorToServices.put(operator, services);
+			return services;
+		}
+
+		return operatorToServices.get(operator);
 	}
 
 	public ServiceDetails getInternet() {

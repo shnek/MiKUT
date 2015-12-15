@@ -23,6 +23,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by kuba on 09.11.15.
  */
+
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(PageDownloader.class)
 public class NumberVerifiersTest  {
@@ -35,6 +36,7 @@ public class NumberVerifiersTest  {
      * guawa - cache - utilsy do kolekcji od google
      *
      */
+    private String line;
     @Before
     public void config(){
 
@@ -107,41 +109,41 @@ public class NumberVerifiersTest  {
     }
 
 
-    @Test
-    public void LandlineVerifierTest(){
-        BasicConfigurator.configure();
-
-        Prefixes prefixes = PowerMockito.mock(Prefixes.class);
-        PowerMockito.when(prefixes.getAreaToPrefix("4817")).thenReturn(Operator.LANDLINE);
-
-        Verifier verifier = new OtherNumberVerifier(prefixes);
-        Operator operator = verifier.verify("48177881234");
-        assertEquals(operator, Operator.LANDLINE);
-    }
-
-    @Test
-    public void EuroVerifierTest(){
-        BasicConfigurator.configure();
-
-        Prefixes prefixes = PowerMockito.mock(Prefixes.class);
-        PowerMockito.when(prefixes.getAreaToPrefix("31")).thenReturn(Operator.EURO);
-
-        Verifier verifier = new OtherNumberVerifier(prefixes);
-        Operator operator = verifier.verify("31888888888");
-        assertEquals(operator, Operator.EURO);
-    }
-
-    @Test
-    public void FirstVerifierTest(){
-        BasicConfigurator.configure();
-
-        Prefixes prefixes = PowerMockito.mock(Prefixes.class);
-        PowerMockito.when(prefixes.getAreaToPrefix("31")).thenReturn(Operator.EURO);
-
-        Verifier veryficator = new OtherNumberVerifier(prefixes);
-        Operator operator = veryficator.verify("31888888888");
-        assertEquals(operator, Operator.EURO);
-    }
+//    @Test
+//    public void LandlineVerifierTest(){
+//        BasicConfigurator.configure();
+//
+//        Prefixes prefixes = PowerMockito.mock(Prefixes.class);
+//        PowerMockito.when(prefixes.getAreaToPrefix("4817")).thenReturn(Operator.LANDLINE);
+//
+//        Verifier verifier = new OtherNumberVerifier(prefixes);
+//        Operator operator = verifier.verify("48177881234");
+//        assertEquals(operator, Operator.LANDLINE);
+//    }
+//
+//    @Test
+//    public void EuroVerifierTest(){
+//        BasicConfigurator.configure();
+//
+//        Prefixes prefixes = PowerMockito.mock(Prefixes.class);
+//        PowerMockito.when(prefixes.getAreaToPrefix("31")).thenReturn(Operator.EURO);
+//
+//        Verifier verifier = new OtherNumberVerifier(prefixes);
+//        Operator operator = verifier.verify("31888888888");
+//        assertEquals(operator, Operator.EURO);
+//    }
+//
+//    @Test
+//    public void FirstVerifierTest(){
+//        BasicConfigurator.configure();
+//
+//        Prefixes prefixes = PowerMockito.mock(Prefixes.class);
+//        PowerMockito.when(prefixes.getAreaToPrefix("31")).thenReturn(Operator.EURO);
+//
+//        Verifier veryficator = new OtherNumberVerifier(prefixes);
+//        Operator operator = veryficator.verify("31888888888");
+//        assertEquals(operator, Operator.EURO);
+//    }
 
 
 }
