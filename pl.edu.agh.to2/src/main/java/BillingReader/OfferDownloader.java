@@ -1,6 +1,7 @@
 package BillingReader;
 
 import BillingReader.telepolis.TelepolisAbonamentDownloader;
+import BillingReader.telepolis.TelepolisCardDownloader;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class OfferDownloader {
     }
 
     private void downloadAll() throws IOException {
-        PageDownloader td = new TelepolisAbonamentDownloader();
+        PageDownloader td = new TelepolisCardDownloader();
         offers.addAll(td.download());
     }
 

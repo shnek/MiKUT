@@ -1,5 +1,7 @@
 package BillingReader;
 
+import BillingReader.telepolis.OuterMmsSetter;
+import BillingReader.telepolis.OuterSmsSetter;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -26,5 +28,4 @@ public class Main {
             }
         }
     }
-
 }

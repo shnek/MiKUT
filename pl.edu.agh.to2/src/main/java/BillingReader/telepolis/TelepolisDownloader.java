@@ -30,18 +30,34 @@ public abstract class TelepolisDownloader extends PageDownloader {
         fieldSetters.add(new OuterCallSetter());
         fieldSetters.add(new InnerSmsSetter());
         fieldSetters.add(new OuterSmsSetter());
-        fieldSetters.add(new InnerMmsSetter());
         fieldSetters.add(new OuterSmsSetter());
+        fieldSetters.add(new InnerMmsSetter());
         fieldSetters.add(new InternetFieldsSetter());
+    }
 
-        this.url = "http://www.telepolis.pl/na-karte";
-        this.abonament = true;
+    @Override
+    public String getUrl() {
+        return url;
+    }
+
+    @Override
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    @Override
+    public boolean isAbonament() {
+        return abonament;
+    }
+
+    @Override
+    public void setAbonament(boolean abonament) {
+        this.abonament = abonament;
     }
 
     public List<Offer> download () throws IOException {
         List<Offer> list = new LinkedList<Offer>();
         List<String> links = new LinkedList<String>();
-
         Document doc = Jsoup.connect(url).get();
         Elements offers = doc.select("li.gsmWynik ");
 
@@ -60,28 +76,32 @@ public abstract class TelepolisDownloader extends PageDownloader {
             Document doc2 = Jsoup.connect(link).get();
             Elements cells = doc2.select("td");
             Iterator<Element> cell = cells.iterator();
-
+            Element next1, next2;
+            next1 = cell.next();
             try {
                 while (cell.hasNext()) {
-                    Element next1 = cell.next();
-                    Element next2 = cell.next();
+                    next2 = cell.next();
+                    //out(String.valueOf(next2));
                     for (AttributeSetter setter : fieldSetters) {
-                        if (setter.matchesPattern(String.valueOf(next1)))
-                            setter.setAttribute(nextOffer, next2);
+                        if (setter.matchesPattern(String.valueOf(next1))) {
+                            setter.setAttribute(nextOffer,next2);
+                        }
                     }
+                    next1 = next2;
                 }
             } catch (NumberFormatException e) {
                 //inputCorrectFlag = false;
             } catch (NullPointerException f) {
                 //inputCorrectFlag = false;
             } catch (NoSuchElementException g) {
-                break;
+                continue;
             }
 
             if (inputCorrectFlag) {
                 list.add(nextOffer);
                 out("Dodano oferte " + nextOffer.getName());
             }
+
         }
         return list;
     }

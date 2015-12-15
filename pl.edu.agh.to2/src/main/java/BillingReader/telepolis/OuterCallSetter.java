@@ -12,6 +12,7 @@ public class OuterCallSetter extends AttributeSetter {
 
     @Override
     public boolean matchesPattern(String label) {
+        //System.out.println("does "+label+" contain "+pattern);
         return super.matchesPattern(label);
     }
 

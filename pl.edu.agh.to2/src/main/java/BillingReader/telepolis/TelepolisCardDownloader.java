@@ -14,8 +14,8 @@ public class TelepolisCardDownloader extends TelepolisDownloader {
 
     public TelepolisCardDownloader() {
         super();
-        this.url = "http://www.telepolis.pl/na-karte";
-        this.abonament = false;
+        super.setUrl("http://www.telepolis.pl/na-karte");
+        super.setAbonament(false);
     }
 
 }
