@@ -1,4 +1,4 @@
-package OperatorResolver.veryficator;
+package OperatorResolver.numbersverificator;
 
 import OperatorResolver.operatorresolver.Operator;
 import com.google.common.cache.CacheBuilder;
@@ -7,9 +7,7 @@ import com.google.common.cache.LoadingCache;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 

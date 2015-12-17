@@ -1,22 +1,15 @@
 package OperatorResolver;
 
 import OperatorResolver.operatorresolver.Operator;
-import OperatorResolver.veryficator.Verifiers;
-import OperatorResolver.veryficator.verifiers.webverifier.MainNumberVerifier;
-import OperatorResolver.veryficator.verifiers.prefixverifier.OtherNumberVerifier;
-import OperatorResolver.veryficator.Verifier;
-import OperatorResolver.veryficator.verifiers.prefixverifier.Prefixes;
-import OperatorResolver.veryficator.verifiers.webverifier.PageDownloader;
-import OperatorResolver.veryficator.verifiers.webverifier.PageDownloaderImpl;
-import org.apache.log4j.BasicConfigurator;
+import OperatorResolver.numbersverificator.Verifiers;
+import OperatorResolver.numbersverificator.verifiers.webverifier.WebNumberVerifier;
+import OperatorResolver.numbersverificator.verifiers.prefixverifier.PrefixNumberVerifier;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.net.MalformedURLException;
 import java.util.Arrays;
@@ -41,14 +34,14 @@ public class NumberVerifiersTest  {
      */
     private String number;
     private Operator expectedOperator;
-    private MainNumberVerifier mainNumberVerifier;
-    private OtherNumberVerifier otherNumberVerifier;
+    private WebNumberVerifier webNumberVerifier;
+    private PrefixNumberVerifier prefixNumberVerifier;
     private int version;
 
     @Before
     public void initialize() {
-        mainNumberVerifier = PowerMockito.mock(MainNumberVerifier.class);
-        otherNumberVerifier = PowerMockito.mock(OtherNumberVerifier.class);
+        webNumberVerifier = PowerMockito.mock(WebNumberVerifier.class);
+        prefixNumberVerifier = PowerMockito.mock(PrefixNumberVerifier.class);
     }
 
     public NumberVerifiersTest(String number, Operator expectedOperator, int version) {
@@ -78,14 +71,14 @@ public class NumberVerifiersTest  {
     public void testVerifiers() throws MalformedURLException  {
 
         if(version == 0){
-            Mockito.when(mainNumberVerifier.verify(number)).thenReturn(expectedOperator);
+            Mockito.when(webNumberVerifier.verify(number)).thenReturn(expectedOperator);
         } else {
-            Mockito.when(otherNumberVerifier.verify(number)).thenReturn(expectedOperator);
+            Mockito.when(prefixNumberVerifier.verify(number)).thenReturn(expectedOperator);
         }
 
         Verifiers verifiers = new Verifiers();
-        verifiers.add(mainNumberVerifier);
-        verifiers.add(otherNumberVerifier);
+        verifiers.add(webNumberVerifier);
+        verifiers.add(prefixNumberVerifier);
 
         Operator operator = verifiers.verify(number);
         assertEquals(operator, expectedOperator);

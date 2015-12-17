@@ -1,13 +1,13 @@
-package OperatorResolver.veryficator.verifiers.prefixverifier;
+package OperatorResolver.numbersverificator.verifiers.prefixverifier;
 
 import OperatorResolver.operatorresolver.Operator;
-import OperatorResolver.veryficator.Verifier;
+import OperatorResolver.numbersverificator.Verifier;
 
-public class OtherNumberVerifier implements Verifier {
+public class PrefixNumberVerifier implements Verifier {
 
 	private Prefixes prefixes;
 
-	public OtherNumberVerifier(Prefixes prefixes) {
+	public PrefixNumberVerifier(Prefixes prefixes) {
 		this.prefixes = prefixes;
 	}
 

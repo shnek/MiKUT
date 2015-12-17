@@ -1,12 +1,9 @@
 package OperatorResolver;
 
 import OperatorResolver.operatorresolver.Operator;
-import OperatorResolver.veryficator.Verifier;
-import OperatorResolver.veryficator.verifiers.prefixverifier.OtherNumberVerifier;
-import OperatorResolver.veryficator.verifiers.prefixverifier.Prefixes;
-import OperatorResolver.veryficator.verifiers.webverifier.MainNumberVerifier;
-import OperatorResolver.veryficator.verifiers.webverifier.PageDownloader;
-import OperatorResolver.veryficator.verifiers.webverifier.PageDownloaderImpl;
+import OperatorResolver.numbersverificator.Verifier;
+import OperatorResolver.numbersverificator.verifiers.prefixverifier.PrefixNumberVerifier;
+import OperatorResolver.numbersverificator.verifiers.prefixverifier.Prefixes;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 
 
 @RunWith(Parameterized.class)
-public class NumberParametrizedOtherVerifierTest {
+public class NumberParametrizedPrefixVerifierTest {
 
     private String prefix;
     private String number;
@@ -35,7 +32,7 @@ public class NumberParametrizedOtherVerifierTest {
         prefixes = PowerMockito.mock(Prefixes.class);
     }
 
-    public NumberParametrizedOtherVerifierTest(String number, Operator expectedOperator, String prefix) {
+    public NumberParametrizedPrefixVerifierTest(String number, Operator expectedOperator, String prefix) {
         this.number = number;
         this.expectedOperator = expectedOperator;
         this.prefix = prefix;
@@ -57,7 +54,7 @@ public class NumberParametrizedOtherVerifierTest {
     public void testMainVerifier() throws MalformedURLException  {
 
         Mockito.when(prefixes.getAreaToPrefix(prefix)).thenReturn(expectedOperator);
-        Verifier otherVerifier = new OtherNumberVerifier(prefixes);
+        Verifier otherVerifier = new PrefixNumberVerifier(prefixes);
         Operator operator = otherVerifier.verify(number);
         assertEquals(operator, expectedOperator);
 

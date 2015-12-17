@@ -1,4 +1,4 @@
-package OperatorResolver.veryficator.verifiers.prefixverifier;
+package OperatorResolver.numbersverificator.verifiers.prefixverifier;
 import OperatorResolver.operatorresolver.Operator;
 
 import java.io.FileInputStream;

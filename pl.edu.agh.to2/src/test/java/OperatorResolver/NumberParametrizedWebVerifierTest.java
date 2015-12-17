@@ -1,10 +1,10 @@
 package OperatorResolver;
 
 import OperatorResolver.operatorresolver.Operator;
-import OperatorResolver.veryficator.Verifier;
-import OperatorResolver.veryficator.verifiers.webverifier.MainNumberVerifier;
-import OperatorResolver.veryficator.verifiers.webverifier.PageDownloader;
-import OperatorResolver.veryficator.verifiers.webverifier.PageDownloaderImpl;
+import OperatorResolver.numbersverificator.Verifier;
+import OperatorResolver.numbersverificator.verifiers.webverifier.WebNumberVerifier;
+import OperatorResolver.numbersverificator.verifiers.webverifier.PageDownloader;
+import OperatorResolver.numbersverificator.verifiers.webverifier.PageDownloaderImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 
 
 @RunWith(Parameterized.class)
-public class NumberParametrizedMainVerifierTest {
+public class NumberParametrizedWebVerifierTest {
 
     private String line;
     private String number;
@@ -34,7 +34,7 @@ public class NumberParametrizedMainVerifierTest {
         url = "http://download.t-mobile.pl/updir/updir.cgi?msisdn=";
     }
 
-    public NumberParametrizedMainVerifierTest(String number, Operator expectedOperator, String line) {
+    public NumberParametrizedWebVerifierTest(String number, Operator expectedOperator, String line) {
         this.number = number;
         this.expectedOperator = expectedOperator;
         this.line = line;
@@ -55,7 +55,7 @@ public class NumberParametrizedMainVerifierTest {
     public void testMainVerifier() throws MalformedURLException  {
 
         Mockito.when(downloader.getLine(url + number)).thenReturn(line);
-        Verifier mainVerifier = new MainNumberVerifier(downloader);
+        Verifier mainVerifier = new WebNumberVerifier(downloader);
         Operator operator = mainVerifier.verify(number);
         assertEquals(operator, expectedOperator);
 

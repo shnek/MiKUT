@@ -1,4 +1,4 @@
-package OperatorResolver.veryficator;
+package OperatorResolver.numbersverificator;
 
 import OperatorResolver.operatorresolver.Operator;
 

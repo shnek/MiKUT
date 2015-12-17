@@ -3,11 +3,11 @@ package OperatorResolver.operatorresolver;
 
 import OperatorResolver.operatorresolver.billingcontainers.Billing;
 import OperatorResolver.operatorresolver.billingdata.*;
-import OperatorResolver.veryficator.verifiers.webverifier.MainNumberVerifier;
-import OperatorResolver.veryficator.verifiers.prefixverifier.OtherNumberVerifier;
-import OperatorResolver.veryficator.Verifiers;
-import OperatorResolver.veryficator.verifiers.prefixverifier.Prefixes;
-import OperatorResolver.veryficator.verifiers.webverifier.PageDownloaderImpl;
+import OperatorResolver.numbersverificator.verifiers.webverifier.WebNumberVerifier;
+import OperatorResolver.numbersverificator.verifiers.prefixverifier.PrefixNumberVerifier;
+import OperatorResolver.numbersverificator.Verifiers;
+import OperatorResolver.numbersverificator.verifiers.prefixverifier.Prefixes;
+import OperatorResolver.numbersverificator.verifiers.webverifier.PageDownloaderImpl;
 
 public class OperatorResolverImp implements OperatorResolver {
 
@@ -18,8 +18,8 @@ public class OperatorResolverImp implements OperatorResolver {
 		this.billing = new Billing();
 		this.verifiers = new Verifiers();
 
-		this.verifiers.add(new MainNumberVerifier(new PageDownloaderImpl()));
-		this.verifiers.add(new OtherNumberVerifier(new Prefixes()));
+		this.verifiers.add(new WebNumberVerifier(new PageDownloaderImpl()));
+		this.verifiers.add(new PrefixNumberVerifier(new Prefixes()));
 
 		init(billingList);
 	}

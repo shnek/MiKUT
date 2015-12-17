@@ -1,7 +1,7 @@
-package OperatorResolver.veryficator.verifiers.webverifier;
+package OperatorResolver.numbersverificator.verifiers.webverifier;
 
 import OperatorResolver.operatorresolver.Operator;
-import OperatorResolver.veryficator.Verifier;
+import OperatorResolver.numbersverificator.Verifier;
 
 import java.net.MalformedURLException;
 import java.util.HashMap;
@@ -10,22 +10,25 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class MainNumberVerifier implements Verifier {
+public class WebNumberVerifier implements Verifier {
 
 	private String number;
 	private PageDownloader downloader;
 
-	public MainNumberVerifier(PageDownloader downloader){
+	public WebNumberVerifier(PageDownloader downloader){
 		this.downloader = downloader;
 	}
 
 	@Override
-	public Operator verify(String num) {
-		number = num;
+	public Operator verify(String number) {
+
+		this.number = number;
 		String line = null;
 
 		try {
-			if((line = downloader.getLine("http://download.t-mobile.pl/updir/updir.cgi?msisdn=" + num)) != null){
+			long start = System.currentTimeMillis();
+			if((line = downloader.getLine("http://download.t-mobile.pl/updir/updir.cgi?msisdn=" + number)) != null){
+				System.out.println("WEB RESPONSE FOR: "+number+" EXE_TIME[ms]: "+(System.currentTimeMillis()-start));
 				return findPattern(line);
 			}
 		} catch (MalformedURLException e) {

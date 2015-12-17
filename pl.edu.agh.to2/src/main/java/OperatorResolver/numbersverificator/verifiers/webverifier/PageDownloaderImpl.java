@@ -1,4 +1,4 @@
-package OperatorResolver.veryficator.verifiers.webverifier;
+package OperatorResolver.numbersverificator.verifiers.webverifier;
 
 import java.io.BufferedReader;
 import java.io.IOException;
