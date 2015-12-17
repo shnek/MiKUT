@@ -20,15 +20,17 @@ public class Verifiers implements Verifier{
     LoadingCache<String, Operator> numberToOperatorCache;
 
     public Verifiers() {
+
         this.verifierList = new ArrayList<>();
         numberToOperatorCache = CacheBuilder.newBuilder()
                 .maximumSize(1000)
                 .build(
                         new CacheLoader<String, Operator>() {
                             public Operator load(String number){
-                                return verifyNewNumber(number);
+                                return verifyNotCachedNumber(number);
                             }
                         });
+
     }
 
     public Operator verify(String number) {
@@ -40,7 +42,7 @@ public class Verifiers implements Verifier{
         }
     }
 
-    private Operator verifyNewNumber(String number){
+    private Operator verifyNotCachedNumber(String number){
         for (Verifier verifier : verifierList) {
             Operator operator = verifier.verify(number);
             if (operator != null) {

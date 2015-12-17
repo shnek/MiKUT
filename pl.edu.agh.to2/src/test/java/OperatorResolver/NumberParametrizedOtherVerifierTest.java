@@ -42,7 +42,7 @@ public class NumberParametrizedOtherVerifierTest {
     }
 
     @Parameterized.Parameters
-    public static Collection numberOperatorLine() {
+    public static Collection numberOperatorPrefix() {
         return Arrays.asList(new Object[][] {
                 { "43664097160", Operator.EURO, "43"},
                 { "355510100100", Operator.AREA1, "35"},

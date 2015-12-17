@@ -1,6 +1,7 @@
 package OperatorResolver;
 
 import OperatorResolver.operatorresolver.Operator;
+import OperatorResolver.veryficator.Verifiers;
 import OperatorResolver.veryficator.verifiers.webverifier.MainNumberVerifier;
 import OperatorResolver.veryficator.verifiers.prefixverifier.OtherNumberVerifier;
 import OperatorResolver.veryficator.Verifier;
@@ -11,12 +12,15 @@ import org.apache.log4j.BasicConfigurator;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.net.MalformedURLException;
+import java.util.Arrays;
+import java.util.Collection;
 
 import static org.junit.Assert.assertEquals;
 
@@ -24,8 +28,7 @@ import static org.junit.Assert.assertEquals;
  * Created by kuba on 09.11.15.
  */
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(PageDownloader.class)
+@RunWith(Parameterized.class)
 public class NumberVerifiersTest  {
     /**
      *
@@ -36,114 +39,58 @@ public class NumberVerifiersTest  {
      * guawa - cache - utilsy do kolekcji od google
      *
      */
-    private String line;
+    private String number;
+    private Operator expectedOperator;
+    private MainNumberVerifier mainNumberVerifier;
+    private OtherNumberVerifier otherNumberVerifier;
+    private int version;
+
     @Before
-    public void config(){
+    public void initialize() {
+        mainNumberVerifier = PowerMockito.mock(MainNumberVerifier.class);
+        otherNumberVerifier = PowerMockito.mock(OtherNumberVerifier.class);
+    }
 
+    public NumberVerifiersTest(String number, Operator expectedOperator, int version) {
+        this.number = number;
+        this.expectedOperator = expectedOperator;
+        this.version = version;
+    }
+
+    @Parameterized.Parameters
+    public static Collection numberOperatorVersion() {
+        return Arrays.asList(new Object[][] {
+                { "48664097160", Operator.TMOBILE, 0 },
+                { "48510100100", Operator.ORANGE, 0 },
+                { "48792600000", Operator.PLAY, 0 },
+                { "48695416939", Operator.PLUS, 0 },
+                { "48888888888", Operator.OTHERPOLAND, 0 },
+                { "43664097160", Operator.EURO, 1 },
+                { "355510100100", Operator.AREA1, 1 },
+                { "679792600000", Operator.AREA2 , 1},
+                { "679792600000", Operator.AREA3, 1 },
+                { "481395416939", Operator.LANDLINE, 1 },
+                { "48888888888", Operator.OTHERPOLAND, 1 }
+        });
     }
 
     @Test
-    public void TMobileNumberVerifierTest() throws MalformedURLException {
-        BasicConfigurator.configure();
+    public void testVerifiers() throws MalformedURLException  {
 
-        PageDownloader downloader = PowerMockito.mock(PageDownloaderImpl.class);
+        if(version == 0){
+            Mockito.when(mainNumberVerifier.verify(number)).thenReturn(expectedOperator);
+        } else {
+            Mockito.when(otherNumberVerifier.verify(number)).thenReturn(expectedOperator);
+        }
 
-        String line = "http://download.t-mobile.pl/updir/updir.cgi?msisdn=";
-        Mockito.when(downloader.getLine(line + "888888888")).thenReturn("<td><b>Operator:</b></td><td>PTC / T-Mobile</td>\n");
+        Verifiers verifiers = new Verifiers();
+        verifiers.add(mainNumberVerifier);
+        verifiers.add(otherNumberVerifier);
 
-        Verifier mainVerifier = new MainNumberVerifier(downloader);
-        Operator operator = mainVerifier.verify("888888888");
-        assertEquals(operator, Operator.TMOBILE);
+        Operator operator = verifiers.verify(number);
+        assertEquals(operator, expectedOperator);
+
     }
-
-    @Test
-    public void OrangeNumberVerifierTest() throws MalformedURLException {
-        BasicConfigurator.configure();
-        PageDownloader downloader = PowerMockito.mock(PageDownloaderImpl.class);
-
-        String line = "http://download.t-mobile.pl/updir/updir.cgi?msisdn=";
-        Mockito.when(downloader.getLine(line + "510100100")).thenReturn("<td><b>Operator:</b></td><td>Orange</td>\n");
-
-        Verifier mainVerifier = new MainNumberVerifier(downloader);
-        Operator operator = mainVerifier.verify("510100100");
-        assertEquals(operator, Operator.ORANGE);
-    }
-
-    @Test
-    public void PlayNumberVerifierTest() throws MalformedURLException {
-        BasicConfigurator.configure();
-
-        PageDownloader downloader = PowerMockito.mock(PageDownloaderImpl.class);
-        String line = "http://download.t-mobile.pl/updir/updir.cgi?msisdn=";
-        Mockito.when(downloader.getLine(line + "792600000")).thenReturn("<td><b>Operator:</b></td><td>P4</td>\n");
-
-        Verifier mainVerifier = new MainNumberVerifier(downloader);
-        Operator operator = mainVerifier.verify("792600000");
-        assertEquals(operator, Operator.PLAY);
-    }
-
-    @Test
-    public void PlusNumberVerifierTest() throws MalformedURLException {
-        BasicConfigurator.configure();
-
-        PageDownloader downloader = PowerMockito.mock(PageDownloaderImpl.class);
-        String line = "http://download.t-mobile.pl/updir/updir.cgi?msisdn=";
-        Mockito.when(downloader.getLine(line + "695416939")).thenReturn("<td><b>Operator:</b></td><td>Plus</td>\n");
-
-        Verifier mainVerifier = new MainNumberVerifier(downloader);
-        Operator operator = mainVerifier.verify("695416939");
-        assertEquals(operator, Operator.PLUS);
-    }
-
-    @Test
-    public void OtherPolandNumberVerifierTest() throws MalformedURLException {
-        BasicConfigurator.configure();
-
-        PageDownloader downloader = PowerMockito.mock(PageDownloaderImpl.class);
-        String line = "http://download.t-mobile.pl/updir/updir.cgi?msisdn=";
-        Mockito.when(downloader.getLine(line + "888888888")).thenReturn("<td><b>Operator:</b></td><td>Heyah</td>\n");
-
-        Verifier mainVerifier = new MainNumberVerifier(downloader);
-        Operator operator = mainVerifier.verify("888888888");
-        assertEquals(operator, Operator.OTHERPOLAND);
-    }
-
-
-//    @Test
-//    public void LandlineVerifierTest(){
-//        BasicConfigurator.configure();
-//
-//        Prefixes prefixes = PowerMockito.mock(Prefixes.class);
-//        PowerMockito.when(prefixes.getAreaToPrefix("4817")).thenReturn(Operator.LANDLINE);
-//
-//        Verifier verifier = new OtherNumberVerifier(prefixes);
-//        Operator operator = verifier.verify("48177881234");
-//        assertEquals(operator, Operator.LANDLINE);
-//    }
-//
-//    @Test
-//    public void EuroVerifierTest(){
-//        BasicConfigurator.configure();
-//
-//        Prefixes prefixes = PowerMockito.mock(Prefixes.class);
-//        PowerMockito.when(prefixes.getAreaToPrefix("31")).thenReturn(Operator.EURO);
-//
-//        Verifier verifier = new OtherNumberVerifier(prefixes);
-//        Operator operator = verifier.verify("31888888888");
-//        assertEquals(operator, Operator.EURO);
-//    }
-//
-//    @Test
-//    public void FirstVerifierTest(){
-//        BasicConfigurator.configure();
-//
-//        Prefixes prefixes = PowerMockito.mock(Prefixes.class);
-//        PowerMockito.when(prefixes.getAreaToPrefix("31")).thenReturn(Operator.EURO);
-//
-//        Verifier veryficator = new OtherNumberVerifier(prefixes);
-//        Operator operator = veryficator.verify("31888888888");
-//        assertEquals(operator, Operator.EURO);
-//    }
 
 
 }
