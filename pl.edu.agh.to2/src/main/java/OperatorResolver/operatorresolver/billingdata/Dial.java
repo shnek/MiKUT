@@ -10,6 +10,15 @@ public class Dial {
 	private int length;
 	private BigDecimal value;
 
+	public Dial(){
+
+	}
+
+	public Dial(String number, int length) {
+		this.number = number;
+		this.length = length;
+	}
+
 	public String getNumber() {
 		return number;
 	}

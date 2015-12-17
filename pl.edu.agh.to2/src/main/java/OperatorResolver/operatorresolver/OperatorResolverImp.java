@@ -14,11 +14,6 @@ public class OperatorResolverImp implements OperatorResolver {
 	private Billing billing;
 	private Verifiers verifiers;
 
-	public OperatorResolverImp(){
-		this.billing = new Billing();
-		this.verifiers = new Verifiers();
-	}
-
 	public OperatorResolverImp(BillingLists billingList) {
 		this.billing = new Billing();
 		this.verifiers = new Verifiers();

@@ -8,6 +8,14 @@ public class Sms {
 	String number;
 	BigDecimal value;
 
+	public Sms() {
+
+	}
+
+	public Sms(String number) {
+		this.number = number;
+	}
+
 	public String getNumber() {
 		return number;
 	}

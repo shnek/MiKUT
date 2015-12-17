@@ -180,6 +180,53 @@ public class OperatorResolverTest {
         assertEquals(prefixes.getAreaToPrefix("4812"), Operator.LANDLINE);
 
     }
+
+    @Test
+    public void testOperatorResolverImpl(){
+
+        Dial dial = new Dial("481395416939", 15);
+        Dial dial2 = new Dial("481395416939", 25);
+
+        Sms sms = new Sms("481395416939");
+        Sms sms2 = new Sms("481395416939");
+
+        Mms mms = new Mms("481395416939");
+        Mms mms2 = new Mms("481395416939");
+
+        Transfer transfer = new Transfer(50);
+        Transfer transfer2 = new Transfer(150);
+
+        List<Dial> dList = new LinkedList<>();
+        dList.add(dial);
+        dList.add(dial2);
+
+        List<Sms> sList = new LinkedList<>();
+        sList.add(sms);
+        sList.add(sms2);
+
+        List<Mms> mList = new LinkedList<>();
+        mList.add(mms);
+        mList.add(mms2);
+
+        List<Transfer> tList = new LinkedList<>();
+        tList.add(transfer);
+        tList.add(transfer2);
+
+        BillingLists billingLists = new BillingLists(dList, sList, mList, tList);
+
+        OperatorResolver op = new OperatorResolverImp(billingLists);
+
+        assertEquals(getServiceDetails(op, Operator.LANDLINE).getConnections().getQuantity(), 40);
+        assertEquals(getServiceDetails(op, Operator.LANDLINE).getSms().getQuantity(), 2);
+        assertEquals(getServiceDetails(op, Operator.LANDLINE).getMms().getQuantity(), 2);
+        assertEquals(op.getBilling().getInternet().getQuantity(), 200);
+
+    }
+
+    private Services getServiceDetails(OperatorResolver operatorResolver, Operator operator){
+        return operatorResolver.getBilling().getOperatorToServices().get(operator);
+    }
+
 //    @Test
 //    public void testInternetValue(){
 //        Billing billing = opResImpl.getBilling();

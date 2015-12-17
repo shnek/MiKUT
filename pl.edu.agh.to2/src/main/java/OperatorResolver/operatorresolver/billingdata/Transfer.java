@@ -8,6 +8,14 @@ public class Transfer {
 	int dataSize;
 	BigDecimal value;
 
+	public Transfer(){
+
+	}
+
+	public Transfer(int dataSize) {
+		this.dataSize = dataSize;
+	}
+
 	public int getDataSize() {
 		return dataSize;
 	}
