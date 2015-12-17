@@ -6,6 +6,7 @@ import OperatorResolver.numbersverificator.Verifier;
 import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,13 +25,17 @@ public class WebNumberVerifier implements Verifier {
 
 		this.number = number;
 		String line = null;
+		Random generator = new Random();
 
 		try {
+			Thread.sleep(5000);
 			long start = System.currentTimeMillis();
 			if((line = downloader.getLine("http://download.t-mobile.pl/updir/updir.cgi?msisdn=" + number)) != null){
 				System.out.println("WEB RESPONSE FOR: "+number+" EXE_TIME[ms]: "+(System.currentTimeMillis()-start));
 				return findPattern(line);
 			}
+		} catch(InterruptedException ex) {
+			Thread.currentThread().interrupt();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
