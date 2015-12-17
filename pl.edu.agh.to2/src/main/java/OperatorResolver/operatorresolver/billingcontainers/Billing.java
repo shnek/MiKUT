@@ -2,7 +2,6 @@ package OperatorResolver.operatorresolver.billingcontainers;
 
 import OperatorResolver.operatorresolver.Operator;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,20 +16,20 @@ public class Billing {
 	}
 
 
-	public void addConnection(Operator operator, int durationInSeconds, BigDecimal value) {
-		getServices(operator).getConnections().addServiceDetails(durationInSeconds, value);
+	public void addConnection(Operator operator, int durationInSeconds) {
+		getServices(operator).getConnections().addServiceDetails(durationInSeconds);
 	}
 
-	public void addSms(Operator operator, BigDecimal value) {
-		getServices(operator).getSms().addServiceDetails(1, value);
+	public void addSms(Operator operator) {
+		getServices(operator).getSms().addServiceDetails(1);
 	}
 
-	public void addMms(Operator operator, BigDecimal value) {
-		getServices(operator).getMms().addServiceDetails(1, value);
+	public void addMms(Operator operator) {
+		getServices(operator).getMms().addServiceDetails(1);
 	}
 
-	public void addInternet(int quantity, BigDecimal value) {
-		internet.addServiceDetails(quantity, value);
+	public void addInternet(int quantity) {
+		internet.addServiceDetails(quantity);
 	}
 
 	private Services getServices(Operator operator){

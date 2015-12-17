@@ -33,21 +33,21 @@ public class OperatorResolverImp implements OperatorResolver {
 
 		for (Dial dial : billingList.getDials()) {
 			Operator operator = verifiers.verify(dial.getNumber());
-			billing.addConnection(operator, dial.getLength(), dial.getValue());
+			billing.addConnection(operator, dial.getLength());
 		}
 
 		for (Sms sms : billingList.getSms()) {
 			Operator operator = verifiers.verify(sms.getNumber());
-			billing.addSms(operator, sms.getValue());
+			billing.addSms(operator);
 		}
 
 		for (Mms mms : billingList.getMms()) {
 			Operator operator = verifiers.verify(mms.getNumber());
-			billing.addMms(operator, mms.getValue());
+			billing.addMms(operator);
 		}
 
 		for (Transfer transfer : billingList.getTransfers()) {
-			billing.addInternet(transfer.getDataSize(), transfer.getValue());
+			billing.addInternet(transfer.getDataSize());
 		}
 
 	}
