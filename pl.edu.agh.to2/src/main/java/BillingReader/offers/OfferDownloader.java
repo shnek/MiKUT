@@ -1,7 +1,6 @@
-package BillingReader;
+package BillingReader.offers;
 
-import BillingReader.telepolis.TelepolisAbonamentDownloader;
-import BillingReader.telepolis.TelepolisCardDownloader;
+import BillingReader.offers.telepolis.TelepolisCardDownloader;
 
 import java.io.IOException;
 import java.util.ArrayList;

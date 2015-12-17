@@ -1,8 +1,8 @@
-package BillingReader.telepolis;
+package BillingReader.offers.telepolis;
 
-import BillingReader.Offer;
-import BillingReader.PageDownloader;
-import BillingReader.telepolis.*;
+import BillingReader.offers.PageDownloader;
+import BillingReader.offers.Offer;
+import BillingReader.offers.telepolis.setters.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

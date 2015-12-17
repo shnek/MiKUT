@@ -1,7 +1,4 @@
-package BillingReader;
-
-import java.util.HashMap;
-import java.util.Map;
+package BillingReader.offers;
 
 public enum Operator {
     PLAY ("Play"),
@@ -17,7 +14,7 @@ public enum Operator {
 
     private String name;
 
-    private Operator(String name) {
+    Operator(String name) {
         this.name = name;
     }
 

@@ -1,15 +1,6 @@
-package BillingReader;
-
-import BillingReader.telepolis.OuterMmsSetter;
-import BillingReader.telepolis.OuterSmsSetter;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+package BillingReader.offers;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
 

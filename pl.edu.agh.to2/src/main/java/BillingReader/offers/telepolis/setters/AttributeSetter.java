@@ -1,6 +1,6 @@
-package BillingReader.telepolis;
+package BillingReader.offers.telepolis.setters;
 
-import BillingReader.Offer;
+import BillingReader.offers.Offer;
 import org.jsoup.nodes.Element;
 
 import java.math.BigDecimal;

@@ -1,7 +1,6 @@
-package BillingReader;
+package BillingReader.offers;
 
 import java.math.BigDecimal;
-import java.util.Map;
 
 public class Offer {
 
@@ -135,11 +134,6 @@ public class Offer {
                         "\n\tOuter sms cost: "+this.outerSmsCost+
                         "\n\tInner mms cost: "+this.innerMmsCost+
                         "\n\tOuter mms cost: "+this.outerMmsCost;
-    }
-
-    public boolean equals (Offer offer)
-    {
-        return this.name == offer.name;
     }
 
 }

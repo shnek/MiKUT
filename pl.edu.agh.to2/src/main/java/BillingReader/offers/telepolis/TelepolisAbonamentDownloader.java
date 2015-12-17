@@ -1,4 +1,9 @@
-package BillingReader.telepolis;
+package BillingReader.offers.telepolis;
+
+import BillingReader.offers.telepolis.setters.AttributeSetter;
+import BillingReader.offers.telepolis.setters.MonthlyPaymentSetter;
+import BillingReader.offers.telepolis.setters.NameSetter;
+import BillingReader.offers.telepolis.setters.OperatorSetter;
 
 import java.util.List;
 

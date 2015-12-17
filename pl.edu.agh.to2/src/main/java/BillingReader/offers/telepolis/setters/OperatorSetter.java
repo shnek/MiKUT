@@ -1,8 +1,7 @@
-package BillingReader.telepolis;
+package BillingReader.offers.telepolis.setters;
 
-import BillingReader.Offer;
-import BillingReader.Operator;
-import BillingReader.telepolis.AttributeSetter;
+import BillingReader.offers.Offer;
+import BillingReader.offers.Operator;
 import org.jsoup.nodes.Element;
 
 public class OperatorSetter extends AttributeSetter {
