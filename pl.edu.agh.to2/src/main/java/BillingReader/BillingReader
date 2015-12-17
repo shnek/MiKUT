@@ -1,6 +1,0 @@
-//import
-
-public interface BillingReader
-{
-    public Billing read (File f);
-}
