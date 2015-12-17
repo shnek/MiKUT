@@ -5,6 +5,8 @@ import OperatorResolver.operatorresolver.billingcontainers.Billing;
 import OperatorResolver.operatorresolver.billingcontainers.ServiceDetails;
 import OperatorResolver.operatorresolver.billingcontainers.Services;
 import OperatorResolver.operatorresolver.billingdata.*;
+import OperatorResolver.veryficator.Verifier;
+import OperatorResolver.veryficator.Verifiers;
 import OperatorResolver.veryficator.verifiers.prefixverifier.Prefixes;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
@@ -16,6 +18,7 @@ import com.openpojo.validation.test.impl.GetterTester;
 import com.openpojo.validation.test.impl.SetterTester;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.powermock.api.mockito.PowerMockito;
 
 import java.math.BigDecimal;
 import java.util.LinkedList;
@@ -213,8 +216,9 @@ public class OperatorResolverTest {
         tList.add(transfer2);
 
         BillingLists billingLists = new BillingLists(dList, sList, mList, tList);
-
-        OperatorResolver op = new OperatorResolverImp(billingLists);
+        Verifiers verifiers =  mock(Verifiers.class);
+        Mockito.when(verifiers.verify("481395416939")).thenReturn(Operator.LANDLINE);
+        OperatorResolver op = new OperatorResolverImp(billingLists, verifiers);
 
         assertEquals(getServiceDetails(op, Operator.LANDLINE).getConnections().getQuantity(), 40);
         assertEquals(getServiceDetails(op, Operator.LANDLINE).getSms().getQuantity(), 2);
@@ -226,12 +230,5 @@ public class OperatorResolverTest {
     private Services getServiceDetails(OperatorResolver operatorResolver, Operator operator){
         return operatorResolver.getBilling().getOperatorToServices().get(operator);
     }
-
-//    @Test
-//    public void testInternetValue(){
-//        Billing billing = opResImpl.getBilling();
-//        assertEquals(billing.getInternet().getValue(), serviceDetails.getValue());
-//    }
-
 
 }

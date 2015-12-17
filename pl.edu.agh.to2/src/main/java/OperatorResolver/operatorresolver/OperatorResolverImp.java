@@ -24,6 +24,13 @@ public class OperatorResolverImp implements OperatorResolver {
 		init(billingList);
 	}
 
+	public OperatorResolverImp(BillingLists billingList, Verifiers verifiers) {
+		this.billing = new Billing();
+		this.verifiers = verifiers;
+
+		init(billingList);
+	}
+
 	private void init(BillingLists billingList) {
 
 		for (Dial dial : billingList.getDials()) {
