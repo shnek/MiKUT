@@ -5,6 +5,7 @@ import OperatorResolver.operatorresolver.billingcontainers.Billing;
 import OperatorResolver.operatorresolver.billingcontainers.ServiceDetails;
 import OperatorResolver.operatorresolver.billingcontainers.Services;
 import OperatorResolver.operatorresolver.billingdata.*;
+import OperatorResolver.veryficator.verifiers.prefixverifier.Prefixes;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.Validator;
@@ -23,9 +24,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
-/**
- * Created by kuba on 30.11.15.
- */
+
 public class OperatorResolverTest {
     private BillingLists testList = mock(BillingLists.class);
     private ServiceDetails serviceDetails = new ServiceDetails();
@@ -135,6 +134,51 @@ public class OperatorResolverTest {
     public void testInternetQuantity(){
         Billing billing = opResImpl.getBilling();
         assertEquals(billing.getInternet().getQuantity(), serviceDetails.getQuantity());
+    }
+
+    @Test
+    public void testServiceDetails(){
+
+        ServiceDetails serviceDetails = new ServiceDetails();
+
+        serviceDetails.addServiceDetails(10);
+        serviceDetails.addServiceDetails(101);
+        serviceDetails.addServiceDetails(200);
+
+        assertEquals(serviceDetails.getQuantity(), 10+101+200);
+    }
+
+    @Test
+
+    public void testBilling(){
+
+        Billing billing = new Billing();
+
+        billing.addConnection(Operator.ORANGE, 10);
+        billing.addConnection(Operator.ORANGE, 25);
+
+        billing.addInternet(15);
+        billing.addInternet(50);
+
+        billing.addMms(Operator.ORANGE);
+        billing.addMms(Operator.ORANGE);
+
+        billing.addSms(Operator.ORANGE);
+        billing.addSms(Operator.ORANGE);
+
+        assertEquals(billing.getOperatorToServices().get(Operator.ORANGE).getConnections().getQuantity(), 35);
+        assertEquals(billing.getInternet().getQuantity(), 65);
+        assertEquals(billing.getOperatorToServices().get(Operator.ORANGE).getMms().getQuantity(), 2);
+        assertEquals(billing.getOperatorToServices().get(Operator.ORANGE).getSms().getQuantity(), 2);
+
+    }
+
+    @Test
+    public void testPrefixes(){
+
+        Prefixes prefixes = new Prefixes();
+        assertEquals(prefixes.getAreaToPrefix("4812"), Operator.LANDLINE);
+
     }
 //    @Test
 //    public void testInternetValue(){

@@ -1,8 +1,8 @@
 package OperatorResolver;
 
 import OperatorResolver.operatorresolver.Operator;
-import OperatorResolver.veryficator.verifiers.webverifier.MainNumberVerifier;
 import OperatorResolver.veryficator.Verifier;
+import OperatorResolver.veryficator.verifiers.webverifier.MainNumberVerifier;
 import OperatorResolver.veryficator.verifiers.webverifier.PageDownloader;
 import OperatorResolver.veryficator.verifiers.webverifier.PageDownloaderImpl;
 import org.junit.Before;
@@ -11,14 +11,16 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
+
 import java.net.MalformedURLException;
 import java.util.Arrays;
 import java.util.Collection;
+
 import static org.junit.Assert.assertEquals;
 
 
 @RunWith(Parameterized.class)
-public class NumberParametrizedVerifiersTest {
+public class NumberParametrizedMainVerifierTest {
 
     private String line;
     private String number;
@@ -32,7 +34,7 @@ public class NumberParametrizedVerifiersTest {
         url = "http://download.t-mobile.pl/updir/updir.cgi?msisdn=";
     }
 
-    public NumberParametrizedVerifiersTest(String number, Operator expectedOperator, String line) {
+    public NumberParametrizedMainVerifierTest(String number, Operator expectedOperator, String line) {
         this.number = number;
         this.expectedOperator = expectedOperator;
         this.line = line;
