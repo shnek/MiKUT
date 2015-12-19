@@ -1,6 +1,7 @@
 package CostCalculator;
 
 import BillingReader.Offer;
+import CostCalculator.summarizer.AbonamentSummary;
 import OperatorResolver.operatorresolver.Billing;
 import OperatorResolver.operatorresolver.ServiceDetails;
 import org.junit.Test;

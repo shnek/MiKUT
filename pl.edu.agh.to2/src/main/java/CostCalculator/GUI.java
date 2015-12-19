@@ -34,27 +34,12 @@ public class GUI extends Application {
         TableColumn<RankingEntry, Integer> idCol = new TableColumn<>("Id");
         TableColumn<RankingEntry, String> operatorNameCol = new TableColumn<>("Operator");
         TableColumn<RankingEntry, Integer> totalCostCol = new TableColumn<>("Total cost");
-        TableColumn<RankingEntry, Integer> innerCallCostCol = new TableColumn<>("Inner call cost");
-        TableColumn<RankingEntry, Integer> outerCallCostCol = new TableColumn<>("Outer call cost");
-        TableColumn<RankingEntry, Integer> innerSmsCostCol = new TableColumn<>("Inner SMS cost");
-        TableColumn<RankingEntry, Integer> outerSmsCostCol = new TableColumn<>("Outer SMS cost");
-        TableColumn<RankingEntry, Integer> innerMmsCostCol = new TableColumn<>("Inner MMS cost");
-        TableColumn<RankingEntry, Integer> outerMmsCostCol = new TableColumn<>("Outer MMS cost");
-        TableColumn<RankingEntry, Integer> internetCostCol = new TableColumn<>("Internet Mb Cost");
 
         idCol.setCellValueFactory(new PropertyValueFactory("id"));
         operatorNameCol.setCellValueFactory(new PropertyValueFactory("operatorName"));
         totalCostCol.setCellValueFactory(new PropertyValueFactory("totalCost"));
-        innerCallCostCol.setCellValueFactory(new PropertyValueFactory("innerCallCost"));
-        outerCallCostCol.setCellValueFactory(new PropertyValueFactory("outerCallCost"));
-        innerSmsCostCol.setCellValueFactory(new PropertyValueFactory("innerSmsCost"));
-        outerSmsCostCol.setCellValueFactory(new PropertyValueFactory("outerSmsCost"));
-        innerMmsCostCol.setCellValueFactory(new PropertyValueFactory("innerMmsCost"));
-        outerMmsCostCol.setCellValueFactory(new PropertyValueFactory("outerMmsCost"));
-        internetCostCol.setCellValueFactory(new PropertyValueFactory("internetCost"));
 
-        rankingTable.getColumns().setAll(idCol, operatorNameCol, totalCostCol, innerCallCostCol, outerCallCostCol,
-                innerSmsCostCol, outerSmsCostCol, innerMmsCostCol, outerMmsCostCol, internetCostCol);
+        rankingTable.getColumns().setAll(idCol, operatorNameCol, totalCostCol);
 
         scene = new Scene(rankingTable, 500, 200);
 
@@ -72,14 +57,7 @@ public class GUI extends Application {
             RankingEntry rankingEntry = new RankingEntry(
                     entriesList.size(),
                     offer.getOperator().getName(),
-                    cost.doubleValue(),
-                    offer.getInnerCallCost().doubleValue(),
-                    offer.getOuterCallCost().doubleValue(),
-                    offer.getInnerSmsCost().doubleValue(),
-                    offer.getOuterSmsCost().doubleValue(),
-                    offer.getInnerMmsCost().doubleValue(),
-                    offer.getOuterMmsCost().doubleValue(),
-                    offer.getInternetMbCost().doubleValue());
+                    cost.doubleValue());
             this.entriesList.add(rankingEntry);
             it.remove();
         }

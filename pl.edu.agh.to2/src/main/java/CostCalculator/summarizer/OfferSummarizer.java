@@ -1,4 +1,4 @@
-package CostCalculator;
+package CostCalculator.summarizer;
 
 import BillingReader.Offer;
 import OperatorResolver.operatorresolver.Billing;

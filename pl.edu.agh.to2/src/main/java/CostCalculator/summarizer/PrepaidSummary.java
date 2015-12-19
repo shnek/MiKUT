@@ -1,4 +1,4 @@
-package CostCalculator;
+package CostCalculator.summarizer;
 
 import BillingReader.Offer;
 import OperatorResolver.operatorresolver.Billing;
@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class PrepaidSummary extends OfferSummary {
 
-    protected PrepaidSummary(Offer offer) {
+    public PrepaidSummary(Offer offer) {
         super(offer);
     }
 
