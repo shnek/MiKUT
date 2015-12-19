@@ -1,6 +1,7 @@
 package CostCalculator;
 
 import BillingReader.Offer;
+import CostCalculator.summarizer.OfferSummarizer;
 import OperatorResolver.operatorresolver.Billing;
 
 import java.math.BigDecimal;
