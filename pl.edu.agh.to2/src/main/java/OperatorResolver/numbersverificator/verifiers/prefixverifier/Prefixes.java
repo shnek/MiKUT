@@ -24,23 +24,17 @@ public class Prefixes {
 		}
 
 		prefixToArea.put(prefixes.getProperty("POLAND"), Operator.OTHERPOLAND);
+		fillMapWithPrefixes("EURO", Operator.EURO);
+		fillMapWithPrefixes("FIRST", Operator.AREA1);
+		fillMapWithPrefixes("SECOND", Operator.AREA2);
+		fillMapWithPrefixes("LANDLINE", Operator.LANDLINE);
 
-		for (String s : prefixes.getProperty("EURO").split(",")) {
-			prefixToArea.put(s, Operator.EURO);
+	}
+
+	private void fillMapWithPrefixes(String PropertyName, Operator operator){
+		for(String prefix : prefixes.getProperty(PropertyName).split(",")){
+			prefixToArea.put(prefix, operator);
 		}
-
-		for (String s : prefixes.getProperty("FIRST").split(",")) {
-			prefixToArea.put(s, Operator.AREA1);
-		}
-
-		for (String s : prefixes.getProperty("SECOND").split(",")) {
-			prefixToArea.put(s, Operator.AREA2);
-		}
-
-		for (String s : prefixes.getProperty("LANDLINE").split(",")) {
-			prefixToArea.put(s, Operator.LANDLINE);
-		}
-
 	}
 
 	public Operator getAreaToPrefix(String pref) {

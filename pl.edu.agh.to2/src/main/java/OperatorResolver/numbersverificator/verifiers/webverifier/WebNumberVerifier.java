@@ -15,9 +15,14 @@ public class WebNumberVerifier implements Verifier {
 
 	private String number;
 	private PageDownloader downloader;
-
+	private Map<String, Operator> stringToOperator;
 	public WebNumberVerifier(PageDownloader downloader){
 		this.downloader = downloader;
+		stringToOperator = new HashMap<>();
+		stringToOperator.put("Orange", Operator.ORANGE);
+		stringToOperator.put("PTC / T-Mobile", Operator.TMOBILE);
+		stringToOperator.put("P4", Operator.PLAY);
+		stringToOperator.put("Plus", Operator.PLUS);
 	}
 
 	@Override
@@ -36,10 +41,8 @@ public class WebNumberVerifier implements Verifier {
 			}
 		} catch(InterruptedException ex) {
 			Thread.currentThread().interrupt();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		}
-		return null;
+		throw new RuntimeException("WebNumberVerifier.verify somehow didn't return any operator.");
 	}
 
 
@@ -53,18 +56,10 @@ public class WebNumberVerifier implements Verifier {
 				return getOperator(result);
 			}
 		}
-
-		return null;
+		throw new RuntimeException("Pattern not found in WebNumberVerifier.findPattern().");
 	}
 
 	private Operator getOperator(String operator) {
-
-		Map<String, Operator> stringToOperator = new HashMap<>();
-		stringToOperator.put("Orange", Operator.ORANGE);
-		stringToOperator.put("PTC / T-Mobile", Operator.TMOBILE);
-		stringToOperator.put("P4", Operator.PLAY);
-		stringToOperator.put("Plus", Operator.PLUS);
-
 		if (stringToOperator.containsKey(operator)) {
 			return stringToOperator.get(operator);
 		} else {

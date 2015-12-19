@@ -23,6 +23,5 @@ public class PrefixNumberVerifier implements Verifier {
 		}
 
 		return Operator.AREA3;
-
 	}
 }

@@ -14,9 +14,14 @@ public class PageDownloaderImpl implements PageDownloader{
     private int second = 1000;
     private int iteration = 15;
 
-    public String getLine(String stringUrl) throws MalformedURLException {
-        URL url = new URL(stringUrl);
-        String line;
+    public String getLine(String stringUrl) {
+        URL url = null;
+        try {
+            url = new URL(stringUrl);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("URL in PageDownloader.getLine is invalid!");
+        }
+        String line = null;
         reconnect = true;
         while(reconnect) {
             try (InputStream is = url.openStream()) {
@@ -41,7 +46,7 @@ public class PageDownloaderImpl implements PageDownloader{
                 e.printStackTrace();
             }
         }
-        return null;
+        return line;
     }
 
 
