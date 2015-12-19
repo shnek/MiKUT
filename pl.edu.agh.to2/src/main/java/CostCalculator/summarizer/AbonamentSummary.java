@@ -1,4 +1,4 @@
-package CostCalculator;
+package CostCalculator.summarizer;
 
 import BillingReader.Offer;
 import OperatorResolver.operatorresolver.Billing;
@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 public class AbonamentSummary extends OfferSummary {
 
-    protected AbonamentSummary(Offer offer) {
+    public AbonamentSummary(Offer offer) {
         super(offer);
     }
 
