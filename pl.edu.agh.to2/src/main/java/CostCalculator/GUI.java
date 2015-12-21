@@ -1,5 +1,6 @@
 package CostCalculator;
 
+import CostCalculator.controllers.HelloScreenController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,20 +13,15 @@ import java.util.logging.Logger;
 
 public class GUI extends Application {
 
-    public Scene helloScene;
-    public Scene analysisScene;
-    public Scene resultsScene;
-
     @Override
     public void start(Stage primaryStage) {
         try {
-            Pane helloScreen = FXMLLoader.load(getClass().getResource("/views/hello_screen.fxml"));
-            Pane analysisScreen = FXMLLoader.load(getClass().getResource("/views/analysis_screen.fxml"));
-            Pane resultsScreen = FXMLLoader.load(getClass().getResource("/views/results_screen.fxml"));
-            helloScene = new Scene(helloScreen);
-            analysisScene = new Scene(analysisScreen);
-            resultsScene = new Scene(resultsScreen);
-            primaryStage.setScene(helloScene);
+            final FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/hello_screen.fxml"));
+            Pane screen = loader.load();
+            final HelloScreenController controller = loader.getController();
+            controller.populate(primaryStage);
+            Scene scene = new Scene(screen);
+            primaryStage.setScene(scene);
             primaryStage.setTitle("MiKUT");
             primaryStage.show();
         } catch (Exception ex) {

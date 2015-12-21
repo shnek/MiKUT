@@ -6,16 +6,20 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="168.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CostCalculator.controllers.HelloScreenController">
    <children>
-      <Button layoutX="106.0" layoutY="221.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="188.0" text="Search offers" />
-      <Button layoutX="106.0" layoutY="150.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="188.0" text="Load billing" />
-      <Text layoutX="21.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Billing path:" wrappingWidth="84.16260147094727">
+      <Button fx:id="searchOffersButton" layoutX="397.0" layoutY="111.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="143.0" text="Search offers" />
+      <Button fx:id="loadBillingButton" layoutX="241.0" layoutY="111.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="143.0" text="Load billing" />
+      <Text layoutX="21.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Billing path:" wrappingWidth="84.16260147094727">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <TextField layoutX="125.0" layoutY="98.0" prefHeight="26.0" prefWidth="250.0" />
+      <TextField fx:id="filePathTextField" layoutX="125.0" layoutY="42.0" prefHeight="26.0" prefWidth="415.0" />
+      <Text layoutX="75.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose billing to be processed and then click 'Search offers' to analyze it..." wrappingWidth="514.6829261779785">
+         <font>
+            <Font name="System Italic" size="13.0" />
+         </font>
+      </Text>
    </children>
 </Pane>
