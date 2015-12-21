@@ -8,7 +8,6 @@ public class Dial {
 
 	private String number;
 	private int length;
-	private BigDecimal value;
 
 	public Dial(){
 
@@ -33,14 +32,6 @@ public class Dial {
 
 	public void setLength(int length) {
 		this.length = length;
-	}
-
-	public BigDecimal getValue() {
-		return value;
-	}
-
-	public void setValue(BigDecimal value) {
-		this.value = value;
 	}
 
 }

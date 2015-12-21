@@ -7,7 +7,6 @@ import java.math.BigDecimal;
 public class Mms {
 
 	String number;
-	BigDecimal value;
 
 	public Mms(){
 
@@ -27,11 +26,4 @@ public class Mms {
 
 
 	// Why did you commented this? Without this tests fails...
-	public BigDecimal getValue() {
-		return value;
-	}
-
-	public void setValue(BigDecimal value) {
-		this.value = value;
-	}
 }

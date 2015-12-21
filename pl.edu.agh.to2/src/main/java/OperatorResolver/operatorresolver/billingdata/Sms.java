@@ -6,7 +6,6 @@ import java.math.BigDecimal;
 
 public class Sms {
 	String number;
-	BigDecimal value;
 
 	public Sms() {
 
@@ -24,12 +23,5 @@ public class Sms {
 		this.number = number;
 	}
 
-	public BigDecimal getValue() {
-		return value;
-	}
-
-	public void setValue(BigDecimal value) {
-		this.value = value;
-	}
 
 }
