@@ -15,8 +15,7 @@ public class Main {
         List<Offer> offers = new ArrayList<>();
         CostCalculator costCalculator = new CostCalculator(billing, offers);
 
-        Map<Offer, BigDecimal> calculatedOffers = costCalculator.calculateCosts();
-        GUI ranking = new GUI();
-        ranking.run(calculatedOffers);
+        GUI gui = new GUI();
+        gui.run();
     }
 }
