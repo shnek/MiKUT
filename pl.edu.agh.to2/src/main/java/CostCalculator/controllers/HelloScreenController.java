@@ -27,7 +27,6 @@ public class HelloScreenController implements Initializable {
     public Button searchOffersButton;
     public TextField filePathTextField;
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadBillingButton.setOnAction(this::handleLoadBillingButton);
@@ -37,7 +36,10 @@ public class HelloScreenController implements Initializable {
     private void handleSearchOffersButton(ActionEvent event) {
         Logger.getLogger(getClass().getName()).log(Level.INFO, "searching offers");
         try {
-            Pane analysisScreen = FXMLLoader.load(getClass().getResource("/views/analysis_screen.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/analysis_screen.fxml"));
+            Pane analysisScreen = loader.load();
+            AnalysisScreenController analysisScreenController = loader.getController();
+            analysisScreenController.populate(rootStage);
             rootStage.setScene(new Scene(analysisScreen));
         } catch (IOException e) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "can't load new screen: {0}", e);
@@ -51,6 +53,7 @@ public class HelloScreenController implements Initializable {
         fileChooser.getExtensionFilters().add(extFilter);
         File file = fileChooser.showOpenDialog(rootStage);
         Logger.getLogger(getClass().getName()).log(Level.INFO, "file chosen: {0}", file);
+        if (file == null) return;
         filePathTextField.setText(file.toString());
         // todo: pass file to BillingReader
     }
