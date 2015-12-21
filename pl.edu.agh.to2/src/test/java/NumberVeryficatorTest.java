@@ -1,6 +1,5 @@
 import OperatorResolver.NumberVeryficator;
 import junit.framework.TestCase;
-import org.junit.Assert.*;
 
 /**
  * Created by kuba on 09.11.15.
