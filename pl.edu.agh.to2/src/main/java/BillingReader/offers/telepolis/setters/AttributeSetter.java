@@ -14,8 +14,9 @@ public abstract class AttributeSetter {
         this.pattern = pattern;
     }
 
+    public String getPattern() { return this.pattern; }
+
     public boolean matchesPattern (String label) {
-        //System.out.println("hello, checking if "+label+" contains "+pattern);
         return label.contains(pattern);
     }
 

@@ -17,11 +17,6 @@ public class Offer {
     private BigDecimal internetMbCost;
     private double freeInternetMb;
 
-    public Offer()
-    {
-        //nope--
-    }
-
     public String getName() {
         return name;
     }
