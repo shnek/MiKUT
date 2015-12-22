@@ -36,11 +36,7 @@ public class HelloScreenController implements Initializable {
     private void handleSearchOffersButton(ActionEvent event) {
         Logger.getLogger(getClass().getName()).log(Level.INFO, "searching offers");
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/analysis_screen.fxml"));
-            Pane analysisScreen = loader.load();
-            AnalysisScreenController analysisScreenController = loader.getController();
-            analysisScreenController.populate(rootStage);
-            rootStage.setScene(new Scene(analysisScreen));
+            showAnalysisScreen();
         } catch (IOException e) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "can't load new screen: {0}", e);
         }
@@ -48,14 +44,26 @@ public class HelloScreenController implements Initializable {
 
     private void handleLoadBillingButton(ActionEvent event) {
         Logger.getLogger(getClass().getName()).log(Level.INFO, "loading billing");
-        FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Billing files (*.pdf, *.csv)", "*.pdf", "*.csv");
-        fileChooser.getExtensionFilters().add(extFilter);
-        File file = fileChooser.showOpenDialog(rootStage);
+        File file = chooseFile();
         Logger.getLogger(getClass().getName()).log(Level.INFO, "file chosen: {0}", file);
         if (file == null) return;
         filePathTextField.setText(file.toString());
         // todo: pass file to BillingReader
+    }
+
+    private void showAnalysisScreen() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/analysis_screen.fxml"));
+        Pane analysisScreen = loader.load();
+        AnalysisScreenController analysisScreenController = loader.getController();
+        analysisScreenController.populate(rootStage);
+        rootStage.setScene(new Scene(analysisScreen));
+    }
+
+    private File chooseFile() {
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Billing files (*.pdf, *.csv)", "*.pdf", "*.csv");
+        fileChooser.getExtensionFilters().add(extFilter);
+        return fileChooser.showOpenDialog(rootStage);
     }
 
 

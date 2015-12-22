@@ -28,12 +28,18 @@ public class AnalysisScreenController implements Initializable {
         // tymczasowo wyświetla results_screen
         Logger.getLogger(getClass().getName()).log(Level.INFO, "displaying results");
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/results_screen.fxml"));
-            Pane resultsScreen = loader.load();
-            rootStage.setScene(new Scene(resultsScreen));
+            showResultsScreen();
         } catch (IOException e) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "can't load new screen: {0}", e);
         }
+    }
+
+    private void showResultsScreen() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/results_screen.fxml"));
+        Pane resultsScreen = loader.load();
+        ResultsScreenController resultsScreenController = loader.getController();
+        resultsScreenController.populate(rootStage);
+        rootStage.setScene(new Scene(resultsScreen));
     }
 
     public void populate(Stage rootStage) {
