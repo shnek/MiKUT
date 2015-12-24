@@ -2,6 +2,7 @@ package CostCalculator.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
@@ -11,6 +12,7 @@ import java.util.ResourceBundle;
 public class DetailsScreenController implements Initializable {
 
     public Button closeButton;
+    private Stage stage;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -18,10 +20,10 @@ public class DetailsScreenController implements Initializable {
     }
 
     private void handleCloseButton(ActionEvent actionEvent) {
-
+        stage.close();
     }
 
-    public void populate(Stage rootStage) {
-
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 }

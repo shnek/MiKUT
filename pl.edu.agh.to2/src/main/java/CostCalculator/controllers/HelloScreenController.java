@@ -1,17 +1,11 @@
 package CostCalculator.controllers;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,9 +14,8 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class HelloScreenController implements Initializable {
+public class HelloScreenController extends ScreenController implements Initializable {
 
-    private Stage rootStage;
     public Button loadBillingButton;
     public Button searchOffersButton;
     public TextField filePathTextField;
@@ -45,29 +38,29 @@ public class HelloScreenController implements Initializable {
     private void handleLoadBillingButton(ActionEvent event) {
         Logger.getLogger(getClass().getName()).log(Level.INFO, "loading billing");
         File file = chooseFile();
-        Logger.getLogger(getClass().getName()).log(Level.INFO, "file chosen: {0}", file);
-        if (file == null) return;
-        filePathTextField.setText(file.toString());
-        // todo: pass file to BillingReader
+        if (file != null) {
+            Logger.getLogger(getClass().getName()).log(Level.INFO, "file chosen: {0}", file);
+            filePathTextField.setText(file.toString());
+            // todo: pass file to BillingReader
+        } else {
+            Logger.getLogger(getClass().getName()).log(Level.INFO, "no file chosen");
+        }
     }
 
     private void showAnalysisScreen() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/analysis_screen.fxml"));
-        Pane analysisScreen = loader.load();
-        AnalysisScreenController analysisScreenController = loader.getController();
-        analysisScreenController.populate(rootStage);
-        rootStage.setScene(new Scene(analysisScreen));
+        ScreenController.createController(controllerManager, "/views/analysis_screen.fxml");
+        controllerManager.setCurrentScene(controllerManager.getAnalysisScene());
     }
 
     private File chooseFile() {
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Billing files (*.pdf, *.csv)", "*.pdf", "*.csv");
         fileChooser.getExtensionFilters().add(extFilter);
-        return fileChooser.showOpenDialog(rootStage);
+        return fileChooser.showOpenDialog(controllerManager.getStage());
     }
 
-
-    public void populate(Stage rootStage) {
-        this.rootStage = rootStage;
+    @Override
+    public void setScene(Scene scene) {
+        controllerManager.setHelloScene(scene);
     }
 }
