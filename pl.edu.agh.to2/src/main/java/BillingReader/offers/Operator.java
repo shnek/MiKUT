@@ -21,9 +21,7 @@ public enum Operator {
     public static Operator findByName(String name) {
         Operator[] list = Operator.values();
         for (Operator op : list) {
-            //System.out.println(op.getName()+" vs "+name);
             if (op.name.equals(name)) {
-                //System.out.println("MATCH XD");
                 return op;
             }
         }

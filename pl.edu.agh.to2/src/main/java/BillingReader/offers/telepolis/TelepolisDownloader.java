@@ -16,6 +16,8 @@ public abstract class TelepolisDownloader extends PageDownloader {
     private String url;
     private boolean abonament;
 
+    private List<String> links = new LinkedList<String>();
+
     private NameSetter nameSetter;
     private OperatorSetter operatorSetter;
     private MonthlyPaymentSetter monthlyPaymentSetter;
@@ -30,7 +32,7 @@ public abstract class TelepolisDownloader extends PageDownloader {
         fieldSetters.add(new OuterCallSetter());
         fieldSetters.add(new InnerSmsSetter());
         fieldSetters.add(new OuterSmsSetter());
-        fieldSetters.add(new OuterSmsSetter());
+        fieldSetters.add(new OuterMmsSetter());
         fieldSetters.add(new InnerMmsSetter());
         fieldSetters.add(new InternetFieldsSetter());
     }
@@ -57,7 +59,6 @@ public abstract class TelepolisDownloader extends PageDownloader {
 
     public List<Offer> download () throws IOException {
         List<Offer> list = new LinkedList<Offer>();
-        List<String> links = new LinkedList<String>();
         Document doc = Jsoup.connect(url).get();
         Elements offers = doc.select("li.gsmWynik ");
 
@@ -65,23 +66,12 @@ public abstract class TelepolisDownloader extends PageDownloader {
             Offer nextOffer = new Offer();
             boolean inputCorrectFlag = true;
 
-            nameSetter.setAttribute(nextOffer,elem);
-            operatorSetter.setAttribute(nextOffer,elem);
-            monthlyPaymentSetter.setAttribute(nextOffer,elem);
-            nextOffer.setAbonament(abonament);
-
-            Element tmp = elem.select("a").first();
-            String link = tmp.attr("abs:href");
-            links.add(link);
-            Document doc2 = Jsoup.connect(link).get();
-            Elements cells = doc2.select("td");
-            Iterator<Element> cell = cells.iterator();
+            Iterator<Element> cell = this.initOffer(elem,nextOffer);
             Element next1, next2;
             next1 = cell.next();
             try {
                 while (cell.hasNext()) {
                     next2 = cell.next();
-                    //out(String.valueOf(next2));
                     for (AttributeSetter setter : fieldSetters) {
                         if (setter.matchesPattern(String.valueOf(next1))) {
                             setter.setAttribute(nextOffer,next2);
@@ -92,7 +82,7 @@ public abstract class TelepolisDownloader extends PageDownloader {
             } catch (NumberFormatException e) {
                 //inputCorrectFlag = false;
             } catch (NullPointerException f) {
-                //inputCorrectFlag = false;
+                inputCorrectFlag = false;
             } catch (NoSuchElementException g) {
                 continue;
             }
@@ -101,9 +91,22 @@ public abstract class TelepolisDownloader extends PageDownloader {
                 list.add(nextOffer);
                 out("Dodano oferte " + nextOffer.getName());
             }
-
+            break;
         }
         return list;
+    }
+
+    private Iterator<Element> initOffer (Element elem, Offer nextOffer) throws IOException {
+        nameSetter.setAttribute(nextOffer,elem);
+        operatorSetter.setAttribute(nextOffer,elem);
+        monthlyPaymentSetter.setAttribute(nextOffer,elem);
+        nextOffer.setAbonament(abonament);
+        Element tmp = elem.select("a").first();
+        String link = tmp.attr("abs:href");
+        links.add(link);
+        Document doc2 = Jsoup.connect(link).get();
+        Elements cells = doc2.select("td");
+        return cells.iterator();
     }
 
     private void out (String line)
