@@ -1,8 +1,10 @@
 package CostCalculator.controllers;
 
-import CostCalculator.CostCalculator;
 import OperatorResolver.operatorresolver.Billing;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -21,24 +23,74 @@ public class AnalysisScreenController extends ScreenController implements Initia
 
     public ProgressBar progressBar;
     public Button cancelButton;
+    public Button startButton;
     public Text currentStatusText;
 
     public Billing billing;
-    public CostCalculator costCalculator;
+    private Task<Void> analysisTask;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         progressBar.setProgress(0.0);
         cancelButton.setCancelButton(true);
         cancelButton.setOnAction(this::handleCancelButton);
+        startButton.setOnAction(this::handleStartButton);
+    }
+
+    private void handleStartButton(ActionEvent actionEvent) {
+        analysisTask = createAnalysisTask();
+        analysisTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent t)
+            {
+                try {
+                    showResultsScreen();
+                } catch (IOException e) {
+                    Logger.getLogger(getClass().getName()).log(Level.SEVERE, "can't load new screen: {0}", e);
+                }
+            }
+        });
+        analysisTask.setOnFailed(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent t)
+            {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, "analysis error: {0}", t.toString());
+            }
+        });
+
+        progressBar.progressProperty().bind(analysisTask.progressProperty());
+        Thread analysisThread = new Thread(analysisTask);
+        analysisThread.setDaemon(true);
+        analysisThread.start();
+    }
+
+    private Task<Void> createAnalysisTask() {
+        return new Task<Void>() {
+            @Override public Void call() {
+                startButton.setDisable(true);
+                try {
+                    updateProgress(0.00, 1.00);
+                    analyzeBilling();
+                    updateProgress(0.25, 1.00);
+                    searchOffers();
+                    updateProgress(0.50, 1.00);
+                    calculateCosts();
+                    updateProgress(0.75, 1.00);
+                    chooseBestOffer();
+                    updateProgress(1.00, 1.00);
+                } catch (InterruptedException e) {
+                    if (isCancelled()) return null;
+                    else e.printStackTrace();
+                }
+                return null;
+            }
+        };
     }
 
     private void handleCancelButton(ActionEvent actionEvent) {
-        // tymczasowo wyświetla results_screen
         Logger.getLogger(getClass().getName()).log(Level.INFO, "canceling analysis");
         try {
-            showResultsScreen();
-//            cancelAnalysis();
+            cancelAnalysis();
         } catch (IOException e) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "can't load new screen: {0}", e);
         }
@@ -50,42 +102,28 @@ public class AnalysisScreenController extends ScreenController implements Initia
     }
 
     private void cancelAnalysis() throws IOException {
+        analysisTask.cancel();
         controllerManager.setCurrentScene(controllerManager.getHelloScene());
     }
 
-    private void analyze(Billing billing) {
+    private void analyzeBilling() throws InterruptedException {
         Logger.getLogger(getClass().getName()).log(Level.INFO, "analyzing billing");
-        try {
-            sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        progressBar.setProgress(0.25);
-        Logger.getLogger(getClass().getName()).log(Level.INFO, "searching offers");
-        try {
-            sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        progressBar.setProgress(0.50);
-        Logger.getLogger(getClass().getName()).log(Level.INFO, "calculating costs");
-        try {
-            sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        progressBar.setProgress(0.75);
-        Logger.getLogger(getClass().getName()).log(Level.INFO, "choosing best offer");
-        try {
-            sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        progressBar.setProgress(1.0);
+        sleep(1000);
     }
 
-    public void passData(Billing billing) {
-        this.billing = billing;
+    private void searchOffers() throws InterruptedException {
+        Logger.getLogger(getClass().getName()).log(Level.INFO, "searching offers");
+        sleep(1000);
+    }
+
+    private void calculateCosts() throws InterruptedException {
+        Logger.getLogger(getClass().getName()).log(Level.INFO, "calculating costs");
+        sleep(1000);
+    }
+
+    private void chooseBestOffer() throws InterruptedException {
+        Logger.getLogger(getClass().getName()).log(Level.INFO, "choosing best offer");
+        sleep(1000);
     }
 
     public void setScene(Scene scene) {

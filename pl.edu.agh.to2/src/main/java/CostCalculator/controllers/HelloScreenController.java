@@ -1,5 +1,6 @@
 package CostCalculator.controllers;
 
+import OperatorResolver.operatorresolver.Billing;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -29,6 +30,8 @@ public class HelloScreenController extends ScreenController implements Initializ
     private void handleSearchOffersButton(ActionEvent event) {
         Logger.getLogger(getClass().getName()).log(Level.INFO, "searching offers");
         try {
+            Billing billing = new Billing(); // todo: get actual billing repr
+            controllerManager.setBilling(billing);
             showAnalysisScreen();
         } catch (IOException e) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "can't load new screen: {0}", e);

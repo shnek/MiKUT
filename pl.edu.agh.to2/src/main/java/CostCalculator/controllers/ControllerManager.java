@@ -1,5 +1,6 @@
 package CostCalculator.controllers;
 
+import OperatorResolver.operatorresolver.Billing;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -9,6 +10,8 @@ public class ControllerManager {
     private Scene helloScene;
     private Scene analysisScene;
     private Scene resultsScene;
+
+    private Billing billing;
 
     public ControllerManager(Stage stage) {
         this.stage = stage;
@@ -44,5 +47,13 @@ public class ControllerManager {
 
     public void setCurrentScene(Scene scene) {
         this.stage.setScene(scene);
+    }
+
+    public void setBilling(Billing billing) {
+        this.billing = billing;
+    }
+
+    public Billing getBilling() {
+        return billing;
     }
 }

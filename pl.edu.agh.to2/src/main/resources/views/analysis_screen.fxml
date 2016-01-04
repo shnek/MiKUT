@@ -10,7 +10,8 @@
       <ProgressBar fx:id="progressBar" layoutX="50.0" layoutY="90.0" prefHeight="20.0" prefWidth="250.0" progress="0.0" />
       <Text fx:id="currentStatusText" layoutX="136.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" wrappingWidth="163.68292617797852" />
       <Text layoutX="63.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status:" />
-      <Button fx:id="cancelButton" layoutX="136.0" layoutY="152.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="79.0" text="Cancel" />
+      <Button fx:id="cancelButton" layoutX="221.0" layoutY="135.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="79.0" text="Cancel" />
       <Text layoutX="149.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Progress" />
+      <Button fx:id="startButton" layoutX="50.0" layoutY="135.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="79.0" text="Start" />
    </children>
 </Pane>
