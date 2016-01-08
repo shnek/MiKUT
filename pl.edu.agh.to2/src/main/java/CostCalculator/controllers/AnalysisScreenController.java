@@ -1,6 +1,9 @@
 package CostCalculator.controllers;
 
-import OperatorResolver.operatorresolver.Billing;
+import BillingReader.Offer;
+import CostCalculator.CostCalculator;
+import CostCalculator.Mocker;
+import OperatorResolver.operatorresolver.billingcontainers.Billing;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
@@ -12,7 +15,10 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URL;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +33,8 @@ public class AnalysisScreenController extends ScreenController implements Initia
     public Text currentStatusText;
 
     public Billing billing;
+    private CostCalculator calculator;
+    private Map<Offer, BigDecimal> results;
     private Task<Void> analysisTask;
 
     @Override
@@ -119,11 +127,19 @@ public class AnalysisScreenController extends ScreenController implements Initia
     private void calculateCosts() throws InterruptedException {
         Logger.getLogger(getClass().getName()).log(Level.INFO, "calculating costs");
         sleep(1000);
+
+        Billing billing = controllerManager.getBilling();
+        List<Offer> offers = new Mocker().getMockOffers(); // todo: get actual offers
+        calculator = new CostCalculator(billing, offers);
+        results = calculator.calculateCosts();
     }
 
     private void chooseBestOffer() throws InterruptedException {
         Logger.getLogger(getClass().getName()).log(Level.INFO, "choosing best offer");
         sleep(1000);
+
+        BigDecimal bestOfferValue = calculator.getBestOfferValue(results);
+        // todo: check if bestOfferValue <= current offer
     }
 
     public void setScene(Scene scene) {

@@ -2,7 +2,7 @@ package CostCalculator;
 
 import BillingReader.Offer;
 import CostCalculator.summarizer.OfferSummarizer;
-import OperatorResolver.operatorresolver.Billing;
+import OperatorResolver.operatorresolver.billingcontainers.Billing;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -29,6 +29,22 @@ public class CostCalculator {
         }
 
         return costs;
+    }
+
+    public BigDecimal getBestOfferValue(Map<Offer, BigDecimal> costs) {
+        Map.Entry<Offer, BigDecimal> bestEntry = null;
+
+        for (Map.Entry<Offer, BigDecimal> entry : costs.entrySet()) {
+            if (bestEntry == null || entry.getValue().compareTo(bestEntry.getValue()) < 0) {
+                bestEntry = entry;
+            }
+        }
+
+        if (bestEntry == null) {
+            throw new RuntimeException("cost map empty");
+        }
+
+        return bestEntry.getValue();
     }
 
     public Billing getBilling() {

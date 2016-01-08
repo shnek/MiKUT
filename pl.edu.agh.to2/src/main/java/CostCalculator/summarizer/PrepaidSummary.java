@@ -1,9 +1,9 @@
 package CostCalculator.summarizer;
 
 import BillingReader.Offer;
-import OperatorResolver.operatorresolver.Billing;
 import OperatorResolver.operatorresolver.Operator;
-import OperatorResolver.operatorresolver.Services;
+import OperatorResolver.operatorresolver.billingcontainers.Billing;
+import OperatorResolver.operatorresolver.billingcontainers.Services;
 
 import java.math.BigDecimal;
 import java.util.Map;

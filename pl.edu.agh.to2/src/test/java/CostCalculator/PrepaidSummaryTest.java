@@ -2,7 +2,6 @@ package CostCalculator;
 
 import BillingReader.Offer;
 import CostCalculator.summarizer.PrepaidSummary;
-import OperatorResolver.operatorresolver.Billing;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -12,8 +11,9 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import OperatorResolver.operatorresolver.Operator;
-import OperatorResolver.operatorresolver.ServiceDetails;
-import OperatorResolver.operatorresolver.Services;
+import OperatorResolver.operatorresolver.billingcontainers.Billing;
+import OperatorResolver.operatorresolver.billingcontainers.ServiceDetails;
+import OperatorResolver.operatorresolver.billingcontainers.Services;
 import org.junit.Test;
 import org.mockito.Mockito;
 

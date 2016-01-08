@@ -7,12 +7,12 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="339.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CostCalculator.controllers.DetailsScreenController">
    <children>
-      <Text layoutX="68.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nazwa oferty" wrappingWidth="85.9091796875" />
-      <Text layoutX="251.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Operator" />
-      <Text layoutX="435.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Twoja kwota w tej ofercie" wrappingWidth="85.9091796875" />
-      <Text layoutX="68.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T-M Jump Premium" wrappingWidth="133.18896484375" />
-      <Text layoutX="251.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T-M" wrappingWidth="85.9091796875" />
-      <Text layoutX="435.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="51.99 zł" />
+      <Text layoutX="60.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nazwa oferty:" wrappingWidth="102.9091796875" />
+      <Text layoutX="251.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Operator:" />
+      <Text layoutX="435.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Twoja kwota w tej ofercie:" wrappingWidth="85.9091796875" />
+      <Text fx:id="offerNameText" layoutX="57.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T-M Jump Premium" wrappingWidth="133.18896484375" />
+      <Text fx:id="operatorText" layoutX="242.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T-M" wrappingWidth="85.9091796875" />
+      <Text fx:id="amountText" layoutX="435.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="51.99 zł" />
       <Button fx:id="closeButton" layoutX="220.0" layoutY="294.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="147.0" text="Close" />
       <Text layoutX="111.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="// todo" />
    </children>

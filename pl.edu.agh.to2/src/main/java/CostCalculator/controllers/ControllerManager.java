@@ -1,6 +1,6 @@
 package CostCalculator.controllers;
 
-import OperatorResolver.operatorresolver.Billing;
+import OperatorResolver.operatorresolver.billingcontainers.Billing;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 

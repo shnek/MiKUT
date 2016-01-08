@@ -1,6 +1,7 @@
 package CostCalculator.controllers;
 
-import OperatorResolver.operatorresolver.Billing;
+import CostCalculator.Mocker;
+import OperatorResolver.operatorresolver.billingcontainers.Billing;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -31,6 +32,7 @@ public class HelloScreenController extends ScreenController implements Initializ
         Logger.getLogger(getClass().getName()).log(Level.INFO, "searching offers");
         try {
             Billing billing = new Billing(); // todo: get actual billing repr
+            //Billing billing = new Mocker().getMockBilling();
             controllerManager.setBilling(billing);
             showAnalysisScreen();
         } catch (IOException e) {

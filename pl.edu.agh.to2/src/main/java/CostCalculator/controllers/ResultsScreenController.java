@@ -1,18 +1,21 @@
 package CostCalculator.controllers;
 
-import CostCalculator.CostCalculator;
-import OperatorResolver.operatorresolver.Billing;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,11 +27,30 @@ public class ResultsScreenController extends ScreenController implements Initial
     public Button analyzeAnotherBillingButton;
     public Button exitButton;
 
+    public TableView<TableEntry> tableView;
+    public TableColumn<TableEntry, String> offerNameCol;
+    public TableColumn<TableEntry, String> operatorCol;
+    public TableColumn<TableEntry, Double> amountCol;
+    public TableColumn<TableEntry, Button> detailsCol;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         currentOfferDetailsButton.setOnAction(this::handleCurrentOfferDetailsButton);
         exitButton.setOnAction(this::handleFinishButton);
         analyzeAnotherBillingButton.setOnAction(this::analyzeAnotherBillingButton);
+
+        offerNameCol.setCellValueFactory(new PropertyValueFactory<>("Offer name"));
+        operatorCol.setCellValueFactory(new PropertyValueFactory<>("Operator"));
+        amountCol.setCellValueFactory(new PropertyValueFactory<>("Amount"));
+
+        detailsCol.setSortable(false);
+
+        tableView.getItems().setAll(getTableContent());
+    }
+
+    private List<TableEntry> getTableContent() {
+        // todo: implement
+        return new ArrayList<>();
     }
 
     private void analyzeAnotherBillingButton(ActionEvent event) {
