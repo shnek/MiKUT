@@ -4,46 +4,48 @@ import OperatorResolver.operatorresolver.OperatorResolverImp;
 import OperatorResolver.operatorresolver.billingcontainers.Billing;
 import OperatorResolver.operatorresolver.billingdata.*;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class PlayReader extends BillingReader {
 
-    String playExtension = "csv";
-    List<Dial> dialList;
-    List<Sms> smsList;
-    List<Mms> mmsList;
-    List<Transfer> transferList;
+    private String playExtension = "csv";
+    private List<Dial> dialList = new ArrayList<>();
+    private List<Sms> smsList = new ArrayList<>();
+    private List<Mms> mmsList = new ArrayList<>();
+    private List<Transfer> transferList = new ArrayList<>();
 
     @Override
     public Billing readBilling(File file) throws FileNotFoundException {
-
         if (!extensionCorrect(playExtension,file)) {
             //TODO
         }
 
-        Scanner scanner = new Scanner(file);
-        readFile(scanner);
-
+        readFile(file);
         BillingLists lists = new BillingLists(dialList, smsList, mmsList, transferList);
         OperatorResolverImp resolver = new OperatorResolverImp(lists);
         return resolver.getBilling();
     }
 
-    private void readFile(Scanner scanner) {
-
+    private void readFile(File file) throws FileNotFoundException {
         String phoneNr;
         int length;
         int kB;
 
+        Scanner scanner = new Scanner(new BufferedReader(new FileReader(file)));
+        scanner.useDelimiter("\n");
+
         while (scanner.hasNext()) {
             String[] elements = scanner.next().split(",");
 
-            if (!elements[1].equals("Wychodzące")) continue;
-            switch(elements[2].toLowerCase()) {
-                case "rozmowy głosowe":
+            if (!elements[1].contains("Wychodz")) continue;
+            switch (elements[2].toLowerCase()) {
+                case "rozmowy g�osowe":
                     phoneNr = elements[5];
                     length = toSeconds(elements[7]);
                     Dial dial = new Dial(phoneNr, length);
@@ -68,7 +70,9 @@ public class PlayReader extends BillingReader {
                     break;
             }
         }
+        scanner.close();
     }
+
 
     private int toSeconds(String text) {
         String withColon = text.substring(0,5);
@@ -83,5 +87,4 @@ public class PlayReader extends BillingReader {
         int kB = Integer.parseInt(kBytes);
         return kB;
     }
-
 }
