@@ -33,48 +33,51 @@ public class PlayReader extends BillingReader {
     }
 
     private void readFile(File file) throws FileNotFoundException {
-        String phoneNr;
-        int length;
-        int kB;
-
         Scanner scanner = new Scanner(new BufferedReader(new FileReader(file)));
         scanner.useDelimiter("\n");
 
         while (scanner.hasNext()) {
             String[] elements = scanner.next().split(",");
-
-            if (!elements[1].contains("Wychodz")) continue;
-            switch (elements[2].toLowerCase()) {
-                case "rozmowy g�osowe":
-                    phoneNr = elements[5];
-                    length = toSeconds(elements[7]);
-                    Dial dial = new Dial(phoneNr, length);
-                    dialList.add(dial);
-                    break;
-                case "sms":
-                    phoneNr = elements[5];
-                    Sms sms = new Sms(phoneNr);
-                    smsList.add(sms);
-                    break;
-                case "mms":
-                    phoneNr = elements[5];
-                    Mms mms = new Mms(phoneNr);
-                    mmsList.add(mms);
-                    break;
-                case "dane":
-                    kB = tokBytes(elements[7]);
-                    Transfer transfer = new Transfer(kB);
-                    transferList.add(transfer);
-                    break;
-                default:
-                    break;
-            }
+            parseLine(elements);
         }
         scanner.close();
     }
 
+    public void parseLine(String[] elements) {
+        String phoneNr;
+        int length;
+        int kB;
 
-    private int toSeconds(String text) {
+        if (!elements[1].contains("Wychodz")) return;
+        switch (elements[2].toLowerCase()) {
+            case "rozmowy g�osowe":
+                phoneNr = elements[5];
+                length = toSeconds(elements[7]);
+                Dial dial = new Dial(phoneNr, length);
+                dialList.add(dial);
+                break;
+            case "sms":
+                phoneNr = elements[5];
+                Sms sms = new Sms(phoneNr);
+                smsList.add(sms);
+                break;
+            case "mms":
+                phoneNr = elements[5];
+                Mms mms = new Mms(phoneNr);
+                mmsList.add(mms);
+                break;
+            case "dane":
+                kB = tokBytes(elements[7]);
+                Transfer transfer = new Transfer(kB);
+                transferList.add(transfer);
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    public int toSeconds(String text) {
         String withColon = text.substring(0,5);
         String minutes = withColon.substring(0,2);
         String seconds = withColon.substring(3);
@@ -82,9 +85,26 @@ public class PlayReader extends BillingReader {
         return allSeconds;
     }
 
-    private int tokBytes(String text) {
+    public int tokBytes(String text) {
         String kBytes = text.split(",")[0];
         int kB = Integer.parseInt(kBytes);
         return kB;
     }
+
+    public List<Dial> getDialList() {
+        return dialList;
+    }
+
+    public List<Sms> getSmsList() {
+        return smsList;
+    }
+
+    public List<Mms> getMmsList() {
+        return mmsList;
+    }
+
+    public List<Transfer> getTransferList() {
+        return transferList;
+    }
+
 }
