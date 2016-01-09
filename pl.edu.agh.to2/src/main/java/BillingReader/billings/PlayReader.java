@@ -22,10 +22,6 @@ public class PlayReader extends BillingReader {
 
     @Override
     public Billing readBilling(File file) throws FileNotFoundException {
-        if (!extensionCorrect(playExtension,file)) {
-            //TODO
-        }
-
         readFile(file);
         BillingLists lists = new BillingLists(dialList, smsList, mmsList, transferList);
         OperatorResolverImp resolver = new OperatorResolverImp(lists);
@@ -47,34 +43,36 @@ public class PlayReader extends BillingReader {
         String phoneNr;
         int length;
         int kB;
-
-        if (!elements[1].contains("Wychodz")) return;
-        switch (elements[2].toLowerCase()) {
-            case "rozmowy g�osowe":
-                phoneNr = elements[5];
-                length = toSeconds(elements[7]);
-                Dial dial = new Dial(phoneNr, length);
-                dialList.add(dial);
-                break;
-            case "sms":
-                phoneNr = elements[5];
-                Sms sms = new Sms(phoneNr);
-                smsList.add(sms);
-                break;
-            case "mms":
-                phoneNr = elements[5];
-                Mms mms = new Mms(phoneNr);
-                mmsList.add(mms);
-                break;
-            case "dane":
-                kB = tokBytes(elements[7]);
-                Transfer transfer = new Transfer(kB);
-                transferList.add(transfer);
-                break;
-            default:
-                break;
+        try {
+            if (!elements[1].contains("Wychodz")) return;
+            switch (elements[2].toLowerCase()) {
+                case "rozmowy g�osowe":
+                    phoneNr = elements[5];
+                    length = toSeconds(elements[7]);
+                    Dial dial = new Dial(phoneNr, length);
+                    dialList.add(dial);
+                    break;
+                case "sms":
+                    phoneNr = elements[5];
+                    Sms sms = new Sms(phoneNr);
+                    smsList.add(sms);
+                    break;
+                case "mms":
+                    phoneNr = elements[5];
+                    Mms mms = new Mms(phoneNr);
+                    mmsList.add(mms);
+                    break;
+                case "dane":
+                    kB = tokBytes(elements[7]);
+                    Transfer transfer = new Transfer(kB);
+                    transferList.add(transfer);
+                    break;
+                default:
+                    throw new IncorrectEntryException();
+            }
+        } catch (IncorrectEntryException e) {
+            e.printStackTrace();
         }
-
     }
 
     public int toSeconds(String text) {
