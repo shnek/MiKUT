@@ -6,10 +6,10 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="168.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CostCalculator.controllers.HelloScreenController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="185.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CostCalculator.controllers.HelloScreenController">
    <children>
-      <Button fx:id="searchOffersButton" layoutX="397.0" layoutY="111.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="143.0" text="Search offers" />
-      <Button fx:id="loadBillingButton" layoutX="241.0" layoutY="111.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="143.0" text="Load billing" />
+      <Button fx:id="searchOffersButton" layoutX="397.0" layoutY="124.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="143.0" text="Search offers" />
+      <Button fx:id="loadBillingButton" layoutX="236.0" layoutY="124.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="143.0" text="Load billing" />
       <Text layoutX="21.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Billing path:" wrappingWidth="84.16260147094727">
          <font>
             <Font size="14.0" />
@@ -21,5 +21,8 @@
             <Font name="System Italic" size="13.0" />
          </font>
       </Text>
+      <RadioButton fx:id="plusRadioButton" layoutX="38.0" layoutY="145.0" mnemonicParsing="false" text="Plus" />
+      <RadioButton fx:id="playRadioButton" layoutX="125.0" layoutY="145.0" mnemonicParsing="false" text="Play" />
+      <Text layoutX="21.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose your current provider:" />
    </children>
 </Pane>

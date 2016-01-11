@@ -1,6 +1,7 @@
 package CostCalculator.controllers;
 
 import OperatorResolver.operatorresolver.billingcontainers.Billing;
+//import BillingReader.billings.BillingReader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -12,6 +13,7 @@ public class ControllerManager {
     private Scene resultsScene;
 
     private Billing billing;
+//    private BillingReader billingReader;
     private AnalysisScreenController analysisScreenController;
 
     public ControllerManager(Stage stage) {
@@ -61,6 +63,10 @@ public class ControllerManager {
     public void setAnalysisScreenController(AnalysisScreenController analysisScreenController) {
         this.analysisScreenController = analysisScreenController;
     }
+
+//    public void setBillingReader(BillingReader billingReader) {
+//        this.billingReader = billingReader;
+//    }
 
     public void startAnalysis() {
         analysisScreenController.startAnalysis();

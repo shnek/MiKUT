@@ -1,12 +1,14 @@
 package CostCalculator.controllers;
 
-import CostCalculator.Mocker;
 import OperatorResolver.operatorresolver.billingcontainers.Billing;
+//import BillingReader.billings.BillingReader;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -21,11 +23,17 @@ public class HelloScreenController extends ScreenController implements Initializ
     public Button loadBillingButton;
     public Button searchOffersButton;
     public TextField filePathTextField;
+    public RadioButton plusRadioButton;
+    public RadioButton playRadioButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadBillingButton.setOnAction(this::handleLoadBillingButton);
         searchOffersButton.setOnAction(this::handleSearchOffersButton);
+        ToggleGroup group = new ToggleGroup();
+        plusRadioButton.setToggleGroup(group);
+        playRadioButton.setToggleGroup(group);
+        plusRadioButton.setSelected(true);
     }
 
     private void handleSearchOffersButton(ActionEvent event) {
@@ -34,11 +42,20 @@ public class HelloScreenController extends ScreenController implements Initializ
             Billing billing = new Billing(); // todo: get actual billing repr
             //Billing billing = new Mocker().getMockBilling();
             controllerManager.setBilling(billing);
+//            controllerManager.setBillingReader(getCurrentProviderReader());
             showAnalysisScreen();
         } catch (IOException e) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "can't load new screen: {0}", e);
         }
     }
+
+//    private BillingReader getCurrentProviderReader() {
+//        if (playRadioButton.isSelected()) {
+//            return new PlayReader();
+//        } else {
+//            return new PlusReader();
+//        }
+//    }
 
     private void handleLoadBillingButton(ActionEvent event) {
         Logger.getLogger(getClass().getName()).log(Level.INFO, "loading billing");
