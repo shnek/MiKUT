@@ -29,7 +29,6 @@ public class AnalysisScreenController extends ScreenController implements Initia
 
     public ProgressBar progressBar;
     public Button cancelButton;
-    public Button startButton;
     public Text currentStatusText;
 
     public Billing billing;
@@ -42,40 +41,11 @@ public class AnalysisScreenController extends ScreenController implements Initia
         progressBar.setProgress(0.0);
         cancelButton.setCancelButton(true);
         cancelButton.setOnAction(this::handleCancelButton);
-        startButton.setOnAction(this::handleStartButton);
-    }
-
-    private void handleStartButton(ActionEvent actionEvent) {
-        analysisTask = createAnalysisTask();
-        analysisTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-            @Override
-            public void handle(WorkerStateEvent t)
-            {
-                try {
-                    showResultsScreen();
-                } catch (IOException e) {
-                    Logger.getLogger(getClass().getName()).log(Level.SEVERE, "can't load new screen: {0}", e);
-                }
-            }
-        });
-        analysisTask.setOnFailed(new EventHandler<WorkerStateEvent>() {
-            @Override
-            public void handle(WorkerStateEvent t)
-            {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, "analysis error: {0}", t.toString());
-            }
-        });
-
-        progressBar.progressProperty().bind(analysisTask.progressProperty());
-        Thread analysisThread = new Thread(analysisTask);
-        analysisThread.setDaemon(true);
-        analysisThread.start();
     }
 
     private Task<Void> createAnalysisTask() {
         return new Task<Void>() {
             @Override public Void call() {
-                startButton.setDisable(true);
                 try {
                     updateProgress(0.00, 1.00);
                     analyzeBilling();
@@ -144,5 +114,32 @@ public class AnalysisScreenController extends ScreenController implements Initia
 
     public void setScene(Scene scene) {
         controllerManager.setAnalysisScene(scene);
+    }
+
+    public void startAnalysis() {
+        analysisTask = createAnalysisTask();
+        analysisTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent t)
+            {
+                try {
+                    showResultsScreen();
+                } catch (IOException e) {
+                    Logger.getLogger(getClass().getName()).log(Level.SEVERE, "can't load new screen: {0}", e);
+                }
+            }
+        });
+        analysisTask.setOnFailed(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent t)
+            {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, "analysis error: {0}", t.toString());
+            }
+        });
+
+        progressBar.progressProperty().bind(analysisTask.progressProperty());
+        Thread analysisThread = new Thread(analysisTask);
+        analysisThread.setDaemon(true);
+        analysisThread.start();
     }
 }

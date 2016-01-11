@@ -12,6 +12,5 @@
       <Text layoutX="63.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status:" />
       <Button fx:id="cancelButton" layoutX="221.0" layoutY="135.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="79.0" text="Cancel" />
       <Text layoutX="149.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Progress" />
-      <Button fx:id="startButton" layoutX="50.0" layoutY="135.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="79.0" text="Start" />
    </children>
 </Pane>

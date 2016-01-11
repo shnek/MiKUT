@@ -12,6 +12,7 @@ public class ControllerManager {
     private Scene resultsScene;
 
     private Billing billing;
+    private AnalysisScreenController analysisScreenController;
 
     public ControllerManager(Stage stage) {
         this.stage = stage;
@@ -55,5 +56,13 @@ public class ControllerManager {
 
     public Billing getBilling() {
         return billing;
+    }
+
+    public void setAnalysisScreenController(AnalysisScreenController analysisScreenController) {
+        this.analysisScreenController = analysisScreenController;
+    }
+
+    public void startAnalysis() {
+        analysisScreenController.startAnalysis();
     }
 }

@@ -53,8 +53,11 @@ public class HelloScreenController extends ScreenController implements Initializ
     }
 
     private void showAnalysisScreen() throws IOException {
-        ScreenController.createController(controllerManager, "/views/analysis_screen.fxml");
+        ScreenController screenController =
+                ScreenController.createController(controllerManager, "/views/analysis_screen.fxml");
+        controllerManager.setAnalysisScreenController((AnalysisScreenController) screenController);
         controllerManager.setCurrentScene(controllerManager.getAnalysisScene());
+        controllerManager.startAnalysis();
     }
 
     private File chooseFile() {
