@@ -12,7 +12,7 @@ public class Billing {
 
 	public Billing() {
 		this.internet = new ServiceDetails();
-		this.operatorToServices = new HashMap<>();
+		this.operatorToServices = new HashMap<Operator, Services>();
 	}
 
 

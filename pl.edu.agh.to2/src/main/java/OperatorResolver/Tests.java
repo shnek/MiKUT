@@ -37,7 +37,7 @@ public class Tests {
         }
     }
 
-    public String getNumber() {
+    public String getNumber(){
         turn++;
         if(turn == 6){
             ++number;
@@ -46,7 +46,7 @@ public class Tests {
         return number.toString();
     }
 
-    public BillingLists getMockBillingLists() {
+    public BillingLists getMockBillingLists(){
 
         List<Dial> dList = new LinkedList<>();
         List<Sms> sList = new LinkedList<>();
