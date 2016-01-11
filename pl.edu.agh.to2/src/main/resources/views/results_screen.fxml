@@ -26,6 +26,5 @@
             <Font size="16.0" />
          </font>
       </Text>
-      <Button fx:id="analyzeAnotherBillingButton" layoutX="38.0" layoutY="335.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="161.0" text="Analyze another billing" />
    </children>
 </Pane>

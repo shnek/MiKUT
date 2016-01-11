@@ -24,7 +24,6 @@ public class ResultsScreenController extends ScreenController implements Initial
 
     public Text currentOfferPriceText;
     public Button currentOfferDetailsButton;
-    public Button analyzeAnotherBillingButton;
     public Button exitButton;
 
     public TableView<TableEntry> tableView;
@@ -37,7 +36,6 @@ public class ResultsScreenController extends ScreenController implements Initial
     public void initialize(URL location, ResourceBundle resources) {
         currentOfferDetailsButton.setOnAction(this::handleCurrentOfferDetailsButton);
         exitButton.setOnAction(this::handleFinishButton);
-        analyzeAnotherBillingButton.setOnAction(this::analyzeAnotherBillingButton);
 
         offerNameCol.setCellValueFactory(new PropertyValueFactory<>("Offer name"));
         operatorCol.setCellValueFactory(new PropertyValueFactory<>("Operator"));
@@ -51,11 +49,6 @@ public class ResultsScreenController extends ScreenController implements Initial
     private List<TableEntry> getTableContent() {
         // todo: implement
         return new ArrayList<>();
-    }
-
-    private void analyzeAnotherBillingButton(ActionEvent event) {
-        Logger.getLogger(getClass().getName()).log(Level.INFO, "analyzing another billing");
-        this.controllerManager.setCurrentScene(controllerManager.getHelloScene());
     }
 
     private void handleFinishButton(ActionEvent event) {
