@@ -46,10 +46,11 @@ public class ResultsScreenController extends ScreenController implements Initial
         amountCol.setCellValueFactory(new PropertyValueFactory<>("Amount"));
         detailsCol.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getId()));
         detailsCol.setCellFactory(p -> new ButtonCell("Details"));
-
         detailsCol.setSortable(false);
 
         tableView.getItems().setAll(getTableContent());
+
+        
     }
 
     private List<TableEntry> getTableContent() {
