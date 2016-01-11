@@ -49,8 +49,28 @@ public class ResultsScreenController extends ScreenController implements Initial
         detailsCol.setSortable(false);
 
         tableView.getItems().setAll(getTableContent());
+    }
 
-        
+    private class ButtonCell extends TableCell<TableEntry, String> {
+
+        final Button cellButton = new Button();
+
+        public ButtonCell(String buttonText) {
+            cellButton.setText(buttonText);
+
+            cellButton.setOnAction(event -> {
+                String id = getItem(); // id of the TableEntry
+                // todo: show details
+            });
+        }
+
+        @Override
+        protected void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+            if (!empty) {
+                setGraphic(cellButton);
+            }
+        }
     }
 
     private List<TableEntry> getTableContent() {
