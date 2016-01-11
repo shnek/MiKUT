@@ -6,7 +6,7 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
-public abstract class ScreenController implements SceneSettable {
+public abstract class ScreenController {
     ControllerManager controllerManager;
 
     public void populate(ControllerManager controllerManager) {
@@ -22,4 +22,6 @@ public abstract class ScreenController implements SceneSettable {
         controller.setScene(scene);
         return controller;
     }
+
+    public abstract void setScene(Scene scene);
 }
