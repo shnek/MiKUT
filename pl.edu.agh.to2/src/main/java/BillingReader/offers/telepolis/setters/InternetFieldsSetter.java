@@ -13,12 +13,13 @@ public class InternetFieldsSetter extends AttributeSetter {
 
     @Override
     public boolean matchesPattern(String label) {
-        System.out.println("comparing\n"+label+"\nto\n"+getPattern()+"\ngave\n"+super.matchesPattern(label));
+        System.out.println(label);
         return super.matchesPattern(label);
     }
 
     @Override
     public void setAttribute(Offer offer, Element label) {
+        System.out.println(String.valueOf(label));
         if (String.valueOf(label).contains("colspan")) {
             setInternetCost(offer,label);
         }
@@ -27,7 +28,7 @@ public class InternetFieldsSetter extends AttributeSetter {
         }
     }
 
-    private void setFreeInternet (Offer offer, Element label) {
+    private void setInternetCost (Offer offer, Element label) {
         String tmp1 = String.valueOf(label).split(">")[1];
         String tmp2 = tmp1.split(";")[0];
         double x1, x2;
@@ -49,7 +50,7 @@ public class InternetFieldsSetter extends AttributeSetter {
         }
     }
 
-    private void setInternetCost (Offer offer, Element label) {
+    private void setFreeInternet (Offer offer, Element label) {
         String netData = String.valueOf(label);
         netData = netData.replaceAll("\"","").split("<|>")[2];
         if (netData.toLowerCase().contains("gb")) {

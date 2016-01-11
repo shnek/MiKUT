@@ -3,15 +3,15 @@ package BillingReader;
 import BillingReader.offers.Offer;
 import BillingReader.offers.telepolis.setters.AttributeSetter;
 import BillingReader.offers.telepolis.setters.InnerCallSetter;
+import BillingReader.offers.telepolis.setters.InternetFieldsSetter;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Tag;
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
-import static org.junit.Assert.assertEquals;
 
-public class AttributeSetterTest {
+public class TelepolisDownloaderTest {
 
     private AttributeSetter setter;
     private String element1;
@@ -89,6 +89,33 @@ public class AttributeSetterTest {
             setter.setAttribute(offer,element2);
         }
         assertNotEquals(offer.getOuterMmsCost(), 8.5);
+    }
+
+    @Test
+    public void testInternetMbCost() {
+        setter = mock(InternetFieldsSetter.class);
+        offer = new Offer();
+        element1 = "<td colspan=\"3\" class=\"header\">Pakiet internetowy</td>";
+        String message = "<td colspan=\"3\" class=\"long\">0,01 zł/20 kB;" +
+                " możliwość wykupienia pakietu &quot;NetGT 500 MB&quot; za 6,99 zł/30 dni," +
+                " &quot;NetGT 1 GB&quot; za 7,99 zł/30dni lub &quot;NetGT 4GB&quot; za 14,99 zł/30 dni</td>";
+        element2 = new Element(tag,message);
+        if (setter.matchesPattern(element1)) {
+            setter.setAttribute(offer,element2);
+        }
+        assertNotEquals(offer.getInternetMbCost(), 0.5);
+    }
+
+    @Test
+    public void testFreeInternetAmount() {
+        setter = mock(InternetFieldsSetter.class);
+        offer = new Offer();
+        element1 = "<td colspan=\"3\" class=\"header\">Pakiet internetowy</td>";
+        element2 = new Element(tag,"<td class=\"pakiet\">12 GB</td>");
+        if (setter.matchesPattern(element1)) {
+            setter.setAttribute(offer,element2);
+        }
+        assertNotSame(offer.getFreeInternetMb(), 12000.0);
     }
 
 }

@@ -67,6 +67,8 @@ public abstract class TelepolisDownloader extends PageDownloader {
             boolean inputCorrectFlag = true;
 
             Iterator<Element> cell = this.initOffer(elem,nextOffer);
+            if (nextOffer.getOperator() == null) continue;
+
             Element next1, next2;
             next1 = cell.next();
             try {
@@ -80,7 +82,7 @@ public abstract class TelepolisDownloader extends PageDownloader {
                     next1 = next2;
                 }
             } catch (NumberFormatException e) {
-                //inputCorrectFlag = false;
+                inputCorrectFlag = false;
             } catch (NullPointerException f) {
                 inputCorrectFlag = false;
             } catch (NoSuchElementException g) {
@@ -91,7 +93,7 @@ public abstract class TelepolisDownloader extends PageDownloader {
                 list.add(nextOffer);
                 out("Dodano oferte " + nextOffer.getName());
             }
-            break;
+
         }
         return list;
     }

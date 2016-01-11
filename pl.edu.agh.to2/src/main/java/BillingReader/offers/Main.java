@@ -5,8 +5,6 @@ import java.util.List;
 
 public class Main {
 
-    //static final int N = 19;
-
     public static void main(String[] args) throws IOException {
 
         OfferDownloader dl = new OfferDownloader();
@@ -16,6 +14,7 @@ public class Main {
             try {
                 System.out.println(x);
             } catch (NullPointerException e) {
+                System.out.println("--Exception in offer "+x.getName());
                 e.printStackTrace();
             }
         }

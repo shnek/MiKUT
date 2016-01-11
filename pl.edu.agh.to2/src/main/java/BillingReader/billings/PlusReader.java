@@ -49,28 +49,30 @@ public class PlusReader extends BillingReader {
         }
     }
 
-    private void parseLine(String line) {
+    public void parseLine(String line) {
         String cutLine = line.substring(18);
-        //System.out.print(line);
         try {
             if (cutLine.matches("\\d{5}.+")) {
                 if (cutLine.toLowerCase().contains("kb")) {
-                    mmsList.add(new Mms(getNumber(cutLine)));
-                    //System.out.print(" mms\n");
+                    Mms mms = new Mms(getNumber(cutLine));
+                    mmsList.add(mms);
+                    System.out.println("Added an mms to "+mms.getNumber());
                 } else if (cutLine.contains(":")) {
                     Dial dial = getDialInfo(cutLine);
                     dialList.add(dial);
-                    //System.out.print(" dial " + dial.getLength() + "\n");
+                    System.out.println("Added a call to " + dial.getNumber() + ", time: " + dial.getLength());
                 } else {
                     Sms sms = new Sms(getNumber(cutLine));
-                    for (int q=0; q<getSmsCount(cutLine); q++) {smsList.add(sms);}
-                    //System.out.print(" sms\n");
+                    int count = getSmsCount(cutLine);
+                    for (int q=0; q<count; q++) {smsList.add(sms);}
+                    System.out.println("Added "+count+" sms to "+sms.getNumber());
                 }
             } else {
                 if (cutLine.toLowerCase().contains("kb")) {
-                    Transfer transfer = new Transfer(getKBytes(cutLine));
+                    int kBytes = getKBytes(cutLine);
+                    Transfer transfer = new Transfer(kBytes);
                     transferList.add(transfer);
-                    //System.out.print(" internets " + transfer.getDataSize() + "\n");
+                    System.out.println("Added transfer of "+kBytes+" kilobytes");
                 } else {
                     throw new IncorrectEntryException();
                 }
@@ -96,13 +98,29 @@ public class PlusReader extends BillingReader {
         return Integer.parseInt(str);
     }
 
-    private String getNumber (String line) {
+    public String getNumber (String line) {
         String[] data = line.split("[^?0-9]+");
         return data[0];
     }
 
     private int getSmsCount (String line) {
         String[] data = line.split("[^?0-9]+");
-        return Integer.parseInt(data[0].substring(0,1));
+        return Integer.parseInt(data[1].substring(0,1));
+    }
+
+    public List<Dial> getDialList() {
+        return dialList;
+    }
+
+    public List<Sms> getSmsList() {
+        return smsList;
+    }
+
+    public List<Mms> getMmsList() {
+        return mmsList;
+    }
+
+    public List<Transfer> getTransferList() {
+        return transferList;
     }
 }
