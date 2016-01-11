@@ -1,16 +1,20 @@
 package CostCalculator.controllers;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
@@ -30,7 +34,7 @@ public class ResultsScreenController extends ScreenController implements Initial
     public TableColumn<TableEntry, String> offerNameCol;
     public TableColumn<TableEntry, String> operatorCol;
     public TableColumn<TableEntry, Double> amountCol;
-    public TableColumn<TableEntry, Button> detailsCol;
+    public TableColumn<TableEntry, String> detailsCol;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -40,6 +44,8 @@ public class ResultsScreenController extends ScreenController implements Initial
         offerNameCol.setCellValueFactory(new PropertyValueFactory<>("Offer name"));
         operatorCol.setCellValueFactory(new PropertyValueFactory<>("Operator"));
         amountCol.setCellValueFactory(new PropertyValueFactory<>("Amount"));
+        detailsCol.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getId()));
+        detailsCol.setCellFactory(p -> new ButtonCell("Details"));
 
         detailsCol.setSortable(false);
 
