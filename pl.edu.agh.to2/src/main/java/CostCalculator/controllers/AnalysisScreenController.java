@@ -48,12 +48,16 @@ public class AnalysisScreenController extends ScreenController implements Initia
             @Override public Void call() {
                 try {
                     updateProgress(0.00, 1.00);
+                    currentStatusText.setText("Analyzing your billing...");
                     analyzeBilling();
                     updateProgress(0.25, 1.00);
+                    currentStatusText.setText("Searching offers...");
                     searchOffers();
                     updateProgress(0.50, 1.00);
+                    currentStatusText.setText("Calculating costs...");
                     calculateCosts();
                     updateProgress(0.75, 1.00);
+                    currentStatusText.setText("Choosing best offer...");
                     chooseBestOffer();
                     updateProgress(1.00, 1.00);
                 } catch (InterruptedException e) {
