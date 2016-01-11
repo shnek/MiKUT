@@ -15,7 +15,4 @@ public abstract class OfferSummary {
 
     public abstract BigDecimal cost(Billing billing);
 
-    public int internetMb(Billing billing) {
-        return (int) Math.ceil(billing.getInternet().getQuantity() / 1024);
-    }
 }

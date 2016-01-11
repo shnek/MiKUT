@@ -1,6 +1,7 @@
 package CostCalculator;
 
 import BillingReader.Offer;
+import CostCalculator.summarizer.DataTransfer;
 import CostCalculator.summarizer.PrepaidSummary;
 
 import java.math.BigDecimal;
@@ -25,7 +26,8 @@ public class PrepaidSummaryTest {
         Billing billing = Mockito.mock(Billing.class);
 
         when(offer.getInternetMbCost()).thenReturn(new BigDecimal("0.10"));
-        when(internet.getQuantity()).thenReturn(1024*100);
+        int usedInternetKb = DataTransfer.MB.toKb(100);
+        when(internet.getQuantity()).thenReturn(usedInternetKb);
         when(billing.getInternet()).thenReturn(internet);
 
         PrepaidSummary prepaidSummary = new PrepaidSummary(offer);

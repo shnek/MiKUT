@@ -2,6 +2,7 @@ package CostCalculator;
 
 import BillingReader.Offer;
 import CostCalculator.summarizer.AbonamentSummary;
+import CostCalculator.summarizer.DataTransfer;
 import OperatorResolver.operatorresolver.billingcontainers.Billing;
 import OperatorResolver.operatorresolver.billingcontainers.ServiceDetails;
 import org.junit.Test;
@@ -22,9 +23,11 @@ public class AbonamentSummaryTest {
         Billing billing = Mockito.mock(Billing.class);
 
         when(offer.getMonthlyPayment()).thenReturn(new BigDecimal("99.99"));
-        when(offer.getFreeInternetMb()).thenReturn(1000.0);
+        double freeInternetMb = DataTransfer.GB.toMb(1);
+        when(offer.getFreeInternetMb()).thenReturn(freeInternetMb);
         when(offer.getInternetMbCost()).thenReturn(new BigDecimal("0.10"));
-        when(internet.getQuantity()).thenReturn(930000);
+        int usedInternetKb = DataTransfer.MB.toKb(930);
+        when(internet.getQuantity()).thenReturn(usedInternetKb);
         when(billing.getInternet()).thenReturn(internet);
 
         AbonamentSummary abonamentSummary = new AbonamentSummary(offer);
@@ -39,9 +42,11 @@ public class AbonamentSummaryTest {
         Billing billing = Mockito.mock(Billing.class);
 
         when(offer.getMonthlyPayment()).thenReturn(new BigDecimal("99.99"));
-        when(offer.getFreeInternetMb()).thenReturn(1024.0);
+        double freeInternetMb = DataTransfer.GB.toMb(1);
+        when(offer.getFreeInternetMb()).thenReturn(freeInternetMb);
         when(offer.getInternetMbCost()).thenReturn(new BigDecimal("0.10"));
-        when(internet.getQuantity()).thenReturn(1124 * 1024);
+        int usedInternetKb = DataTransfer.MB.toKb(1124);
+        when(internet.getQuantity()).thenReturn(usedInternetKb);
         when(billing.getInternet()).thenReturn(internet);
 
         AbonamentSummary abonamentSummary = new AbonamentSummary(offer);

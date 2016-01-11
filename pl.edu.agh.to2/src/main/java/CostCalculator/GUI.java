@@ -11,12 +11,10 @@ import java.util.logging.Logger;
 
 public class GUI extends Application {
 
-    private ControllerManager controllerManager;
-
     @Override
     public void start(Stage primaryStage) {
         try {
-            controllerManager = new ControllerManager(primaryStage);
+            ControllerManager controllerManager = new ControllerManager(primaryStage);
             ScreenController.createController(controllerManager, "/views/hello_screen.fxml");
             controllerManager.setCurrentScene(controllerManager.getHelloScene());
             primaryStage.setTitle("MiKUT");

@@ -18,7 +18,8 @@ public class PrepaidSummary extends OfferSummary {
     public BigDecimal cost(Billing billing) {
         BigDecimal cost = new BigDecimal("0");
 
-        BigDecimal internetPrice = new BigDecimal(this.internetMb(billing)).multiply(offer.getInternetMbCost());
+        int internetMb = DataTransfer.KB.toMb(billing.getInternet().getQuantity());
+        BigDecimal internetPrice = new BigDecimal(internetMb).multiply(offer.getInternetMbCost());
         cost = cost.add(internetPrice);
 
         for (Map.Entry<Operator, Services> entry : billing.getOperatorToServices().entrySet()) {

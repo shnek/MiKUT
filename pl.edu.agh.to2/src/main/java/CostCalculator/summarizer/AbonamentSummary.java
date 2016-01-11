@@ -16,7 +16,8 @@ public class AbonamentSummary extends OfferSummary {
         BigDecimal cost = new BigDecimal("0");
 
         cost = cost.add(offer.getMonthlyPayment());
-        double internetDiff = this.internetMb(billing) - offer.getFreeInternetMb();
+        int usedInternetMb = DataTransfer.KB.toMb(billing.getInternet().getQuantity());
+        double internetDiff = usedInternetMb - offer.getFreeInternetMb();
         if (internetDiff > 0) {
             cost = cost.add(new BigDecimal(internetDiff).multiply(offer.getInternetMbCost()));
         }
