@@ -1,16 +1,13 @@
 package BillingReader.billings;
 
-import BillingReader.offers.telepolis.setters.InternetFieldsSetter;
 import OperatorResolver.operatorresolver.OperatorResolverImp;
 import OperatorResolver.operatorresolver.billingcontainers.Billing;
 import OperatorResolver.operatorresolver.billingdata.*;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.parser.PdfTextExtractor;
-import org.mockito.internal.util.collections.ArrayUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
