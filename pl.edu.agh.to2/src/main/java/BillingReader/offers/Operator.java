@@ -1,7 +1,4 @@
-package BillingReader;
-
-import java.util.HashMap;
-import java.util.Map;
+package BillingReader.offers;
 
 public enum Operator {
     PLAY ("Play"),
@@ -17,16 +14,14 @@ public enum Operator {
 
     private String name;
 
-    private Operator(String name) {
+    Operator(String name) {
         this.name = name;
     }
 
     public static Operator findByName(String name) {
         Operator[] list = Operator.values();
         for (Operator op : list) {
-            //System.out.println(op.getName()+" vs "+name);
             if (op.name.equals(name)) {
-                //System.out.println("MATCH XD");
                 return op;
             }
         }

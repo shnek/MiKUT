@@ -1,6 +1,6 @@
 package CostCalculator;
 
-import BillingReader.Offer;
+import BillingReader.offers.Offer;
 import CostCalculator.summarizer.DataTransfer;
 import CostCalculator.summarizer.PrepaidSummary;
 
@@ -38,7 +38,7 @@ public class PrepaidSummaryTest {
     @Test
     public void testPrepaidNoInternet() throws Exception {
         Offer offer = Mockito.mock(Offer.class);
-        when(offer.getOperator()).thenReturn(BillingReader.Operator.PLUS);
+        when(offer.getOperator()).thenReturn(BillingReader.offers.Operator.PLUS);
 
         Billing billing = Mockito.mock(Billing.class);
         ServiceDetails internet = Mockito.mock(ServiceDetails.class);

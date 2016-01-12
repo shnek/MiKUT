@@ -1,6 +1,6 @@
 package CostCalculator.controllers;
 
-import BillingReader.Offer;
+import BillingReader.offers.Offer;
 import CostCalculator.CostCalculator;
 import CostCalculator.Mocker;
 import OperatorResolver.operatorresolver.billingcontainers.Billing;

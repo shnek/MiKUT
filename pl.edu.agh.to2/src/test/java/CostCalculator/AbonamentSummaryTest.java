@@ -1,6 +1,6 @@
 package CostCalculator;
 
-import BillingReader.Offer;
+import BillingReader.offers.Offer;
 import CostCalculator.summarizer.AbonamentSummary;
 import CostCalculator.summarizer.DataTransfer;
 import OperatorResolver.operatorresolver.billingcontainers.Billing;

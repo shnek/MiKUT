@@ -1,4 +1,9 @@
-package BillingReader.telepolis;
+package BillingReader.offers.telepolis;
+
+import BillingReader.offers.telepolis.setters.AttributeSetter;
+import BillingReader.offers.telepolis.setters.MonthlyPaymentSetter;
+import BillingReader.offers.telepolis.setters.NameSetter;
+import BillingReader.offers.telepolis.setters.OperatorSetter;
 
 import java.util.List;
 
@@ -14,8 +19,8 @@ public class TelepolisCardDownloader extends TelepolisDownloader {
 
     public TelepolisCardDownloader() {
         super();
-        this.url = "http://www.telepolis.pl/na-karte";
-        this.abonament = false;
+        super.setUrl("http://www.telepolis.pl/na-karte");
+        super.setAbonament(false);
     }
 
 }

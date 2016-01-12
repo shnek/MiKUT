@@ -1,4 +1,4 @@
-package BillingReader;
+package BillingReader.offers;
 
 import java.io.IOException;
 import java.util.List;

@@ -1,8 +1,8 @@
-package BillingReader.telepolis;
+package BillingReader.offers.telepolis;
 
-import BillingReader.Offer;
-import BillingReader.PageDownloader;
-import BillingReader.telepolis.*;
+import BillingReader.offers.Offer;
+import BillingReader.offers.PageDownloader;
+import BillingReader.offers.telepolis.setters.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -15,6 +15,8 @@ public abstract class TelepolisDownloader extends PageDownloader {
 
     private String url;
     private boolean abonament;
+
+    private List<String> links = new LinkedList<String>();
 
     private NameSetter nameSetter;
     private OperatorSetter operatorSetter;
@@ -30,18 +32,33 @@ public abstract class TelepolisDownloader extends PageDownloader {
         fieldSetters.add(new OuterCallSetter());
         fieldSetters.add(new InnerSmsSetter());
         fieldSetters.add(new OuterSmsSetter());
+        fieldSetters.add(new OuterMmsSetter());
         fieldSetters.add(new InnerMmsSetter());
-        fieldSetters.add(new OuterSmsSetter());
         fieldSetters.add(new InternetFieldsSetter());
+    }
 
-        this.url = "http://www.telepolis.pl/na-karte";
-        this.abonament = true;
+    @Override
+    public String getUrl() {
+        return url;
+    }
+
+    @Override
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    @Override
+    public boolean isAbonament() {
+        return abonament;
+    }
+
+    @Override
+    public void setAbonament(boolean abonament) {
+        this.abonament = abonament;
     }
 
     public List<Offer> download () throws IOException {
         List<Offer> list = new LinkedList<Offer>();
-        List<String> links = new LinkedList<String>();
-
         Document doc = Jsoup.connect(url).get();
         Elements offers = doc.select("li.gsmWynik ");
 
@@ -49,41 +66,49 @@ public abstract class TelepolisDownloader extends PageDownloader {
             Offer nextOffer = new Offer();
             boolean inputCorrectFlag = true;
 
-            nameSetter.setAttribute(nextOffer,elem);
-            operatorSetter.setAttribute(nextOffer,elem);
-            monthlyPaymentSetter.setAttribute(nextOffer,elem);
-            nextOffer.setAbonament(abonament);
+            Iterator<Element> cell = this.initOffer(elem,nextOffer);
+            if (nextOffer.getOperator() == null) continue;
 
-            Element tmp = elem.select("a").first();
-            String link = tmp.attr("abs:href");
-            links.add(link);
-            Document doc2 = Jsoup.connect(link).get();
-            Elements cells = doc2.select("td");
-            Iterator<Element> cell = cells.iterator();
-
+            Element next1, next2;
+            next1 = cell.next();
             try {
                 while (cell.hasNext()) {
-                    Element next1 = cell.next();
-                    Element next2 = cell.next();
+                    next2 = cell.next();
                     for (AttributeSetter setter : fieldSetters) {
-                        if (setter.matchesPattern(String.valueOf(next1)))
-                            setter.setAttribute(nextOffer, next2);
+                        if (setter.matchesPattern(String.valueOf(next1))) {
+                            setter.setAttribute(nextOffer,next2);
+                        }
                     }
+                    next1 = next2;
                 }
             } catch (NumberFormatException e) {
-                //inputCorrectFlag = false;
+                inputCorrectFlag = false;
             } catch (NullPointerException f) {
-                //inputCorrectFlag = false;
+                inputCorrectFlag = false;
             } catch (NoSuchElementException g) {
-                break;
+                continue;
             }
 
             if (inputCorrectFlag) {
                 list.add(nextOffer);
                 out("Dodano oferte " + nextOffer.getName());
             }
+
         }
         return list;
+    }
+
+    private Iterator<Element> initOffer (Element elem, Offer nextOffer) throws IOException {
+        nameSetter.setAttribute(nextOffer,elem);
+        operatorSetter.setAttribute(nextOffer,elem);
+        monthlyPaymentSetter.setAttribute(nextOffer,elem);
+        nextOffer.setAbonament(abonament);
+        Element tmp = elem.select("a").first();
+        String link = tmp.attr("abs:href");
+        links.add(link);
+        Document doc2 = Jsoup.connect(link).get();
+        Elements cells = doc2.select("td");
+        return cells.iterator();
     }
 
     private void out (String line)

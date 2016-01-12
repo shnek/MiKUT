@@ -1,4 +1,9 @@
-package BillingReader.telepolis;
+package BillingReader.offers.telepolis;
+
+import BillingReader.offers.telepolis.setters.AttributeSetter;
+import BillingReader.offers.telepolis.setters.MonthlyPaymentSetter;
+import BillingReader.offers.telepolis.setters.NameSetter;
+import BillingReader.offers.telepolis.setters.OperatorSetter;
 
 import java.util.List;
 
@@ -14,8 +19,8 @@ public class TelepolisAbonamentDownloader extends TelepolisDownloader {
 
     public TelepolisAbonamentDownloader() {
         super();
-        this.url = "http://www.telepolis.pl/oferty-na-abonament";
-        this.abonament = true;
+        super.setUrl("http://www.telepolis.pl/oferty-na-abonament");
+        super.setAbonament(true);
     }
 
 }

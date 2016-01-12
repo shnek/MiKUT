@@ -1,15 +1,12 @@
-package BillingReader.telepolis;
+package BillingReader.offers.telepolis.setters;
 
-import BillingReader.Offer;
-import BillingReader.telepolis.AttributeSetter;
+import BillingReader.offers.Offer;
 import org.jsoup.nodes.Element;
 
 public class OuterSmsSetter extends AttributeSetter {
 
-    private String pattern;
-
     public OuterSmsSetter() {
-        this.pattern = "Opłata za SMS do pozostałych sieci";
+        super.setPattern("Opłata za SMS do pozostałych sieci");
     }
 
     @Override

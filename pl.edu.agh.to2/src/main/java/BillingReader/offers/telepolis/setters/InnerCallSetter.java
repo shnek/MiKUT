@@ -1,20 +1,16 @@
-package BillingReader.telepolis;
+package BillingReader.offers.telepolis.setters;
 
-import BillingReader.Offer;
-import BillingReader.telepolis.AttributeSetter;
+import BillingReader.offers.Offer;
 import org.jsoup.nodes.Element;
 
 public class InnerCallSetter extends AttributeSetter {
 
-    private String pattern;
-
     public InnerCallSetter() {
-        this.pattern = "Koszt minuty do własnej sieci";
+        super.setPattern("Koszt minuty do własnej sieci");
     }
 
     @Override
     public boolean matchesPattern(String label) {
-        System.out.println("Here for inner call");
         return super.matchesPattern(label);
     }
 

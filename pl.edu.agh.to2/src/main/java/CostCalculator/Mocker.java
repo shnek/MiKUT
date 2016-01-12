@@ -1,7 +1,7 @@
 package CostCalculator;
 
-import BillingReader.Offer;
-import BillingReader.Operator;
+import BillingReader.offers.Offer;
+import BillingReader.offers.Operator;
 import OperatorResolver.Tests;
 import OperatorResolver.operatorresolver.OperatorResolver;
 import OperatorResolver.operatorresolver.OperatorResolverImp;
