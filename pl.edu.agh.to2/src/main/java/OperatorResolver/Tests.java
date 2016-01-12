@@ -55,7 +55,7 @@ public class Tests {
 
         Random generator = new Random();
 
-        for(int i = 0; i < 10000; i++){
+        for(int i = 0; i < 120; i++){
 
             switch (i%4) {
                 case 0:

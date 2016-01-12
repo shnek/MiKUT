@@ -43,33 +43,28 @@ public class OperatorResolverTest {
         BigDecimal value = BigDecimal.valueOf(0);
         dial.setLength(length);
         dial.setNumber(number);
-        dial.setValue(value);
         assertEquals(dial.getLength(), length);
         assertEquals(dial.getNumber(), number);
-        assertEquals(dial.getValue(), value);
+
     }
     @Test
     public void testSms(){
         String number = "608800000";
         BigDecimal value = BigDecimal.valueOf(3);
         sms.setNumber(number);
-        sms.setValue(value);
         assertEquals(sms.getNumber(), number);
-        assertEquals(sms.getValue(), value);
     }
     @Test
     public void testMms(){
         String number = "792600000";
         BigDecimal value = BigDecimal.valueOf(2);
         mms.setNumber(number);
-        mms.setValue(value);
-    }
+     }
     @Test
     public void testTransfer(){
         int size = 30;
         BigDecimal value = BigDecimal.valueOf(0);
         transfer.setDataSize(size);
-        transfer.setValue(value);
     }
 
     @Test
