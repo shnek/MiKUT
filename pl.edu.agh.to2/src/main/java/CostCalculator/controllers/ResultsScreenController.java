@@ -1,0 +1,111 @@
+package CostCalculator.controllers;
+
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.util.Callback;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class ResultsScreenController extends ScreenController implements Initializable {
+
+    public Text currentOfferPriceText;
+    public Button currentOfferDetailsButton;
+    public Button exitButton;
+
+    public TableView<TableEntry> tableView;
+    public TableColumn<TableEntry, String> offerNameCol;
+    public TableColumn<TableEntry, String> operatorCol;
+    public TableColumn<TableEntry, Double> amountCol;
+    public TableColumn<TableEntry, String> detailsCol;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        currentOfferDetailsButton.setOnAction(this::handleCurrentOfferDetailsButton);
+        exitButton.setOnAction(this::handleFinishButton);
+
+        offerNameCol.setCellValueFactory(new PropertyValueFactory<>("Offer name"));
+        operatorCol.setCellValueFactory(new PropertyValueFactory<>("Operator"));
+        amountCol.setCellValueFactory(new PropertyValueFactory<>("Amount"));
+        detailsCol.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getId()));
+        detailsCol.setCellFactory(p -> new ButtonCell("Details"));
+        detailsCol.setSortable(false);
+
+        tableView.getItems().setAll(getTableContent());
+    }
+
+    private class ButtonCell extends TableCell<TableEntry, String> {
+
+        final Button cellButton = new Button();
+
+        public ButtonCell(String buttonText) {
+            cellButton.setText(buttonText);
+
+            cellButton.setOnAction(event -> {
+                String id = getItem(); // id of the TableEntry
+                // todo: show details
+            });
+        }
+
+        @Override
+        protected void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+            if (!empty) {
+                setGraphic(cellButton);
+            }
+        }
+    }
+
+    private List<TableEntry> getTableContent() {
+        // todo: implement
+        return new ArrayList<>();
+    }
+
+    private void handleFinishButton(ActionEvent event) {
+        this.controllerManager.getStage().close();
+        Logger.getLogger(getClass().getName()).log(Level.INFO, "exiting application");
+    }
+
+    private void handleCurrentOfferDetailsButton(ActionEvent event) {
+        Logger.getLogger(getClass().getName()).log(Level.INFO, "displaying details");
+        try {
+            createDetailsStage();
+        } catch (IOException e) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "can't load new screen: {0}", e);
+        }
+    }
+
+    private void createDetailsStage() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/details_screen.fxml"));
+        Parent root = loader.load();
+        DetailsScreenController controller = loader.getController();
+        Stage stage = new Stage();
+        Scene detailsScene = new Scene(root);
+        controller.setStage(stage);
+        stage.setTitle("MiKUT");
+        stage.setScene(detailsScene);
+        stage.show();
+    }
+
+    @Override
+    public void setScene(Scene scene) {
+        controllerManager.setResultsScene(scene);
+    }
+}

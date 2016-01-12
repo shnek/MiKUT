@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="386.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CostCalculator.controllers.ResultsScreenController">
+   <children>
+      <TableView fx:id="tableView" layoutX="38.0" layoutY="125.0" prefHeight="183.0" prefWidth="522.0">
+        <columns>
+          <TableColumn fx:id="offerNameCol" prefWidth="165.0" text="Offer name" />
+          <TableColumn fx:id="operatorCol" prefWidth="139.0" text="Operator" />
+          <TableColumn fx:id="amountCol" prefWidth="91.0" text="Amount" />
+          <TableColumn fx:id="detailsCol" prefWidth="126.0" text="Details" />
+        </columns>
+      </TableView>
+      <Button fx:id="exitButton" layoutX="399.0" layoutY="335.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="161.0" text="Exit" />
+      <Button fx:id="currentOfferDetailsButton" layoutX="465.0" layoutY="68.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="94.0" text="Details" />
+      <Text layoutX="127.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your current offer:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="currentOfferPriceText" layoutX="512.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.00 zł">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+   </children>
+</Pane>
