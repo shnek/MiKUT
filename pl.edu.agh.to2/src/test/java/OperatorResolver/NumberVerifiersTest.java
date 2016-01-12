@@ -17,21 +17,9 @@ import java.util.Collection;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by kuba on 09.11.15.
- */
-
 @RunWith(Parameterized.class)
 public class NumberVerifiersTest  {
-    /**
-     *
-     * data test driven junit
-     * parametriezed.class
-     *
-     *
-     * guawa - cache - utilsy do kolekcji od google
-     *
-     */
+
     private String number;
     private Operator expectedOperator;
     private WebNumberVerifier webNumberVerifier;
