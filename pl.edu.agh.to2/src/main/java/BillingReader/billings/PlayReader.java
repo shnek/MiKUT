@@ -14,7 +14,6 @@ import java.util.Scanner;
 
 public class PlayReader extends BillingReader {
 
-    private String playExtension = "csv";
     private List<Dial> dialList = new ArrayList<>();
     private List<Sms> smsList = new ArrayList<>();
     private List<Mms> mmsList = new ArrayList<>();

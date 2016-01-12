@@ -14,9 +14,9 @@ public class PlusReaderTest {
 
     @Test
     public void getNumberTest() {
-        reader = mock(PlusReader.class);
+        reader = new PlusReader();
         line = "734423466T-Mobile10,000,00";
-        assertNotEquals(reader.getNumber(line),"734423466");
+        assertEquals("734423466", reader.getNumber(line));
     }
 
 /*

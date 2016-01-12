@@ -18,7 +18,6 @@ import java.util.List;
 
 public class PlusReader extends BillingReader {
 
-    private String plusExtension = "pdf";
     private List<Dial> dialList = new ArrayList<>();
     private List<Sms> smsList = new ArrayList<>();
     private List<Mms> mmsList = new ArrayList<>();

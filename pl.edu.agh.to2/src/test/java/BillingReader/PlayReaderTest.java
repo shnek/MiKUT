@@ -22,7 +22,7 @@ public class PlayReaderTest {
 
     @Test
     public void testParseLine() {
-        playReader = mock(PlayReader.class);
+        playReader = new PlayReader();
         line = "27,Wychodz�ce,Rozmowy g�osowe,2015.11.28,18:18:49,48725035819,G�OSOWE,02:33 min.,,";
         elements = line.split(",");
         playReader.parseLine(elements);
