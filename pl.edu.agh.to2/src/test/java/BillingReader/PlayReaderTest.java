@@ -13,14 +13,14 @@ public class PlayReaderTest {
     private String[] elements;
 
     @Test
-    public void testToSeconds() {
+    public void toSecondsTest() {
         playReader = new PlayReader();
         text = "02:33 min.,,";
         assertEquals(153, playReader.toSeconds(text));
     }
 
     @Test
-    public void testParseLine() {
+    public void parseLineTest() {
         playReader = new PlayReader();
         line = "27,Wychodz�ce,Rozmowy g�osowe,2015.11.28,18:18:49,48725035819,G�OSOWE,02:33 min.,,";
         elements = line.split(",");
