@@ -30,10 +30,9 @@ public class WebNumberVerifier implements Verifier {
 
 		this.number = number;
 		String line = null;
-		Random generator = new Random();
 
 		try {
-			Thread.sleep(5000);
+			Thread.sleep(500);
 			long start = System.currentTimeMillis();
 			if((line = downloader.getLine("http://download.t-mobile.pl/updir/updir.cgi?msisdn=" + number)) != null){
 				System.out.println("WEB RESPONSE FOR: "+number+" EXE_TIME[ms]: "+(System.currentTimeMillis()-start));

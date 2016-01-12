@@ -32,7 +32,6 @@ public class PageDownloaderImpl implements PageDownloader{
                         iteration = 15;
                         return line;
                     } else if(line.contains("Access denied.")){
-                        System.out.println("Access denied. CZEKAM: [s]"+iteration);
                         Thread.sleep(iteration * second);
                         iteration++;
                         reconnect = true;
