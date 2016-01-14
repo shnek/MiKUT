@@ -1,6 +1,8 @@
 package CostCalculator.controllers;
 
+import BillingReader.billings.IncorrectEntryException;
 import BillingReader.offers.Offer;
+import BillingReader.offers.OfferDownloader;
 import CostCalculator.CostCalculator;
 import CostCalculator.Mocker;
 import OperatorResolver.operatorresolver.billingcontainers.Billing;
@@ -33,6 +35,7 @@ public class AnalysisScreenController extends ScreenController implements Initia
 
     public Billing billing;
     private CostCalculator calculator;
+    private List<Offer> offers;
     private Map<Offer, BigDecimal> results;
     private Task<Void> analysisTask;
 
@@ -90,30 +93,38 @@ public class AnalysisScreenController extends ScreenController implements Initia
 
     private void analyzeBilling() throws InterruptedException {
         Logger.getLogger(getClass().getName()).log(Level.INFO, "analyzing billing");
-        sleep(1000);
+        //sleep(1000);
+        try {
+            billing = controllerManager.getBillingReader().readBilling(controllerManager.getBillingFile());
+        } catch (IncorrectEntryException | IOException e) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "error reading billing: {0}", e);
+        }
     }
 
     private void searchOffers() throws InterruptedException {
         Logger.getLogger(getClass().getName()).log(Level.INFO, "searching offers");
-        sleep(1000);
+        //sleep(1000);
+        try {
+            offers = new OfferDownloader().getOffers();
+        } catch (IOException e) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "error downloading offers: {0}", e);
+        }
     }
 
     private void calculateCosts() throws InterruptedException {
         Logger.getLogger(getClass().getName()).log(Level.INFO, "calculating costs");
-        sleep(1000);
-
-        Billing billing = controllerManager.getBilling();
-        List<Offer> offers = new Mocker().getMockOffers(); // todo: get actual offers
-        calculator = new CostCalculator(billing, offers);
-        results = calculator.calculateCosts();
+        //sleep(1000);
+        results = new CostCalculator(billing, offers).calculateCosts();
     }
 
     private void chooseBestOffer() throws InterruptedException {
         Logger.getLogger(getClass().getName()).log(Level.INFO, "choosing best offer");
-        sleep(1000);
+        //sleep(1000);
 
         BigDecimal bestOfferValue = calculator.getBestOfferValue(results);
-        // todo: check if bestOfferValue <= current offer
+        if (controllerManager.getCurrentPayment().compareTo(bestOfferValue) < 0) {
+            // todo: show alert
+        }
     }
 
     public void setScene(Scene scene) {

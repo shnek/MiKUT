@@ -1,11 +1,13 @@
 package CostCalculator.controllers;
 
+import BillingReader.billings.IncorrectEntryException;
 import BillingReader.billings.PlayReader;
 import BillingReader.billings.PlusReader;
-import CostCalculator.Mocker;
 import OperatorResolver.operatorresolver.billingcontainers.Billing;
 import BillingReader.billings.BillingReader;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -14,6 +16,7 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -24,8 +27,13 @@ public class HelloScreenController extends ScreenController implements Initializ
     public Button loadBillingButton;
     public Button searchOffersButton;
     public TextField filePathTextField;
+    public TextField paymentTextField;
     public RadioButton plusRadioButton;
     public RadioButton playRadioButton;
+
+    private File billingFile;
+    private boolean fileEntered = false;
+    private boolean paymentEntered = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -35,19 +43,31 @@ public class HelloScreenController extends ScreenController implements Initializ
         plusRadioButton.setToggleGroup(group);
         playRadioButton.setToggleGroup(group);
         plusRadioButton.setSelected(true);
+        searchOffersButton.setDisable(true);
+        paymentTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            paymentEntered = isMoney(newValue);
+            searchOffersButton.setDisable(searchButtonState());
+        });
     }
 
     private void handleSearchOffersButton(ActionEvent event) {
         Logger.getLogger(getClass().getName()).log(Level.INFO, "searching offers");
         try {
-            Billing billing = new Billing(); // todo: get actual billing repr
-//            Billing billing = new Mocker().getMockBilling();
-            controllerManager.setBilling(billing);
+            controllerManager.setBillingFile(billingFile);
             controllerManager.setBillingReader(getCurrentProviderReader());
+            controllerManager.setCurrentPayment(getCurrentPayment());
             showAnalysisScreen();
         } catch (IOException e) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "can't load new screen: {0}", e);
         }
+    }
+
+    private boolean isMoney(String text) {
+        return text.matches("[0-9]*(,|\\.)[0-9]{0,2}");
+    }
+
+    private BigDecimal getCurrentPayment() {
+        return new BigDecimal(paymentTextField.getText().replaceAll(",", "\\."));
     }
 
     private BillingReader getCurrentProviderReader() {
@@ -58,21 +78,26 @@ public class HelloScreenController extends ScreenController implements Initializ
         }
     }
 
+    private boolean searchButtonState() {
+        return !(fileEntered && paymentEntered);
+    }
+
     private void handleLoadBillingButton(ActionEvent event) {
         Logger.getLogger(getClass().getName()).log(Level.INFO, "loading billing");
-        File file = chooseFile();
-        if (file != null) {
-            Logger.getLogger(getClass().getName()).log(Level.INFO, "file chosen: {0}", file);
-            filePathTextField.setText(file.toString());
-            // todo: pass file to BillingReader
+        billingFile = chooseFile();
+        if (billingFile != null) {
+            Logger.getLogger(getClass().getName()).log(Level.INFO, "file chosen: {0}", billingFile);
+            filePathTextField.setText(billingFile.toString());
+            fileEntered = true;
+            searchOffersButton.setDisable(searchButtonState());
         } else {
             Logger.getLogger(getClass().getName()).log(Level.INFO, "no file chosen");
+            fileEntered = false;
         }
     }
 
     private void showAnalysisScreen() throws IOException {
-        ScreenController screenController =
-                ScreenController.createController(controllerManager, "/views/analysis_screen.fxml");
+        ScreenController screenController = ScreenController.createController(controllerManager, "/views/analysis_screen.fxml");
         controllerManager.setAnalysisScreenController((AnalysisScreenController) screenController);
         controllerManager.setCurrentScene(controllerManager.getAnalysisScene());
         controllerManager.startAnalysis();

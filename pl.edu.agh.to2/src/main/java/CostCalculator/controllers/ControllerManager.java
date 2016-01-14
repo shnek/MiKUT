@@ -5,6 +5,9 @@ import BillingReader.billings.BillingReader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.math.BigDecimal;
+
 public class ControllerManager {
 
     private Stage stage;
@@ -12,8 +15,9 @@ public class ControllerManager {
     private Scene analysisScene;
     private Scene resultsScene;
 
-    private Billing billing;
+    private File billingFile;
     private BillingReader billingReader;
+    private BigDecimal currentPayment;
     private AnalysisScreenController analysisScreenController;
 
     public ControllerManager(Stage stage) {
@@ -52,20 +56,32 @@ public class ControllerManager {
         this.stage.setScene(scene);
     }
 
-    public void setBilling(Billing billing) {
-        this.billing = billing;
-    }
-
-    public Billing getBilling() {
-        return billing;
-    }
-
     public void setAnalysisScreenController(AnalysisScreenController analysisScreenController) {
         this.analysisScreenController = analysisScreenController;
     }
 
     public void setBillingReader(BillingReader billingReader) {
         this.billingReader = billingReader;
+    }
+
+    public BigDecimal getCurrentPayment() {
+        return currentPayment;
+    }
+
+    public void setCurrentPayment(BigDecimal currentPayment) {
+        this.currentPayment = currentPayment;
+    }
+
+    public BillingReader getBillingReader() {
+        return billingReader;
+    }
+
+    public File getBillingFile() {
+        return billingFile;
+    }
+
+    public void setBillingFile(File billingFile) {
+        this.billingFile = billingFile;
     }
 
     public void startAnalysis() {
