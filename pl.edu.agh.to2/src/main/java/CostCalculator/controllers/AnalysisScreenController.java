@@ -12,9 +12,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.text.Text;
+import javafx.scene.control.Alert.AlertType;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -62,6 +65,16 @@ public class AnalysisScreenController extends ScreenController implements Initia
                     currentStatusText.setText("Choosing best offer...");
                     chooseBestOffer();
                     updateProgress(1.00, 1.00);
+                } catch (BillingAnalysisException e) {
+                    try {
+                        Alert alert = new Alert(AlertType.ERROR);
+                        alert.setTitle("Billing Analysis Error");
+                        alert.setContentText("Your billing file is invalid or broken. Choose another file and try again");
+                        alert.showAndWait();
+                        cancelAnalysis();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
                 } catch (InterruptedException e) {
                     if (isCancelled()) return null;
                     else e.printStackTrace();
@@ -94,12 +107,13 @@ public class AnalysisScreenController extends ScreenController implements Initia
         controllerManager.setCurrentScene(controllerManager.getHelloScene());
     }
 
-    private void analyzeBilling() throws InterruptedException {
+    private void analyzeBilling() throws InterruptedException, BillingAnalysisException {
         Logger.getLogger(getClass().getName()).log(Level.INFO, "analyzing billing");
         try {
             billing = controllerManager.getBillingReader().readBilling(controllerManager.getBillingFile());
-        } catch (IncorrectEntryException | IOException e) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "error reading billing: {0}", e);
+        } catch (IncorrectEntryException | IOException | ArrayIndexOutOfBoundsException e) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, String.format("error reading billing: %s", e.toString()));
+            throw new BillingAnalysisException();
         }
     }
 
@@ -151,7 +165,17 @@ public class AnalysisScreenController extends ScreenController implements Initia
             @Override
             public void handle(WorkerStateEvent t)
             {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, "analysis error: {0}", t.toString());
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, "analysis error");
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, "analysis debug");
+                try {
+                    Alert alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Billing Analysis Error");
+                    alert.setContentText("Your billing file is invalid or broken. Choose another file and try again");
+                    alert.showAndWait();
+                    cancelAnalysis();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
 
@@ -160,4 +184,6 @@ public class AnalysisScreenController extends ScreenController implements Initia
         analysisThread.setDaemon(true);
         analysisThread.start();
     }
+
+    private class BillingAnalysisException extends Exception {}
 }
