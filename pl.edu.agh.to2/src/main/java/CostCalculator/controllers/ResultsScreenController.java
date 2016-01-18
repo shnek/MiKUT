@@ -1,7 +1,10 @@
 package CostCalculator.controllers;
 
+import BillingReader.offers.Offer;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,9 +22,7 @@ import javafx.util.Callback;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,14 +38,17 @@ public class ResultsScreenController extends ScreenController implements Initial
     public TableColumn<TableEntry, Double> amountCol;
     public TableColumn<TableEntry, String> detailsCol;
 
+    private Map<Offer, BigDecimal> results = this.controllerManager.getResults();
+    private Map<String, Offer> offersMap = new HashMap<>();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         currentOfferDetailsButton.setOnAction(this::handleCurrentOfferDetailsButton);
         exitButton.setOnAction(this::handleFinishButton);
 
-        offerNameCol.setCellValueFactory(new PropertyValueFactory<>("Offer name"));
-        operatorCol.setCellValueFactory(new PropertyValueFactory<>("Operator"));
-        amountCol.setCellValueFactory(new PropertyValueFactory<>("Amount"));
+        offerNameCol.setCellValueFactory(new PropertyValueFactory<>("offerName"));
+        operatorCol.setCellValueFactory(new PropertyValueFactory<>("operatorName"));
+        amountCol.setCellValueFactory(new PropertyValueFactory<>("cost"));
         detailsCol.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getId()));
         detailsCol.setCellFactory(p -> new ButtonCell("Details"));
         detailsCol.setSortable(false);
@@ -54,7 +58,7 @@ public class ResultsScreenController extends ScreenController implements Initial
 
     public void setCurrentOfferPriceText() {
         BigDecimal currentOfferPrice = this.controllerManager.getCurrentPayment();
-        currentOfferPriceText.setText(String.format("%szł", currentOfferPrice.toString()));
+        currentOfferPriceText.setText(String.format("%s zł", currentOfferPrice.toString()));
     }
 
     private class ButtonCell extends TableCell<TableEntry, String> {
@@ -66,7 +70,8 @@ public class ResultsScreenController extends ScreenController implements Initial
 
             cellButton.setOnAction(event -> {
                 String id = getItem(); // id of the TableEntry
-                // todo: show details
+                Offer offer = offersMap.get(id);
+                System.out.println(offer.toString());
             });
         }
 
@@ -80,8 +85,21 @@ public class ResultsScreenController extends ScreenController implements Initial
     }
 
     private List<TableEntry> getTableContent() {
-        // todo: implement
-        return new ArrayList<>();
+        List<TableEntry> entries = new ArrayList<>();
+        int counter = 0;
+
+        for (Map.Entry<Offer, BigDecimal> entry : results.entrySet()) {
+            Offer offer = entry.getKey();
+            String id = Integer.toString(counter++);
+            TableEntry tableEntry = new TableEntry();
+            tableEntry.setId(id);
+            tableEntry.setOfferName(offer.getName());
+            tableEntry.setOperatorName(offer.getOperator().getName());
+            tableEntry.setCost(entry.getValue().doubleValue());
+            offersMap.put(id, offer);
+        }
+
+        return entries;
     }
 
     private void handleFinishButton(ActionEvent event) {
@@ -113,5 +131,9 @@ public class ResultsScreenController extends ScreenController implements Initial
     @Override
     public void setScene(Scene scene) {
         controllerManager.setResultsScene(scene);
+    }
+
+    public void setResults(Map<Offer, BigDecimal> results) {
+        this.results = results;
     }
 }

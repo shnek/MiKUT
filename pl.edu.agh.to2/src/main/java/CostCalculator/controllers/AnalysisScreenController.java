@@ -66,15 +66,7 @@ public class AnalysisScreenController extends ScreenController implements Initia
                     chooseBestOffer();
                     updateProgress(1.00, 1.00);
                 } catch (BillingAnalysisException e) {
-                    try {
-                        Alert alert = new Alert(AlertType.ERROR);
-                        alert.setTitle("Billing Analysis Error");
-                        alert.setContentText("Your billing file is invalid or broken. Choose another file and try again");
-                        alert.showAndWait();
-                        cancelAnalysis();
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
+                    showAlert();
                 } catch (InterruptedException e) {
                     if (isCancelled()) return null;
                     else e.printStackTrace();
@@ -96,8 +88,7 @@ public class AnalysisScreenController extends ScreenController implements Initia
     }
 
     private void showResultsScreen() throws IOException {
-        ResultsScreenController controller = (ResultsScreenController)
-                ScreenController.createController(controllerManager, "/views/results_screen.fxml");
+        ResultsScreenController controller = (ResultsScreenController) ScreenController.createController(controllerManager, "/views/results_screen.fxml");
         controller.setCurrentOfferPriceText();
         controllerManager.setCurrentScene(controllerManager.getResultsScene());
     }
@@ -119,7 +110,7 @@ public class AnalysisScreenController extends ScreenController implements Initia
 
     private void searchOffers() throws InterruptedException {
         Logger.getLogger(getClass().getName()).log(Level.INFO, "searching offers");
-        //sleep(1000);
+
         try {
             offers = new OfferDownloader().getOffers();
         } catch (IOException e) {
@@ -133,6 +124,7 @@ public class AnalysisScreenController extends ScreenController implements Initia
         CostCalculator calculator = new CostCalculator(billing, offers);
         this.controllerManager.setCalculator(calculator);
         results = calculator.calculateCosts();
+        this.controllerManager.setResults(results);
     }
 
     private void chooseBestOffer() throws InterruptedException {
@@ -152,8 +144,7 @@ public class AnalysisScreenController extends ScreenController implements Initia
         analysisTask = createAnalysisTask();
         analysisTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
             @Override
-            public void handle(WorkerStateEvent t)
-            {
+            public void handle(WorkerStateEvent t) {
                 try {
                     showResultsScreen();
                 } catch (IOException e) {
@@ -163,19 +154,10 @@ public class AnalysisScreenController extends ScreenController implements Initia
         });
         analysisTask.setOnFailed(new EventHandler<WorkerStateEvent>() {
             @Override
-            public void handle(WorkerStateEvent t)
-            {
+            public void handle(WorkerStateEvent t) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, "analysis error");
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, "analysis debug");
-                try {
-                    Alert alert = new Alert(AlertType.ERROR);
-                    alert.setTitle("Billing Analysis Error");
-                    alert.setContentText("Your billing file is invalid or broken. Choose another file and try again");
-                    alert.showAndWait();
-                    cancelAnalysis();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
+                showAlert();
             }
         });
 
@@ -183,6 +165,18 @@ public class AnalysisScreenController extends ScreenController implements Initia
         Thread analysisThread = new Thread(analysisTask);
         analysisThread.setDaemon(true);
         analysisThread.start();
+    }
+
+    private void showAlert() {
+        try {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Billing Analysis Error");
+            alert.setContentText("Your billing file is invalid or broken. Choose another file and try again");
+            alert.showAndWait();
+            cancelAnalysis();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     private class BillingAnalysisException extends Exception {}

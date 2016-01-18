@@ -1,5 +1,6 @@
 package CostCalculator.controllers;
 
+import BillingReader.offers.Offer;
 import CostCalculator.CostCalculator;
 import OperatorResolver.operatorresolver.billingcontainers.Billing;
 import BillingReader.billings.BillingReader;
@@ -8,6 +9,8 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 
 public class ControllerManager {
 
@@ -20,8 +23,10 @@ public class ControllerManager {
     private BillingReader billingReader;
     private BigDecimal currentPayment;
     private CostCalculator calculator;
+    private Map<Offer, BigDecimal> results;
 
     private AnalysisScreenController analysisScreenController;
+    private ResultsScreenController resultsScreenController;
 
     public ControllerManager(Stage stage) {
         this.stage = stage;
@@ -63,6 +68,10 @@ public class ControllerManager {
         this.analysisScreenController = analysisScreenController;
     }
 
+    public void setResultsScreenController(ResultsScreenController resultsScreenController) {
+        this.resultsScreenController = resultsScreenController;
+    }
+
     public void setBillingReader(BillingReader billingReader) {
         this.billingReader = billingReader;
     }
@@ -97,5 +106,13 @@ public class ControllerManager {
 
     public void setCalculator(CostCalculator calculator) {
         this.calculator = calculator;
+    }
+
+    public Map<Offer, BigDecimal> getResults() {
+        return results;
+    }
+
+    public void setResults(Map<Offer, BigDecimal> results) {
+        this.results = results;
     }
 }
