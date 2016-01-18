@@ -38,7 +38,6 @@ public class ResultsScreenController extends ScreenController implements Initial
     public TableColumn<TableEntry, Double> amountCol;
     public TableColumn<TableEntry, String> detailsCol;
 
-    private Map<Offer, BigDecimal> results = this.controllerManager.getResults();
     private Map<String, Offer> offersMap = new HashMap<>();
 
     @Override
@@ -52,7 +51,10 @@ public class ResultsScreenController extends ScreenController implements Initial
         detailsCol.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getId()));
         detailsCol.setCellFactory(p -> new ButtonCell("Details"));
         detailsCol.setSortable(false);
+    }
 
+    public void fillScreen() {
+        setCurrentOfferPriceText();
         tableView.getItems().setAll(getTableContent());
     }
 
@@ -87,6 +89,8 @@ public class ResultsScreenController extends ScreenController implements Initial
     private List<TableEntry> getTableContent() {
         List<TableEntry> entries = new ArrayList<>();
         int counter = 0;
+
+        Map<Offer, BigDecimal> results = this.controllerManager.getResults();
 
         for (Map.Entry<Offer, BigDecimal> entry : results.entrySet()) {
             Offer offer = entry.getKey();
@@ -133,7 +137,4 @@ public class ResultsScreenController extends ScreenController implements Initial
         controllerManager.setResultsScene(scene);
     }
 
-    public void setResults(Map<Offer, BigDecimal> results) {
-        this.results = results;
-    }
 }

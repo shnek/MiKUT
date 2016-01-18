@@ -104,6 +104,7 @@ public class HelloScreenController extends ScreenController implements Initializ
         controllerManager.setAnalysisScreenController((AnalysisScreenController) screenController);
         controllerManager.setCurrentScene(controllerManager.getAnalysisScene());
         controllerManager.startAnalysis();
+
     }
 
     private File chooseFile() {

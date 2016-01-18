@@ -38,7 +38,6 @@ public class AnalysisScreenController extends ScreenController implements Initia
 
     public Billing billing;
     private List<Offer> offers;
-    private Map<Offer, BigDecimal> results;
     private Task<Void> analysisTask;
 
     @Override
@@ -90,6 +89,7 @@ public class AnalysisScreenController extends ScreenController implements Initia
     private void showResultsScreen() throws IOException {
         ResultsScreenController controller = (ResultsScreenController) ScreenController.createController(controllerManager, "/views/results_screen.fxml");
         controller.setCurrentOfferPriceText();
+        controller.fillScreen();
         controllerManager.setCurrentScene(controllerManager.getResultsScene());
     }
 
@@ -118,19 +118,21 @@ public class AnalysisScreenController extends ScreenController implements Initia
         }
     }
 
-    private void calculateCosts() throws InterruptedException {
+    private void calculateCosts() throws InterruptedException, CostCalculationException {
         Logger.getLogger(getClass().getName()).log(Level.INFO, "calculating costs");
 
         CostCalculator calculator = new CostCalculator(billing, offers);
         this.controllerManager.setCalculator(calculator);
-        results = calculator.calculateCosts();
+        Map<Offer, BigDecimal> results = calculator.calculateCosts();
+        if (results == null) throw new CostCalculationException();
         this.controllerManager.setResults(results);
     }
 
     private void chooseBestOffer() throws InterruptedException {
         Logger.getLogger(getClass().getName()).log(Level.INFO, "choosing best offer");
 
-        BigDecimal bestOfferValue = this.controllerManager.getCalculator().getBestOfferValue(results);
+        BigDecimal bestOfferValue = this.controllerManager.getCalculator()
+                .getBestOfferValue(this.controllerManager.getResults());
         if (controllerManager.getCurrentPayment().compareTo(bestOfferValue) < 0) {
             // todo: show alert
         }
@@ -163,8 +165,10 @@ public class AnalysisScreenController extends ScreenController implements Initia
 
         progressBar.progressProperty().bind(analysisTask.progressProperty());
         Thread analysisThread = new Thread(analysisTask);
+        this.controllerManager.analysisThread = analysisThread;
         analysisThread.setDaemon(true);
         analysisThread.start();
+
     }
 
     private void showAlert() {
@@ -180,4 +184,5 @@ public class AnalysisScreenController extends ScreenController implements Initia
     }
 
     private class BillingAnalysisException extends Exception {}
+    private class CostCalculationException extends Exception {}
 }

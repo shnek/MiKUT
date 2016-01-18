@@ -7,7 +7,7 @@ import javafx.scene.layout.Pane;
 import java.io.IOException;
 
 public abstract class ScreenController {
-    ControllerManager controllerManager;
+    volatile ControllerManager controllerManager;
 
     public void populate(ControllerManager controllerManager) {
         this.controllerManager = controllerManager;

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -16,12 +17,12 @@
        </TableView>
        <Button fx:id="exitButton" layoutX="399.0" layoutY="335.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="161.0" text="Exit" />
        <Button fx:id="currentOfferDetailsButton" layoutX="465.0" layoutY="68.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="94.0" text="Details" />
-       <Text layoutX="127.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your current offer:">
+       <Text layoutX="113.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your current offer:">
           <font>
              <Font size="16.0" />
           </font>
        </Text>
-       <Text fx:id="currentOfferPriceText" layoutX="512.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.00 zł">
+       <Text fx:id="currentOfferPriceText" layoutX="512.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.00 zł">
           <font>
              <Font size="16.0" />
           </font>

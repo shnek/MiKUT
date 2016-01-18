@@ -27,6 +27,7 @@ public class ControllerManager {
 
     private AnalysisScreenController analysisScreenController;
     private ResultsScreenController resultsScreenController;
+    public Thread analysisThread;
 
     public ControllerManager(Stage stage) {
         this.stage = stage;
