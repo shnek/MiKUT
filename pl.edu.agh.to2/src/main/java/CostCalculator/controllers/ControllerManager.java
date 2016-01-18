@@ -24,9 +24,9 @@ public class ControllerManager {
     private BigDecimal currentPayment;
     private CostCalculator calculator;
     private Map<Offer, BigDecimal> results;
+    private Offer selectedOffer;
 
     private AnalysisScreenController analysisScreenController;
-    private ResultsScreenController resultsScreenController;
     public Thread analysisThread;
 
     public ControllerManager(Stage stage) {
@@ -67,10 +67,6 @@ public class ControllerManager {
 
     public void setAnalysisScreenController(AnalysisScreenController analysisScreenController) {
         this.analysisScreenController = analysisScreenController;
-    }
-
-    public void setResultsScreenController(ResultsScreenController resultsScreenController) {
-        this.resultsScreenController = resultsScreenController;
     }
 
     public void setBillingReader(BillingReader billingReader) {
@@ -115,5 +111,13 @@ public class ControllerManager {
 
     public void setResults(Map<Offer, BigDecimal> results) {
         this.results = results;
+    }
+
+    public Offer getSelectedOffer() {
+        return selectedOffer;
+    }
+
+    public void setSelectedOffer(Offer selectedOffer) {
+        this.selectedOffer = selectedOffer;
     }
 }

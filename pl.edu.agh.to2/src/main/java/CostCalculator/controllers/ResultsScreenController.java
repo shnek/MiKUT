@@ -74,6 +74,12 @@ public class ResultsScreenController extends ScreenController implements Initial
                 String id = getItem(); // id of the TableEntry
                 Offer offer = offersMap.get(id);
                 System.out.println(offer.toString());
+                controllerManager.setSelectedOffer(offer);
+                try {
+                    createDetailsStage();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             });
         }
 
@@ -101,7 +107,14 @@ public class ResultsScreenController extends ScreenController implements Initial
             tableEntry.setOperatorName(offer.getOperator().getName());
             tableEntry.setCost(entry.getValue().doubleValue());
             offersMap.put(id, offer);
+            entries.add(tableEntry);
         }
+
+        Collections.sort(entries, (o1, o2) -> {
+            if (o1.getCost() < o2.getCost()) return -1;
+            else if (o1.getCost() == o2.getCost()) return 0;
+            else return 1;
+        });
 
         return entries;
     }
