@@ -44,6 +44,7 @@ public class HelloScreenController extends ScreenController implements Initializ
         playRadioButton.setToggleGroup(group);
         plusRadioButton.setSelected(true);
         searchOffersButton.setDisable(true);
+        filePathTextField.setDisable(true);
         paymentTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             paymentEntered = isMoney(newValue);
             searchOffersButton.setDisable(searchButtonState());
@@ -67,7 +68,9 @@ public class HelloScreenController extends ScreenController implements Initializ
     }
 
     private BigDecimal getCurrentPayment() {
-        return new BigDecimal(paymentTextField.getText().replaceAll(",", "\\."));
+        String paymentText = paymentTextField.getText();
+        paymentText = paymentText.replaceAll(",", "\\.");
+        return new BigDecimal(paymentText);
     }
 
     private BillingReader getCurrentProviderReader() {

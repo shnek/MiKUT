@@ -1,5 +1,6 @@
 package CostCalculator.controllers;
 
+import CostCalculator.CostCalculator;
 import OperatorResolver.operatorresolver.billingcontainers.Billing;
 import BillingReader.billings.BillingReader;
 import javafx.scene.Scene;
@@ -18,6 +19,8 @@ public class ControllerManager {
     private File billingFile;
     private BillingReader billingReader;
     private BigDecimal currentPayment;
+    private CostCalculator calculator;
+
     private AnalysisScreenController analysisScreenController;
 
     public ControllerManager(Stage stage) {
@@ -86,5 +89,13 @@ public class ControllerManager {
 
     public void startAnalysis() {
         analysisScreenController.startAnalysis();
+    }
+
+    public CostCalculator getCalculator() {
+        return calculator;
+    }
+
+    public void setCalculator(CostCalculator calculator) {
+        this.calculator = calculator;
     }
 }

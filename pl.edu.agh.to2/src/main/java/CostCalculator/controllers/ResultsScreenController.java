@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +50,11 @@ public class ResultsScreenController extends ScreenController implements Initial
         detailsCol.setSortable(false);
 
         tableView.getItems().setAll(getTableContent());
+    }
+
+    public void setCurrentOfferPriceText() {
+        BigDecimal currentOfferPrice = this.controllerManager.getCurrentPayment();
+        currentOfferPriceText.setText(String.format("%szł", currentOfferPrice.toString()));
     }
 
     private class ButtonCell extends TableCell<TableEntry, String> {

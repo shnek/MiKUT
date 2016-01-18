@@ -11,8 +11,8 @@ import java.util.Map;
 
 public class CostCalculator {
 
-    private Billing billing;
-    private List<Offer> offers;
+    private final Billing billing;
+    private final List<Offer> offers;
     private OfferSummarizer offerSummarizer;
 
     public CostCalculator(Billing billing, List<Offer> offers) {
@@ -50,17 +50,7 @@ public class CostCalculator {
     public Billing getBilling() {
         return billing;
     }
-
-    public void setBilling(Billing billing) {
-        this.billing = billing;
-    }
-
     public List<Offer> getOffers() {
         return offers;
     }
-
-    public void setOffers(List<Offer> offers) {
-        this.offers = offers;
-    }
-
 }

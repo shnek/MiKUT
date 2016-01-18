@@ -34,7 +34,6 @@ public class AnalysisScreenController extends ScreenController implements Initia
     public Text currentStatusText;
 
     public Billing billing;
-    private CostCalculator calculator;
     private List<Offer> offers;
     private Map<Offer, BigDecimal> results;
     private Task<Void> analysisTask;
@@ -66,6 +65,8 @@ public class AnalysisScreenController extends ScreenController implements Initia
                 } catch (InterruptedException e) {
                     if (isCancelled()) return null;
                     else e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 return null;
             }
@@ -82,7 +83,9 @@ public class AnalysisScreenController extends ScreenController implements Initia
     }
 
     private void showResultsScreen() throws IOException {
-        ScreenController.createController(controllerManager, "/views/results_screen.fxml");
+        ResultsScreenController controller = (ResultsScreenController)
+                ScreenController.createController(controllerManager, "/views/results_screen.fxml");
+        controller.setCurrentOfferPriceText();
         controllerManager.setCurrentScene(controllerManager.getResultsScene());
     }
 
@@ -93,7 +96,6 @@ public class AnalysisScreenController extends ScreenController implements Initia
 
     private void analyzeBilling() throws InterruptedException {
         Logger.getLogger(getClass().getName()).log(Level.INFO, "analyzing billing");
-        //sleep(1000);
         try {
             billing = controllerManager.getBillingReader().readBilling(controllerManager.getBillingFile());
         } catch (IncorrectEntryException | IOException e) {
@@ -113,15 +115,16 @@ public class AnalysisScreenController extends ScreenController implements Initia
 
     private void calculateCosts() throws InterruptedException {
         Logger.getLogger(getClass().getName()).log(Level.INFO, "calculating costs");
-        //sleep(1000);
-        results = new CostCalculator(billing, offers).calculateCosts();
+
+        CostCalculator calculator = new CostCalculator(billing, offers);
+        this.controllerManager.setCalculator(calculator);
+        results = calculator.calculateCosts();
     }
 
     private void chooseBestOffer() throws InterruptedException {
         Logger.getLogger(getClass().getName()).log(Level.INFO, "choosing best offer");
-        //sleep(1000);
 
-        BigDecimal bestOfferValue = calculator.getBestOfferValue(results);
+        BigDecimal bestOfferValue = this.controllerManager.getCalculator().getBestOfferValue(results);
         if (controllerManager.getCurrentPayment().compareTo(bestOfferValue) < 0) {
             // todo: show alert
         }

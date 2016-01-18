@@ -6,34 +6,33 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="272.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CostCalculator.controllers.HelloScreenController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="208.0" prefWidth="625.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CostCalculator.controllers.HelloScreenController">
    <children>
-      <Button fx:id="searchOffersButton" layoutX="404.0" layoutY="206.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="143.0" text="Search offers" />
-      <Button fx:id="loadBillingButton" layoutX="241.0" layoutY="206.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="143.0" text="Load billing" />
+      <Button fx:id="searchOffersButton" layoutX="374.0" layoutY="147.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="225.0" text="Search offers">
+         <font>
+            <Font size="16.0" />
+         </font></Button>
+      <Button fx:id="loadBillingButton" layoutX="484.0" layoutY="23.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="115.0" text="Load billing" />
       <Text layoutX="21.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Billing path:" wrappingWidth="84.16260147094727">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <TextField fx:id="filePathTextField" layoutX="113.0" layoutY="23.0" prefHeight="31.0" prefWidth="434.0" />
-      <Text layoutX="75.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose billing to be processed..." wrappingWidth="514.6829261779785">
+      <TextField fx:id="filePathTextField" layoutX="113.0" layoutY="23.0" prefHeight="31.0" prefWidth="353.0" />
+      <Text layoutX="113.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose billing to be processed..." wrappingWidth="206.68292617797852">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Text>
+      <RadioButton fx:id="plusRadioButton" layoutX="227.0" layoutY="97.0" mnemonicParsing="false" text="Plus" />
+      <RadioButton fx:id="playRadioButton" layoutX="307.0" layoutY="97.0" mnemonicParsing="false" text="Play" />
+      <Text layoutX="25.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose your current provider:" />
+      <Text layoutX="399.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current payment:" />
+      <Text layoutX="25.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Load your billing, choose current provider, enter current payment and then click 'Search offers' to analyze billing..." wrappingWidth="360.6829261779785">
          <font>
             <Font name="System Italic" size="13.0" />
          </font>
       </Text>
-      <RadioButton fx:id="plusRadioButton" layoutX="36.0" layoutY="227.0" mnemonicParsing="false" text="Plus" />
-      <RadioButton fx:id="playRadioButton" layoutX="121.0" layoutY="227.0" mnemonicParsing="false" text="Play" />
-      <Text layoutX="14.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose your current provider:" />
-      <Text layoutX="21.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Payment:">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Text>
-      <Text layoutX="75.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your current payment and then click 'Search offers' to analyze billing..." wrappingWidth="514.6829261779785">
-         <font>
-            <Font name="System Italic" size="13.0" />
-         </font>
-      </Text>
-      <TextField fx:id="paymentTextField" layoutX="113.0" layoutY="115.0" prefHeight="31.0" prefWidth="434.0" />
+      <TextField fx:id="paymentTextField" layoutX="515.0" layoutY="90.0" prefHeight="31.0" prefWidth="84.0" />
    </children>
 </Pane>
