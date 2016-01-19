@@ -16,8 +16,7 @@
          </columns>
        </TableView>
        <Button fx:id="exitButton" layoutX="399.0" layoutY="335.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="161.0" text="Exit" />
-       <Button fx:id="currentOfferDetailsButton" layoutX="465.0" layoutY="68.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="94.0" text="Details" />
-       <Text layoutX="113.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your current offer:">
+       <Text layoutX="38.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your current offer:">
           <font>
              <Font size="16.0" />
           </font>

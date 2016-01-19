@@ -64,7 +64,7 @@ public class HelloScreenController extends ScreenController implements Initializ
     }
 
     private boolean isMoney(String text) {
-        return text.matches("[0-9]*(,|\\.)[0-9]{0,2}");
+        return text.matches("[0-9]*(,|\\.)?[0-9]{0,2}");
     }
 
     private BigDecimal getCurrentPayment() {

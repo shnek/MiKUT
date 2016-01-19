@@ -6,15 +6,16 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -29,7 +30,6 @@ import java.util.logging.Logger;
 public class ResultsScreenController extends ScreenController implements Initializable {
 
     public Text currentOfferPriceText;
-    public Button currentOfferDetailsButton;
     public Button exitButton;
 
     public TableView<TableEntry> tableView;
@@ -39,10 +39,11 @@ public class ResultsScreenController extends ScreenController implements Initial
     public TableColumn<TableEntry, String> detailsCol;
 
     private Map<String, Offer> offersMap = new HashMap<>();
+    private Map<Offer, BigDecimal> results;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        currentOfferDetailsButton.setOnAction(this::handleCurrentOfferDetailsButton);
+        //currentOfferDetailsButton.setOnAction(this::handleCurrentOfferDetailsButton);
         exitButton.setOnAction(this::handleFinishButton);
 
         offerNameCol.setCellValueFactory(new PropertyValueFactory<>("offerName"));
@@ -56,6 +57,17 @@ public class ResultsScreenController extends ScreenController implements Initial
     public void fillScreen() {
         setCurrentOfferPriceText();
         tableView.getItems().setAll(getTableContent());
+        checkBestOffer();
+    }
+
+    public void checkBestOffer() {
+        BigDecimal bestOfferValue = this.controllerManager.getCalculator().getBestOfferValue(this.controllerManager.getResults());
+        if (controllerManager.getCurrentPayment().compareTo(bestOfferValue) < 0) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Best Offer!");
+            alert.setContentText("Congratulations! You currently have the best offer!");
+            alert.showAndWait();
+        }
     }
 
     public void setCurrentOfferPriceText() {
@@ -69,17 +81,45 @@ public class ResultsScreenController extends ScreenController implements Initial
 
         public ButtonCell(String buttonText) {
             cellButton.setText(buttonText);
+            cellButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
             cellButton.setOnAction(event -> {
                 String id = getItem(); // id of the TableEntry
                 Offer offer = offersMap.get(id);
                 System.out.println(offer.toString());
-                controllerManager.setSelectedOffer(offer);
-                try {
-                    createDetailsStage();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
+                Stage window = new Stage();
+
+                StackPane layout = new StackPane();
+                VBox infoBox = new VBox(5);
+
+                Text offerNameText = new Text("Offer:\t" + offer.getName());
+                Text operatorText = new Text("Operator:\t" + offer.getOperator().getName());
+                Text amountText = new Text("Your cost:\t" + results.get(offer).doubleValue());
+
+                Text abonamentText = new Text("\n\nAbonament:\t" + (offer.isAbonament() ? "yes" : "no"));
+                Text monthlyPaymentText = new Text("Monthly payment:\t" + offer.getMonthlyPayment());
+                Text innerCallCostText = new Text("Inner call:\t" + offer.getInnerCallCost());
+                Text outerCallCostText = new Text("Outer call:\t" + offer.getOuterCallCost());
+                Text innerSmsCostText = new Text("Inner SMS:\t" + offer.getInnerSmsCost());
+                Text outerSmsCostText = new Text("Outer SMS:\t" + offer.getOuterSmsCost());
+                Text innerMmsCostText = new Text("Inner MMS:\t" + offer.getInnerMmsCost());
+                Text outerMmsCostText = new Text("Outer MMS:\t" + offer.getOuterMmsCost());
+                Text internetCostText = new Text("Internet MB:\t" + (offer.getInternetMbCost() == null ? "-" : offer.getInternetMbCost()));
+                Text freeInternetText = new Text("Free Internet MB:\t" + offer.getFreeInternetMb() + "\n\n");
+
+                Button closeButton = new Button("Close");
+                closeButton.setOnAction(event1 -> window.close());
+
+                infoBox.getChildren().addAll(offerNameText, operatorText, amountText, abonamentText, monthlyPaymentText, innerCallCostText, outerCallCostText, innerSmsCostText,outerSmsCostText,
+                        innerMmsCostText, outerMmsCostText, internetCostText, freeInternetText, closeButton);
+
+                layout.getChildren().add(infoBox);
+
+                window.setTitle("Details");
+                Scene scene = new Scene(layout, 300, 500);
+                window.setScene(scene);
+                window.show();
             });
         }
 
@@ -96,7 +136,7 @@ public class ResultsScreenController extends ScreenController implements Initial
         List<TableEntry> entries = new ArrayList<>();
         int counter = 0;
 
-        Map<Offer, BigDecimal> results = this.controllerManager.getResults();
+        results = this.controllerManager.getResults();
 
         for (Map.Entry<Offer, BigDecimal> entry : results.entrySet()) {
             Offer offer = entry.getKey();

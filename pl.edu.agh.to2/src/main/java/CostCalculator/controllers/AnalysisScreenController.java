@@ -131,11 +131,7 @@ public class AnalysisScreenController extends ScreenController implements Initia
     private void chooseBestOffer() throws InterruptedException {
         Logger.getLogger(getClass().getName()).log(Level.INFO, "choosing best offer");
 
-        BigDecimal bestOfferValue = this.controllerManager.getCalculator()
-                .getBestOfferValue(this.controllerManager.getResults());
-        if (controllerManager.getCurrentPayment().compareTo(bestOfferValue) < 0) {
-            // todo: show alert
-        }
+
     }
 
     public void setScene(Scene scene) {
